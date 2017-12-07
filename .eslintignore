@@ -1,0 +1,4 @@
+.eslint*
+**/node_modules
+**/public/dist/bundle.js
+webpack.config.js
