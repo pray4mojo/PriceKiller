@@ -12,8 +12,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIncrement: (event) => {
       const name = event.target.childNodes[0].value;
-      const yazhi = store.getState().names[0];
-      console.log('Yazhi? ', yazhi);
       dispatch({type: 'INCREMENT', name: name})
       event.target.childNodes[0].value = '';
       event.preventDefault();

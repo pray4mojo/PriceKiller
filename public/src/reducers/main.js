@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+//import { devToolsEnhancer } from 'redux-devtools-extension';
 
 const reduceLight = (state, action) => {
   switch (action.type) {
@@ -11,7 +11,7 @@ const reduceLight = (state, action) => {
   }
 }
 
-const store = createStore(reduceLight, {names: ['yazhi', 'brian', 'luke']}, devToolsEnhancer());
+const store = createStore(reduceLight, {names: ['yazhi', 'brian', 'luke']}, /*devToolsEnhancer()*/);
 store.subscribe(() => {
   console.log('store change: ', store.getState())
 });

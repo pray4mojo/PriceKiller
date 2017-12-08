@@ -10,10 +10,11 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
+
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.jsx|js$/,
         exclude: /node_modules/,
         use: [
           'babel-loader',
@@ -58,6 +59,11 @@ module.exports = {
         ],
       },
     ],
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+  ],
 };
 
