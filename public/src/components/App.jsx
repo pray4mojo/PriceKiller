@@ -1,5 +1,4 @@
 import React from 'react';
-import { devToolsEnhancer } from 'redux-devtools-extension';
 import NameList from '../containers/nameList.js';
 
 
