@@ -6,5 +6,7 @@ const store = createStore(reduceLight, {names: ['yazhi', 'brian', 'luke']}, devT
 store.subscribe(() => {
   console.log('store change: ', store.getState())
 });
+console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+
 
 export default store;
