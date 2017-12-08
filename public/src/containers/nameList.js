@@ -2,14 +2,11 @@ import namesComponent from '../components/namesComponent.js';
 import { connect } from 'react-redux';
 import store from '../reducers/main.js';
 
-
 const mapStateToProps = state => {
   return {
     names: state.names
   }
 }
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
