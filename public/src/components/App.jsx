@@ -4,6 +4,10 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 import NameList from '../containers/nameList.js';
 import store from '../reducers/main.js';
 
+function sum(a, b) {
+  return a + b;
+}
+
 class App extends React.Component {
   render(){
     return (
@@ -15,4 +19,5 @@ class App extends React.Component {
 
   }
 }
+module.exports.sum = sum;
 export default App;
