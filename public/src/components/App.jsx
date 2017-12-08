@@ -10,8 +10,7 @@ function sum(a, b) {
 class App extends React.Component {
   render(){
     return (
-        <NameList
-        />
+        <NameList />
       )
 
   }
