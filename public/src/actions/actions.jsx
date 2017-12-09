@@ -19,13 +19,8 @@ export function submitSearch(searchQuery) {
 
     return axios({
       method: 'get',
-      url: 'http://svcs.ebay.com/services/search/FindingService/v1',
-      'service-version': '1.13.0',
-      'security-appname': 'BrianBin-priceKil-PRD-45d705b3d-2bb22d04',
-      'OPERATION-NAME': 'findCompletedItems',
-      keywords: searchQuery,
-      itemSort: 'BestMatch',
-      'response-data-format': 'JSON'
+      url: `/api/search/${searchQuery}`,
+      responseType: 'json'
     })
     .then(
       response => console.log(response.json()))

@@ -12,7 +12,7 @@ const refinedSearch = require('./routes/refinedSearch').refinedSearch;
 const favorites = require('./routes/favorites').favorites;
 const prices = require('./routes/prices').prices;
 const profile = require('./routes/profile').profile;
-const headToHead = require('./routes/headToHead').headToHead;
+const headToHead = require('./routes/headtohead').headToHead;
 
 require('dotenv').config();
 
@@ -21,10 +21,13 @@ const app = express();
 app.set('port', (process.env.PORT || 1111));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 const port = app.get('port');
 
 app.use(express.static(__dirname + '/../public/dist'));
-
+app.get('/api/search/:query', (req, res) => {
+  res.send(query);
+})
 //Below is the convention for integrating the different endpoint files
 app.use('/api/login', login);
 app.use('/api/search', search);
