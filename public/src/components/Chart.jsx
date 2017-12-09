@@ -5,7 +5,7 @@ let chart = ({ priceHistoryData, searchQuery }) => {
   const data = {
     datasets: [
       {
-        //label: 'Dollars',
+        label: 'Dollars',
         fill: false,
         lineTension: 0.1,
         backgroundColor: '#673AB7',
@@ -34,19 +34,15 @@ let chart = ({ priceHistoryData, searchQuery }) => {
           beginAtZero: true,
         }
        }]
-     //  xAxes: [{
-     //    type: 'linear',
-     //    ticks: {
-     //       suggestedMin: 0,
-     //       suggestedMax: this._maxDate,
-     //       stepSize: this._maxDate / 10 //interval between ticks
-     //    }
-     // }]
     }
   };
+  let chart = <Line data={data} options={options} />
+  if (priceHistoryData.length === 1) {
+    chart = '';
+  }
   return (
     <div>
-      <Line data={data} options={options} />
+      {chart}
     </div>
   )
 }
