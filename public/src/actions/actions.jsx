@@ -13,6 +13,23 @@ export function resultsReturned(searchResults) {
 
 export const SUBMIT_SEARCH = 'SUBMIT_SEARCH';
 export function submitSearch(searchQuery) {
+
+  return function (dispatch) {
+    dispatch(requestResults(searchQuery))
+
+    return axios({
+      method: 'get',
+      url: 'http://svcs.ebay.com/services/search/FindingService/v1',
+      'service-version': '1.13.0',
+      'security-appname': 'BrianBin-priceKil-PRD-45d705b3d-2bb22d04',
+      'OPERATION-NAME': 'findCompletedItems',
+      keywords: searchQuery,
+      itemSort: 'BestMatch',
+      'response-data-format': 'JSON'
+    })
+    .then(
+      response => console.log(response.json()))
+  }
   return { type: SUBMIT_SEARCH, searchQuery }
 }
 
