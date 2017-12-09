@@ -1,14 +1,25 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 require('dotenv').config();
 
+const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`;
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`, {mongoUseClient: true});
+mongoose.connect(uri, {
+  useMongoClient: true,
+  promiseLibrary: require('bluebird')
+})
+  .then(() => console.log('database connected'))
+  .catch(err => {
+    console.log(err);
+  });
 
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('connected to database');
-});
+// mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_SERVER}`, {mongoUseClient: true});
+
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('connected to database');
+// });
 
 const Schema = mongoose.Schema;
 

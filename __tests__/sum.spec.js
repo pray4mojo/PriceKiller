@@ -1,5 +1,4 @@
-const sum = require('../public/src/components/App.jsx').sum;
+import React from 'react';ds
+import renderer from 'react-test-renderer'
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
+const forEach = require('../public/src/components/App.jsx').forEach;
