@@ -7,9 +7,16 @@ const axios = require('axios');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const path = require('path');
 
 // file requires below
-const config = require('../webpack.config');
+let webpackConfigPath;
+if (process.env.DEVELOPMENT) {
+  webpackConfigPath = '../webpack.dev';
+} else {
+  webpackConfigPath = '../webpack.config';
+}
+const config = require(webpackConfigPath);
 const compiler = webpack(config);
 // endpoints
 const login = require('./routes/login.js').login;
@@ -24,6 +31,7 @@ require('dotenv').config();
 
 const app = express();
 
+
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   noInfo: true,
@@ -33,6 +41,7 @@ app.use(webpackDevMiddleware(compiler, {
     colors: true
   }
 }));
+
 app.use(webpackHotMiddleware(compiler));
 
 app.set('port', (process.env.PORT || 1111));
@@ -42,9 +51,9 @@ app.use(cors());
 const port = app.get('port');
 
 app.use(express.static(__dirname + '/../public/dist'));
-app.get('/api/search/:query', (req, res) => {
-  res.send(query);
-})
+// app.get('/api/search/:query', (req, res) => {
+//   res.send(req.params.query);
+// })
 
 //Below is the convention for integrating the different endpoint files
 app.use('/api/login', login);
