@@ -1,6 +1,6 @@
 import namesComponent from '../components/namesComponent.js';
 import { connect } from 'react-redux';
-import store from '../reducers/main.js';
+import { addName } from '../actions/actions.jsx';
 
 const mapStateToProps = state => {
   return {
@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIncrement: (event) => {
       const name = event.target.childNodes[0].value;
-      dispatch({type: 'INCREMENT', name: name})
+      dispatch(addName(name));
       event.target.childNodes[0].value = '';
       event.preventDefault();
     }
