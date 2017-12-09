@@ -1,12 +1,21 @@
+import searchQuery from './searchQuery.jsx';
+import searchResults from './searchResults.jsx';
+import names from './names.jsx';
+import { combineReducers } from 'redux'
 
-const reduceLight = (state, action) => {
-  switch (action.type) {
-    case 'INCREMENT':
-      return Object.assign({}, state, {names: state.names.concat([action.name
-        ])})
-    default:
-      return state;
-  }
-}
+// const mainReducer = (state, action) => {
+//   switch (action.type) {
+//     case 'INCREMENT':
+//       return Object.assign({}, state, { names: names(state.names, action) });
+//     case 'SEARCH_QUERY':
+//       return Object.assign({}, state, { searchQuery: searchQuery(state.searchQuery, action)});
+//     case 'SEARCH_RESULTS':
+//       return Object.assign({}, state, { searchResults: searchResults(state.searchResults, action) });
+//     default:
+//       return state;
+//   }
+// }
 
-export default reduceLight;
+const mainReducer = combineReducers({ searchQuery, names, searchResults });
+
+export default mainReducer;
