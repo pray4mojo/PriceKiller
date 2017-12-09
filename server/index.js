@@ -4,8 +4,14 @@ const db = require('../db/index.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 // file requires below
+const config = require('../webpack.config');
+const compiler = webpack(config);
+// endpoints
 const login = require('./routes/login.js').login;
 const search = require('./routes/search.js').search;
 const refinedSearch = require('./routes/refinedSearch').refinedSearch;
@@ -18,6 +24,17 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath,
+  noInfo: true,
+  hot: true,
+  historyApiFallback: true,
+  stats: {
+    colors: true
+  }
+}));
+app.use(webpackHotMiddleware(compiler));
+
 app.set('port', (process.env.PORT || 1111));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,6 +45,7 @@ app.use(express.static(__dirname + '/../public/dist'));
 app.get('/api/search/:query', (req, res) => {
   res.send(query);
 })
+
 //Below is the convention for integrating the different endpoint files
 app.use('/api/login', login);
 app.use('/api/search', search);

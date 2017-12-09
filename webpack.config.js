@@ -1,16 +1,15 @@
 const webpack = require('webpack');
 const path = require('path');
+const APP_DIR = path.resolve(__dirname, 'public/src');
+const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 
 module.exports = {
-  context: __dirname + '/public/src',
-  entry: './index.js',
+  entry: ['webpack-hot-middleware/client?reload=true', `${APP_DIR}/index.js`],
   devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/public/dist',
+    path: BUILD_DIR,
     filename: 'bundle.js',
-    publicPath: '/'
   },
-
   module: {
     rules: [
       {
@@ -64,6 +63,9 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 };
 
