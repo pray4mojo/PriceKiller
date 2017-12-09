@@ -2,11 +2,10 @@ import React from 'react';
 import NameList from '../containers/nameList.js';
 import SearchContainer from '../containers/searchContainer.jsx';
 
-function forEach(items, callback) {
-  for (let i = 0; i < items.length; i++) {
-    callback(items[i])
-  }
+function sum(a, b) {
+  return a + b;
 }
+
 class App extends React.Component {
   render(){
     return (
@@ -18,5 +17,5 @@ class App extends React.Component {
 
   }
 }
-module.exports.forEach = forEach;
+module.exports.sum = sum;
 export default App;
