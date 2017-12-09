@@ -11,6 +11,11 @@ export function resultsReturned(searchResults) {
   return { type: RESULTS_RETURNED, searchResults }
 }
 
+export const SET_RESULTS_PAGE = 'SET_RESULTS_PAGE';
+export function setResultsPage(resultsPage) {
+  return { type: SET_RESULTS_PAGE, resultsPage }
+}
+
 export const SUBMIT_SEARCH = 'SUBMIT_SEARCH';
 export function submitSearch(searchQuery) {
 
@@ -22,10 +27,17 @@ export function submitSearch(searchQuery) {
       url: `/api/search/${searchQuery}`,
       responseType: 'json'
     })
-    .then(
-      response => console.log(response.json()))
+    .then(response => {
+      console.log(response);
+      const searchResults = response.data[0].item.map((result,index) => {
+        result.page = Math.floor(index / 10);
+        return result;
+      });
+      dispatch(setResultsPage(0));
+      dispatch(resultsReturned(searchResults));
+    })
   }
-  return { type: SUBMIT_SEARCH, searchQuery }
+  //return { type: SUBMIT_SEARCH, searchQuery }
 }
 
 export const ADD_NAME = 'ADD_NAME';
