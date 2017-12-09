@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 let namesComponent = ({ names, onIncrement}) => (
     <div>
       <ul>
