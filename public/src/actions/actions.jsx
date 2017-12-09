@@ -22,10 +22,13 @@ export function submitSearch(searchQuery) {
       url: `/api/search/${searchQuery}`,
       responseType: 'json'
     })
-    .then(
-      response => console.log(response.json()))
+    .then(response => {
+      console.log('dispatching results...');
+      const searchResults = response.data[0].item.map(result => result.title);
+      dispatch(resultsReturned(response.data[0].item));
+    })
   }
-  return { type: SUBMIT_SEARCH, searchQuery }
+  //return { type: SUBMIT_SEARCH, searchQuery }
 }
 
 export const ADD_NAME = 'ADD_NAME';

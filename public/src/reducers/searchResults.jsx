@@ -12,7 +12,7 @@ const searchResults = (
       return Object.assign({}, state, { isFetching: true });
 
     case RESULTS_RETURNED:
-      return Object.assign({}, state, { isFetching: false, items: action.posts });
+      return Object.assign({}, state, { isFetching: false, items: action.searchResults });
     default:
       return state;
   }
