@@ -15,7 +15,6 @@ router.get('/:searchQuery', (req, res, next) => {
     // 'RESPONSE-DATA-FORMAT': 'JSON'
   })
   .then((response) => {
-    console.log(response.data.findItemsByKeywordsResponse[0].searchResult);
     res.send(response.data.findItemsByKeywordsResponse[0].searchResult);
   })
   .catch((err) => console.log('error: ', err));

@@ -1,6 +1,6 @@
 import search from '../components/search.jsx';
 import { connect } from 'react-redux';
-import { submitSearch } from '../actions/actions.jsx';
+import { submitSearch, setResultsPage } from '../actions/actions.jsx';
 
 const mapStateToProps = state => {
   return {
@@ -16,6 +16,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(submitSearch(searchQuery));
       event.target.childNodes[0].value = '';
       event.preventDefault();
+    },
+
+    incrementResultsPage: () => {
+      dispatch(setResultsPage(1));
+    },
+
+    decrementResultsPage: () => {
+      dispatch(setResultsPage(-1));
     }
   }
 }

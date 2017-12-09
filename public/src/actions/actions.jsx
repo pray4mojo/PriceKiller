@@ -11,6 +11,11 @@ export function resultsReturned(searchResults) {
   return { type: RESULTS_RETURNED, searchResults }
 }
 
+export const SET_RESULTS_PAGE = 'SET_RESULTS_PAGE';
+export function setResultsPage(resultsPage) {
+  return { type: SET_RESULTS_PAGE, resultsPage }
+}
+
 export const SUBMIT_SEARCH = 'SUBMIT_SEARCH';
 export function submitSearch(searchQuery) {
 
@@ -23,9 +28,13 @@ export function submitSearch(searchQuery) {
       responseType: 'json'
     })
     .then(response => {
-      console.log('dispatching results...');
-      const searchResults = response.data[0].item.map(result => result.title);
-      dispatch(resultsReturned(response.data[0].item));
+      console.log(response);
+      const searchResults = response.data[0].item.map((result,index) => {
+        result.page = Math.floor(index / 10);
+        return result;
+      });
+      dispatch(setResultsPage(0));
+      dispatch(resultsReturned(searchResults));
     })
   }
   //return { type: SUBMIT_SEARCH, searchQuery }
