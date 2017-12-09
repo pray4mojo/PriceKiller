@@ -41,7 +41,62 @@ export function submitSearch(searchQuery) {
 }
 
 
+/**** SIGNUP ACTIONS ****/
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export function requestSignup(creds) {
+  return {
+    type: SIGNUP_REQUEST,
+    isFetching: true,
+    isAuthenticated: false,
+    creds
+  }
+};
 
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export function receiveSignup(user) {
+  return {
+    type: SIGNUP_SUCCESS,
+    isFetching: false,
+    isAuthenticated: true,
+    id_token: user.id_token
+  }
+};
+
+export const  SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+export function signupError(message) {
+  return {
+    type: SIGNUP_FAILURE,
+    isFetching: false,
+    isAuthenticated: false,
+    message
+  }
+};
+
+/**** SIGNUP API CALL ****/
+//Calls the API go get a token and dispatches along the way
+export function signupUser(creds) {
+  let config = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded'},
+    body: `username=${creds.username}&password=${creds.password}`
+  };
+
+  return dispatch => {
+    dispatch(requestSignup(creds));
+    return fetch('/sessions/create', config)
+      .then(res => res.json().then(user => ({user, res})))
+      .then(({user, res}) => {
+        if (!res.ok) {
+          dispatch(signupError(user.message));
+          return Promise.reject(user);
+        } else {
+          localStorage.setItem('id_token', user.id_token);
+          localStorage.setItem('id_token', user.access_token);
+          dispatch(receiveSignup(user));
+        }})
+      .catch(err => console.log('signup API public error', err))
+  }
+}
 
 
 /**** LOGIN ACTIONS ****/
@@ -86,10 +141,23 @@ export function loginUser(creds) {
 
   return dispatch => {
     dispatch(requestLogin(creds));
+    return fetch('/sessions/create', config)
+      .then(res => res.json().then(user => ({user, res})))
+      .then(({user, res}) => {
+        if (!res.ok) {
+          dispatch(loginError(user.message));
+          return Promise.reject(user);
+        } else {
+          localStorage.setItem('id_token', user.id_token);
+          localStorage.setItem('id_token', user.access_token);
+          dispatch(receiveLogin(user));
+        }})
+      .catch(err => console.log('login API public error', err))
   }
 }
 
 /**** LOGOUT ACTIONS ****/
+//remove token from localStorage
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export function requestLogout() {
   return {
