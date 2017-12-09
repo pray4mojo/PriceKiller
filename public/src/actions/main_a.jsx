@@ -16,7 +16,6 @@ export function setResultsPage(resultsPage) {
   return { type: SET_RESULTS_PAGE, resultsPage }
 }
 
-export const SUBMIT_SEARCH = 'SUBMIT_SEARCH';
 export function submitSearch(searchQuery) {
 
   return function (dispatch) {
@@ -31,6 +30,7 @@ export function submitSearch(searchQuery) {
       console.log(response);
       const searchResults = response.data[0].item.map((result,index) => {
         result.page = Math.floor(index / 10);
+        result.searchQuery = searchQuery;
         return result;
       });
       dispatch(setResultsPage(0));
@@ -38,9 +38,4 @@ export function submitSearch(searchQuery) {
     })
   }
   //return { type: SUBMIT_SEARCH, searchQuery }
-}
-
-export const ADD_NAME = 'ADD_NAME';
-export function addName(name) {
-  return { type: ADD_NAME, name }
 }

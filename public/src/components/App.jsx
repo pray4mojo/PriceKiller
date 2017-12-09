@@ -1,6 +1,5 @@
 import React from 'react';
-import NameList from '../containers/nameList.js';
-import SearchContainer from '../containers/searchContainer.jsx';
+import SearchContainer from '../containers/search_c.jsx';
 
 function sum(a, b) {
   return a + b;
@@ -10,7 +9,6 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <NameList />
         <SearchContainer />
       </div>
       )
