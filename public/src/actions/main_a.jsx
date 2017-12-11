@@ -39,3 +39,10 @@ export function submitSearch(searchQuery) {
   }
   //return { type: SUBMIT_SEARCH, searchQuery }
 }
+
+
+export const ADD_NAME = 'ADD_NAME';
+export function addName(name) {
+  return { type: ADD_NAME, name }
+}
+
