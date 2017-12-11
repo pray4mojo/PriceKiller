@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import Navbar from '../components/Navbar.jsx';
 // import Quotes from '../components/Quotes.jsx';
 
-class Auth_c extends Component {
+class auth extends Component {
   render() {
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     const { dispatch, isAuthenticated, errorMessage  } = this.props;
-    console.log('isAuth', isAuthenticated);
+    // console.log('isAuth', isAuthenticated);
     return (<div>
       <Navbar isAuthenticated={isAuthenticated}
         errorMessage={errorMessage}
@@ -26,7 +26,7 @@ class Auth_c extends Component {
 // }
 
 const mapStateToProps = (state) => {
-  console.log('state in container', state);
+  // console.log('state in container', state);
   return {
     // quote,
     // isSecretQuote: authenticated,
@@ -35,7 +35,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Auth_c);
+export default connect(mapStateToProps)(auth);
 
 // <div className="container">
         // <Quotes onQuoteClick={() => dispatch(fetchQuote())}

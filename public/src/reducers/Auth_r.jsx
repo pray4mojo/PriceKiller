@@ -1,5 +1,5 @@
 // import { combineReducers } from 'redux'
-import { SIGNUP_REQUEST, SINGUP_SUCCESS, SIGNUP_FAILIURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS} from '../actions/Auth_a.jsx';
+import { SIGNUP_REQUEST, SINGUP_SUCCESS, SIGNUP_FAILIURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS} from '../actions/auth_a.jsx';
 
 function auth(state ={
   // isFetching: false,
