@@ -66,6 +66,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoErrorsPlugin(),
   ],
 };
 
