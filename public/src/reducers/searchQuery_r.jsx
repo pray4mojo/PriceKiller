@@ -1,4 +1,4 @@
-import { SUBMIT_SEARCH } from '../actions/actions.jsx';
+import { SUBMIT_SEARCH } from '../actions/main_a.jsx';
 
 const searchQuery = (state = '', action) => {
   switch (action.type) {

@@ -7,12 +7,6 @@ router.get('/:searchQuery', (req, res, next) => {
   axios({
     method: 'get',
     url: `http://svcs.ebay.com/services/search/FindingService/v1?version=1.13.0&SECURITY-APPNAME=${process.env.EBAYAPIKEY}&OPERATION-NAME=findItemsByKeywords&keywords=${keywords}&ItemSort=BestMatch&response-data-format=JSON`
-    // 'version': '1.13.0',
-    // 'SECURITY-APPNAME': process.env.EBAYAPIKEY,
-    // 'OPERATION-NAME': 'findItemsByKeywords',
-    // 'keywords': req.params.searchQuery,
-    // 'itemSort': 'BestMatch',
-    // 'RESPONSE-DATA-FORMAT': 'JSON'
   })
   .then((response) => {
     res.send(response.data.findItemsByKeywordsResponse[0].searchResult);

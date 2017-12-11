@@ -1,4 +1,4 @@
-import { REQUEST_RESULTS, RESULTS_RETURNED, SET_RESULTS_PAGE } from '../actions/actions.jsx';
+import { REQUEST_RESULTS, RESULTS_RETURNED, SET_RESULTS_PAGE } from '../actions/main_a.jsx';
 
 const searchResults = (
   state = {
