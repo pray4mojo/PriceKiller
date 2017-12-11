@@ -30,8 +30,8 @@ const mapStateToProps = (state) => {
   return {
     // quote,
     // isSecretQuote: authenticated,
-    isAuthenticated: state.Auth.isAuthenticated,
-    errorMessage: state.Auth.errorMessage
+    isAuthenticated: state.auth.isAuthenticated,
+    errorMessage: state.auth.errorMessage
   }
 }
 
