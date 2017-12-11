@@ -5,7 +5,7 @@ export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export function requestSignup(creds) {
   return {
     type: SIGNUP_REQUEST,
-    isFetching: true,
+    // isFetching: true,
     isAuthenticated: false,
     creds
   }
@@ -15,7 +15,6 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export function receiveSignup(user) {
   return {
     type: SIGNUP_SUCCESS,
-    isFetching: false,
     isAuthenticated: true,
     id_token: user.id_token
   }
@@ -25,7 +24,6 @@ export const  SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export function signupError(message) {
   return {
     type: SIGNUP_FAILURE,
-    isFetching: false,
     isAuthenticated: false,
     message
   }
@@ -44,7 +42,7 @@ export function signupUser(creds) {
     dispatch(requestSignup(creds));
 
     //need to switch to axios call
-    return fetch('/sessions/create', config)
+    return fetch('/users', config)
       .then(res => res.json().then(user => ({user, res})))
       .then(({user, res}) => {
         if (!res.ok) {
@@ -65,7 +63,6 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export function requestLogin(creds) {
   return {
     type: LOGIN_REQUEST,
-    isFetching: true,
     isAuthenticated: false,
     creds
   }
@@ -75,7 +72,6 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export function receiveLogin(user) {
   return {
     type: LOGIN_SUCCESS,
-    isFetching: false,
     isAuthenticated: true,
     id_token: user.id_token
   }
@@ -85,7 +81,6 @@ export const  LOGIN_FAILURE = 'LOGIN_FAILURE';
 export function loginError(message) {
   return {
     type: LOGIN_FAILURE,
-    isFetching: false,
     isAuthenticated: false,
     message
   }
@@ -125,7 +120,6 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export function requestLogout() {
   return {
     type: LOGOUT_REQUEST,
-    isFetching: true,
     isAuthenticated: true
   }
 };
@@ -134,7 +128,6 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export function receiveLogout() {
   return {
     type: LOGOUT_SUCCESS,
-    isFetching: false,
     isAuthenticated: false
   }
 };
