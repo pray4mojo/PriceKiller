@@ -19,9 +19,9 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  onLoginClick: PropTypes.func.isRequired,
-  errorMessage: PropTypes.string
-}
+// Login.propTypes = {
+  // onLoginClick: PropTypes.func.isRequired,
+  // errorMessage: PropTypes.string
+// }
 
 export default Login;
