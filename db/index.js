@@ -26,20 +26,44 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String },
   password: { type: String },
-  favorites: {type: Array,  "default" : []},
+  favorites: {type: Array,  "default" : []},//Save function must include: `user.markModified('favorites');`
   googleId: { type: String },  //depends on OAuth
   sessionID: { type: String }
 });
+//favoriteObject: {
+//   queryString: String,
+//   categoryId: Number,
+//   favoriteIsCurrent: boolean
+// }
 
-const ProductSchema = new Schema({
-  name: { type: String },
-  newPrices: {type: Array, "default" : []},
-  usedPrices: {type: Array, "default": []}
-})
 
+//Historical Data
+const CronJobSchema = new Schema({
+  queryString: { type: String },
+  categoryId: { type: Number },
+  priceHistory: { type: Array, "default": [] } //Save function must include: `cronJob.markModified('priceHistory');`
+});
+//priceHistoryObject: {
+//   createdAt: timestamp,
+//   avgLikeNewPrice: Number,
+//   avgUsedPrice: Number,
+//   avgAccPrice: Number,
+// }
+
+const ProductAuctionsSchema = new Schema({
+  queryString: { type: String },
+  categoryId: { type: Number },
+  auctions: Mixed //Save function must include: `productAuctions.markModified('auctions');`
+});
+//auctionsObjct: {
+//   itemId1: auctionObject from ebay,
+//   itemId2: auctionObject from ebay,
+//   ...itemIdn: auctionObject from ebay
+// }
 
 const User = mongoose.model('User', UserSchema);
-const Product = mongoose.model('Product', ProductSchema);
+const CronJob = mongoose.model('CronJob', CronJobSchema);
+const ProductAuctions = mongoose.model('ProductAuctions', ProductAuctionsSchema);
 
 
 module.exports.User = User;
