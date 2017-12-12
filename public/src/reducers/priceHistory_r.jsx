@@ -10,7 +10,7 @@ const priceHistory = (
   ) => {
   switch (action.type) {
     case SET_CHART_VIEW:
-      return Object.assign({}, state, { searchQuery: action.item.searchQuery, data: action.item.priceHistory, categoryId: action.item.categoryId });
+      return Object.assign({}, state, { searchQuery: action.favorite.searchQuery, data: action.favorite.priceHistory, categoryId: action.favorite.categoryId });
     default:
       return state;
   }

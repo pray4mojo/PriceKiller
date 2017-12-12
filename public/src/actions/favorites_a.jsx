@@ -5,30 +5,30 @@ export function storeFavorite(item) {
   console.log('this should be saved to db');
 }
 
-export function addFavorite(item) {
+export function addFavorite(favorite) {
   return function (dispatch) {
-    const categoryId = item.primaryCategory[0].categoryId[0];
+    const categoryId = favorite.primaryCategory[0].categoryId[0];
     console.log(categoryId);
     return axios({
       method: 'get',
-      url: `/api/refinedSearch/${item.searchQuery}/${categoryId}`,
+      url: `/api/refinedSearch/${favorite.searchQuery}/${categoryId}`,
       responseType: 'json'
     })
     .then(response => {
-      item.categoryId = categoryId;
-      item.priceHistory = response.data.item
-      .filter(item => item.sellingStatus[0].sellingState[0] === 'EndedWithSales')
+      favorite.categoryId = categoryId;
+      favorite.priceHistory = response.data.item
+      .filter(favorite => favorite.sellingStatus[0].sellingState[0] === 'EndedWithSales')
       .sort((a,b) => new Date(a.listingInfo[0].endTime[0]) - new Date(b.listingInfo[0].endTime[0]));
-      // .map(item => {
+      // .map(favorite => {
       //   return {
-      //     t: item.listingInfo[0].endTime[0],
-      //     y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
+      //     t: favorite.listingInfo[0].endTime[0],
+      //     y: Number(favorite.sellingStatus[0].convertedCurrentPrice[0].__value__)
       //   }
       //   });
-      //console.log('history data: ', item.priceHistory);
-      dispatch(setChartView(item));
-      //dispatch(storeFavorite(item));
+      //console.log('history data: ', favorite.priceHistory);
+      dispatch(setChartView(favorite));
+      //dispatch(storeFavorite(favorite));
     })
   }
-  //return { type: ADD_FAVORITE, item }
+  //return { type: ADD_FAVORITE, favorite }
 }
