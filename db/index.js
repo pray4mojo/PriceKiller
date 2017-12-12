@@ -53,7 +53,7 @@ const CronJobSchema = new Schema({
 const ProductAuctionsSchema = new Schema({
   queryString: { type: String },
   categoryId: { type: Number },
-  auctions: Mixed //Save function must include: `productAuctions.markModified('auctions');`
+  auctions: {} //Save function must include: `productAuctions.markModified('auctions');`
 });
 //auctionsObjct: {
 //   itemId1: auctionObject from ebay,
@@ -67,4 +67,5 @@ const ProductAuctions = mongoose.model('ProductAuctions', ProductAuctionsSchema)
 
 
 module.exports.User = User;
-module.exports.Product = Product;
+module.exports.CronJob = CronJob;
+module.exports.ProductAuctions = ProductAuctions;
