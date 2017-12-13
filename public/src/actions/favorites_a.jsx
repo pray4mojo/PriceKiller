@@ -17,30 +17,35 @@ export function addNewFavorite(favorite) {
 }
 
 export function deleteFavorite(favorite, username) {
-  return axios({
-    method: 'delete',
-    url: `/api/favorites/${username}`,
-    data: favorite,
-    responsetype: 'json'
-  })
-    .then((response) => console.log('response.data deleteFavorite: ', response.data))
-    .catch((err) => console.log(err));
+  return function (dispatch) {
+    return axios({
+      method: 'delete',
+      url: `/api/favorites/${username}`,
+      data: favorite,
+      responsetype: 'json'
+    })
+      .then((response) => {
+        console.log('response.data deleteFavorite: ', response.data);
+        dispatch(setFavorites(response.data));
+      })
+      .catch((err) => console.log(err));
+  }
   // return { type: DELETE_FAVORITE, index }
 }
 
 export function postNewFavorites(favorites, newFavorites, username) {
   console.log('username: ', username);
   return function (dispatch) {
-    favorites = favorites.concat(newFavorites.map((newFavorite) => {
+    newFavorites = newFavorites.map((newFavorite) => {
       return {
         searchQuery: newFavorite.searchQuery,
         categoryId: newFavorite.primaryCategory[0].categoryId[0]
       }
-    }));
+    })
     return axios({
       method: 'post',
       url: `/api/favorites/${username}`,
-      data: favorites,
+      data: newFavorites,
       responsetype: 'json'
     })
       .then((response) => {
