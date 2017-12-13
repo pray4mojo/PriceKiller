@@ -1,6 +1,6 @@
 import ebayItem from '../components/EbayItem.jsx';
 import { connect } from 'react-redux';
-import { addFavorite } from '../actions/favorites_a.jsx';
+import { addNewFavorite } from '../actions/favorites_a.jsx';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToFavorites: (item) => {
-      dispatch(addFavorite(item));
+      dispatch(addNewFavorite(item));
     },
   }
 }

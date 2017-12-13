@@ -7,10 +7,10 @@ router.get('/', (req, res, next) => {
   res.json('favorites Route')
 });
 
-router.post('/', (req, res, next) => {
-  const favorites = req.body;
-  console.log('favorites: ', favorites);
-  favorites.forEach((favorite) => {
+router.post('/:username', (req, res, next) => {
+  const username = req.params.username
+  const newFavorites = req.body;
+  newFavorites.forEach((favorite) => {
     db.CronJob.findOne(favorite)
       .then((result) => {
         if (!result) {
@@ -27,9 +27,19 @@ router.post('/', (req, res, next) => {
         }
       })
       .catch((err) => console.log(err));
-    // db.UserSchema.findOneAndUpdate(/*This User */, { favorites })
-    //   .catch((err) => console.log(err))
-  })
+    db.User.findOne({ username })
+      .then((user) => {
+        user.favorites = user.favorites.concat(newFavorites);
+        user.markModified('favorites');
+        user.save((err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+        res.send(user.favorites);
+      })
+      .catch((err) => console.log(err))
+  });
   // {
   //   queryString: 'playstation',
   //   categoryId: 23413245324
