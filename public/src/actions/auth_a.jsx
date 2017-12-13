@@ -156,7 +156,7 @@ const lock = new Auth0Lock('FTYdG4IJsEBoitw1MRvFqxcd94F150Oq', 'pricekiller.auth
 
 export function login() {
   return dispatch => {
-    console.log('dispatch', dispatch)
+    // console.log('dispatch', dispatch)
     // lock.show();
   }
 };
