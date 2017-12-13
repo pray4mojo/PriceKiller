@@ -141,6 +141,7 @@ export function lockError(err) {
   }
 };
 
+/*
 // console.log('auth id', process.env, 'auth domain', process.env.AUTH_DOMAIN)
 // const lock = new Auth0Lock(process.env.AUTH_ID, process.env.AUTH_DOMAIN);
 const lock = new Auth0Lock('FTYdG4IJsEBoitw1MRvFqxcd94F150Oq', 'pricekiller.auth0.com',
@@ -151,14 +152,16 @@ const lock = new Auth0Lock('FTYdG4IJsEBoitw1MRvFqxcd94F150Oq', 'pricekiller.auth
   language: 'en',
   theme: {}
   });
+  */
 
 export function login() {
   return dispatch => {
     console.log('dispatch', dispatch)
-    lock.show();
+    // lock.show();
   }
 };
 
+/*
 export function doAuthentication() {
   return dispatch => {
     lock.on("authenticated", function(authResult) {
@@ -171,3 +174,4 @@ export function doAuthentication() {
     });
   }
 }
+*/
