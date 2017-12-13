@@ -5,30 +5,36 @@ export function storeFavorite(item) {
   console.log('this should be saved to db');
 }
 
-export function addFavorite(item) {
+export function addFavorite(favorite) {
   return function (dispatch) {
-    const categoryId = item.primaryCategory[0].categoryId[0];
-    console.log(categoryId);
+    const categoryId = favorite.primaryCategory[0].categoryId[0];
+    favorite.categoryId = categoryId;
+    // let favorites = [favorite];
+    // favorites = favorites.map((favorite) => {
+    //   return {
+    //     searchQuery: favorite.searchQuery,
+    //     categoryId: favorite.categoryId
+    //   }
+    // });
+    // return axios({
+    //   method: 'post',
+    //   url: `/api/favorites/`,
+    //   data: favorites,
+    //   responsetype: 'json'
+    // });
     return axios({
       method: 'get',
-      url: `/api/refinedSearch/${item.searchQuery}/${categoryId}`,
+      url: `/api/refinedSearch/${favorite.searchQuery}/${categoryId}`,
       responseType: 'json'
     })
     .then(response => {
-      item.categoryId = categoryId;
-      item.priceHistory = response.data.item
-      .filter(item => item.sellingStatus[0].sellingState[0] === 'EndedWithSales')
+      favorite.categoryId = categoryId;
+      favorite.priceHistory = response.data.item
+      .filter(favorite => favorite.sellingStatus[0].sellingState[0] === 'EndedWithSales')
       .sort((a,b) => new Date(a.listingInfo[0].endTime[0]) - new Date(b.listingInfo[0].endTime[0]));
-      // .map(item => {
-      //   return {
-      //     t: item.listingInfo[0].endTime[0],
-      //     y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
-      //   }
-      //   });
-      //console.log('history data: ', item.priceHistory);
-      dispatch(setChartView(item));
-      //dispatch(storeFavorite(item));
+      dispatch(setChartView(favorite));
+      // dispatch(storeFavorite(favorite));
     })
   }
-  //return { type: ADD_FAVORITE, item }
+  //return { type: ADD_FAVORITE, favorite }
 }

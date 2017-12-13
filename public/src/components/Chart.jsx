@@ -2,28 +2,74 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 
 let chart = ({ priceHistoryData, searchQuery }) => {
+  const groupData = (priceData) => {
+
+    const mapPriceData = (priceData) => {
+      return priceData.map((item) => {
+        return {
+          t: new Date(item.listingInfo[0].endTime[0]),
+          y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
+        }
+      });
+    }
+    let goodConditionData = mapPriceData(priceData.filter((item) => {
+      let condition = Number(item.condition[0].conditionId)
+      return condition < 7000 && condition >= 3000
+    }));
+    let greatConditionData = mapPriceData(priceData.filter((item) => {
+      let condition = Number(item.condition[0].conditionId)
+      return condition < 3000
+    }));
+    return [goodConditionData, greatConditionData]
+  }
+
+  let plotData = [];
+  if (priceHistoryData.length > 1){
+    plotData = groupData(priceHistoryData);
+  }
   const data = {
     datasets: [
       {
-        label: 'Dollars',
+        label: 'Good condition',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: '#673AB7',
-        borderColor: '#673AB7',
+        backgroundColor: '#DC1313',
+        borderColor: '#DC1313',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: '#673AB7',
+        pointBorderColor: '#DC1313',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: '#673AB7',
+        pointHoverBackgroundColor: '#DC1313',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: priceHistoryData,
+        data: plotData[0],
+      },
+      {
+        label: 'Great condition',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: '#0DA50D',
+        borderColor: '#0DA50D',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: '#0DA50D',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: '#0DA50D',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: plotData[1],
       }
     ]
   };
@@ -33,7 +79,10 @@ let chart = ({ priceHistoryData, searchQuery }) => {
         ticks: {
           beginAtZero: true,
         }
-       }]
+      }],
+      xAxes: [{
+        type: 'time'
+      }]
     }
   };
   let chart = <Line data={data} options={options} />
