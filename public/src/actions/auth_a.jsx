@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { setFavorites } from './favorites_a.jsx';
 
 /**** SIGNUP ACTIONS ****/
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
@@ -82,7 +83,8 @@ export function loginUser(creds) {
     axios.post('/api/auth/login', {username: creds.username, password: creds.password})
     .then(res => {
       console.log('login res in action', res);
-        dispatch(receiveLogin(res.data));
+        dispatch(receiveLogin(res.data.username));
+        dispatch(setFavorites(res.data.favorites));
       // }
     }).catch(err => {console.log('signup API public error', err)});
   }
