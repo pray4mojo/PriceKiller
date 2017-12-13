@@ -8,7 +8,20 @@ export function storeFavorite(item) {
 export function addFavorite(favorite) {
   return function (dispatch) {
     const categoryId = favorite.primaryCategory[0].categoryId[0];
-    console.log(categoryId);
+    favorite.categoryId = categoryId;
+    // let favorites = [favorite];
+    // favorites = favorites.map((favorite) => {
+    //   return {
+    //     searchQuery: favorite.searchQuery,
+    //     categoryId: favorite.categoryId
+    //   }
+    // });
+    // return axios({
+    //   method: 'post',
+    //   url: `/api/favorites/`,
+    //   data: favorites,
+    //   responsetype: 'json'
+    // });
     return axios({
       method: 'get',
       url: `/api/refinedSearch/${favorite.searchQuery}/${categoryId}`,
@@ -19,15 +32,8 @@ export function addFavorite(favorite) {
       favorite.priceHistory = response.data.item
       .filter(favorite => favorite.sellingStatus[0].sellingState[0] === 'EndedWithSales')
       .sort((a,b) => new Date(a.listingInfo[0].endTime[0]) - new Date(b.listingInfo[0].endTime[0]));
-      // .map(favorite => {
-      //   return {
-      //     t: favorite.listingInfo[0].endTime[0],
-      //     y: Number(favorite.sellingStatus[0].convertedCurrentPrice[0].__value__)
-      //   }
-      //   });
-      //console.log('history data: ', favorite.priceHistory);
       dispatch(setChartView(favorite));
-      //dispatch(storeFavorite(favorite));
+      // dispatch(storeFavorite(favorite));
     })
   }
   //return { type: ADD_FAVORITE, favorite }

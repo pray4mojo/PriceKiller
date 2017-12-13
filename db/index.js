@@ -32,7 +32,7 @@ const UserSchema = new Schema({
   sessionID: { type: String }
 });
 //favoriteObject: {
-//   queryString: String,
+//   searchQuery: String,
 //   categoryId: Number,
 //   favoriteIsCurrent: boolean
 // }
@@ -40,19 +40,18 @@ const UserSchema = new Schema({
 
 //Historical Data
 const CronJobSchema = new Schema({
-  queryString: { type: String },
+  searchQuery: { type: String },
   categoryId: { type: Number },
   priceHistory: { type: Array, "default": [] } //Save function must include: `cronJob.markModified('priceHistory');`
 });
 //priceHistoryObject: {
 //   createdAt: timestamp,
-//   avgLikeNewPrice: Number,
-//   avgUsedPrice: Number,
-//   avgAccPrice: Number,
+//   avgGreatPrice: Number,
+//   avgGoodPrice: Number,
 // }
 
 const ProductAuctionsSchema = new Schema({
-  queryString: { type: String },
+  searchQuery: { type: String },
   categoryId: { type: Number },
   auctions: {} //Save function must include: `productAuctions.markModified('auctions');`
 });
