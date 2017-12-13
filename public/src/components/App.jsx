@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchContainer from '../containers/search_c.jsx';
-import ChartContainer from '../containers/chart_c.jsx';
+import Chart from '../components/Chart.jsx';
 import AuthContainer from '../containers/auth_c.jsx';
 import Favorites from '../components/Favorites.jsx';
 
@@ -14,7 +14,7 @@ class App extends React.Component {
       <div>
         <AuthContainer />
         <SearchContainer />
-        <ChartContainer />
+        <Chart />
         <Favorites />
       </div>
       )

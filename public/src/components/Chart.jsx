@@ -1,7 +1,20 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { connect } from 'react-redux';
+import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
 
-let chart = ({ priceHistoryData, searchQuery }) => {
+const mapStateToProps = state => {
+  return {
+    priceHistoryData: state.priceHistory.data,
+    searchQuery: state.priceHistory.searchQuery
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {}
+}
+
+let Chart = ({ priceHistoryData, searchQuery }) => {
   const groupData = (priceData) => {
 
     const mapPriceData = (priceData) => {
@@ -96,5 +109,6 @@ let chart = ({ priceHistoryData, searchQuery }) => {
   )
 }
 
+Chart = connect(mapStateToProps, mapDispatchToProps)(Chart);
 
-export default chart;
+export default Chart;

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
 import { deleteFavorite, deleteNewFavorite, postNewFavorites } from '../actions/favorites_a.jsx';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let username;
   if (state.auth.user) {
     username = state.auth.user.username;
@@ -32,7 +32,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 let Favorites = (props) => {
-  let favoritesList, newFavoritesList, favoritesTitle
+  let favoritesList;
+  let newFavoritesList;
+  let favoritesTitle;
   if (props.favorites) {
     if (props.favorites.length === 0) {
       favoritesTitle = 'No Favorites';
@@ -51,7 +53,7 @@ let Favorites = (props) => {
               >
                 {favorite.searchQuery}
                 <button
-                  onClick={() => {props.removeFavorite(favorite, props.username)}}
+                  onClick={() => props.removeFavorite(favorite, props.username)}
                 >
                   Remove
                 </button>
