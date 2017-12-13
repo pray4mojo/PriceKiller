@@ -90,6 +90,6 @@ const saveNewUser = (user, cb) => {
 module.exports.User = User;
 module.exports.CronJob = CronJob;
 module.exports.ProductAuctions = ProductAuctions;
-module.exports.Product = Product;
+// module.exports.Product = Product;
 module.exports.checkUser = checkUser;
 module.exports.saveNewUser = saveNewUser;
