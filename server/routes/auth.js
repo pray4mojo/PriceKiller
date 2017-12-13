@@ -58,6 +58,7 @@ router.post('/login', (req, res, next) => {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           req.session.regenerate((err) => {
             if (err) throw err;
+            res.send('log in success!');
           })
         } else {
           console.log('Wrong password');
