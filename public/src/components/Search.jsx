@@ -1,5 +1,5 @@
 import React from 'react';
-import EbayItemContainer from '../containers/ebayItem_c.jsx';
+import EbayItem from '../components/EbayItem.jsx';
 
 let search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decrementResultsPage }) => (
     <div>
@@ -10,7 +10,7 @@ let search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decr
       <ul>
         {searchResults.items.filter(item => item.page === searchResults.resultsPage)
           .map((item, index) => {
-          return <EbayItemContainer key={index} item={item} />
+          return <EbayItem key={index} item={item} />
         })}
       </ul>
       <button id="decrementResultsPage" onClick={decrementResultsPage}>Previous Page</button>
