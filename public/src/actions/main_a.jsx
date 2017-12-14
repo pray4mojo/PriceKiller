@@ -37,7 +37,6 @@ export function submitSearch(searchQuery) {
       dispatch(resultsReturned(searchResults));
     })
   }
-  //return { type: SUBMIT_SEARCH, searchQuery }
 }
 
 
