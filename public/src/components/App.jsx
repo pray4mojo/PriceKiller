@@ -14,8 +14,8 @@ class App extends React.Component {
       <div>
         <AuthContainer />
         <Search />
-        <Chart />
         <Favorites />
+        <Chart />
       </div>
       )
   }

@@ -1,39 +1,57 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux';
-import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
+import { getPriceHistory } from '../actions/priceHistory_a.jsx';
 
 const mapStateToProps = state => {
   return {
     priceHistoryData: state.priceHistory.data,
-    searchQuery: state.priceHistory.searchQuery
+    searchQuery: state.priceHistory.searchQuery,
+    favorites: state.favorites.favorites
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    setChartData: (event) => {
+      const searchQuery = event.target.value
+      dispatch(getPriceHistory(searchQuery))
+    }
+  }
 }
 
-let Chart = ({ priceHistoryData, searchQuery }) => {
+let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
   const groupData = (priceData) => {
-
-    const mapPriceData = (priceData) => {
-      return priceData.map((item) => {
-        return {
-          t: new Date(item.listingInfo[0].endTime[0]),
-          y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
-        }
+    let goodPriceData = [];
+    let greatPriceData = [];
+    priceData.forEach((cronJob) => {
+      goodPriceData.push({
+        t: new Date(cronJob.createdAt),
+        y: cronJob.avgGoodPrice
       });
-    }
-    let goodConditionData = mapPriceData(priceData.filter((item) => {
-      let condition = Number(item.condition[0].conditionId)
-      return condition < 7000 && condition >= 3000
-    }));
-    let greatConditionData = mapPriceData(priceData.filter((item) => {
-      let condition = Number(item.condition[0].conditionId)
-      return condition < 3000
-    }));
-    return [goodConditionData, greatConditionData]
+      greatPriceData.push({
+        t: new Date(cronJob.createdAt),
+        y: cronJob.avgGreatPrice
+      });
+    });
+
+    // const mapPriceData = (priceData) => {
+    //   return priceData.map((item) => {
+    //     return {
+    //       t: new Date(item.listingInfo[0].endTime[0]),
+    //       y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
+    //     }
+    //   });
+    // }
+    // let goodConditionData = mapPriceData(priceData.filter((item) => {
+    //   let condition = Number(item.condition[0].conditionId)
+    //   return condition < 7000 && condition >= 3000
+    // }));
+    // let greatConditionData = mapPriceData(priceData.filter((item) => {
+    //   let condition = Number(item.condition[0].conditionId)
+    //   return condition < 3000
+    // }));
+    return [goodPriceData, greatPriceData]
   }
 
   let plotData = [];
@@ -98,12 +116,21 @@ let Chart = ({ priceHistoryData, searchQuery }) => {
       }]
     }
   };
-  let chart = <Line data={data} options={options} />
+  let chart;
   if (priceHistoryData.length === 1) {
     chart = '';
+  } else {
+    chart = <Line data={data} options={options} />;
   }
+  let favoritesSelector = (
+    <select onChange={(event) => setChartData(event)}>
+      <option value="" defaultValue disabled hidden>Choose Favorite</option>
+      {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
+    </select>
+  )
   return (
     <div>
+      {favoritesSelector}
       {chart}
     </div>
   )
