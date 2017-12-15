@@ -22,10 +22,23 @@ let EbayItem = ({ item, addToFavorites }) => {
   if (item.title === 'Submit a search query to see what Ebay has available!') {
     favoriteButton = '';
   }
+  let price = item.sellingStatus ? `${item.sellingStatus[0].convertedCurrentPrice[0].__value__}$` : null;
+  let image = item.galleryURL || null;
   return (
-    <li>{item.title} {favoriteButton}</li>
+    <li>
+
+      <img className="image is-128x128" src={image} />
+
+      {item.title}<br/>
+      {price}
+      {favoriteButton}
+    </li>
   )
 }
 
 EbayItem = connect(mapStateToProps, mapDispatchToProps)(EbayItem);
 export default EbayItem;
+
+   // <figure className="image is-128x128">
+   //    <img className="image is-128x128" src={image} />
+   //    </figure>
