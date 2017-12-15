@@ -1,4 +1,6 @@
 import React from 'react';
+import FavoriteItem from './FavoriteItem.jsx';
+import NewFavoriteItem from './NewFavoriteItem.jsx';
 import { connect } from 'react-redux';
 import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
 import { deleteFavorite, deleteNewFavorite, postNewFavorites } from '../actions/favorites_a.jsx';
@@ -42,25 +44,11 @@ let Favorites = (props) => {
       favoritesTitle = 'Favorites: ';
     }
     favoritesList = (
-      <div>
+      <div className="container">
         <h3>{favoritesTitle}</h3>
-        <ul>
           {props.favorites.map((favorite, key) => {
-            return (
-              <li
-                key={key}
-                id="favorite"
-              >
-                {favorite.searchQuery}
-                <button
-                  onClick={() => props.removeFavorite(favorite, props.username)}
-                >
-                  Remove
-                </button>
-              </li>
-            )
+            return (<FavoriteItem key={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
           })}
-        </ul>
       </div>
     );
   }
@@ -68,20 +56,23 @@ let Favorites = (props) => {
     newFavoritesList = (
       <div>
         <h3>New Favorites:</h3>
-        <ul id="newFavorites">
-        {props.newFavorites.map((favorite, key) => {
-          return (
-            <li key={key} id="newFavorite">{favorite.searchQuery}<button onClick={() => {props.removeNewFavorite(key)}}>Remove</button></li>
-          )
-        })}
-        </ul>
-        <button id="saveNewFavorites" onClick={() => props.saveNewFavorites(props.favorites, props.newFavorites, props.username)}>Store New Favorites</button>
+          {props.newFavorites.map((favorite, key) => {
+            return (<NewFavoriteItem favorite={favorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
+
+          })}
+        <a
+          id="saveNewFavorites"
+          className="button is-success is-small is-one-fifth"
+          onClick={() => props.saveNewFavorites(props.favorites, props.newFavorites, props.username)}
+        >
+          Store New Favorite(s)
+        </a>
       </div>
     );
   }
 
   return(
-    <div>
+    <div >
       {favoritesList}
       {newFavoritesList}
     </div>
