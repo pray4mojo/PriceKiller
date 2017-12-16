@@ -38,6 +38,10 @@ const style = {
     paddingLeft: '0',
     paddingTop: '0.5rem',
     paddingBottom: '0.5rem'
+  },
+  card: {
+    color: '#87A3BB',
+    backgroundColor: '#22282F'
   }
 }
 
@@ -48,20 +52,20 @@ let Favorites = (props) => {
   if (props.favorites) {
     if (props.favorites.length === 0) {
       favoritesList = (
-        <div className="card">
+        <div className="card" style={style.card}>
           <header className="card-header">
             No Favorites
           </header>
         </div>)
     } else {
       favoritesList = (
-        <div className="card">
+        <div className="card" style={style.card}>
           <header className="card-header">
             Favorites
           </header>
           <div className="card-content" style={style.cardContent}>
             {props.favorites.map((favorite, key) => {
-              return (<FavoriteItem key={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
+              return (<FavoriteItem key={key} index={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
             })}
           </div>
         </div>
@@ -70,7 +74,7 @@ let Favorites = (props) => {
   }
   if (props.newFavorites.length !== 0) {
     newFavoritesList = (
-      <div className="card">
+      <div className="card" style={style.card}>
         <header className="card-header">
           New Favorites
         </header>

@@ -6,7 +6,7 @@ const style = {
   }
 }
 
-const NewFavoriteItem = ({ favorite, removeNewFavorite, key }) => (
+const NewFavoriteItem = ({ favorite, removeNewFavorite, index }) => (
   <div className="custom-spacing" style={style.spacing} >
     <div className="columns is-mobile is-gapless" style={style.favorite}>
       <div className="column">
@@ -14,7 +14,7 @@ const NewFavoriteItem = ({ favorite, removeNewFavorite, key }) => (
       </div>
       <div className="column is-one-fifth">
         <a
-          onClick={() => removeNewFavorite(key)}
+          onClick={() => removeNewFavorite(index)}
           className="button is-danger is-small"
         >
           Remove

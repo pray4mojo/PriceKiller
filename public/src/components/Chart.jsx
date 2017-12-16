@@ -93,25 +93,53 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       yAxes: [{
         ticks: {
           beginAtZero: true,
+        },
+        scaleLabel: {
+          display: true,
+          labelString: '$'
         }
       }],
       xAxes: [{
         type: 'time'
       }]
+    },
+    legend: {
+      position: 'bottom'
     }
   };
+
+  const style = {
+    cardContent: {
+      paddingLeft: '0',
+      paddingTop: '0.5rem',
+      paddingBottom: '0.5rem'
+    },
+    card: {
+      color: '#87A3BB',
+      backgroundColor: '#22282F'
+    },
+    header: {
+      color: '#87A3BB'
+    },
+    select: {
+      color: '#22282F',
+      backgroundColor: '#87A3BB'
+    },
+  }
+
   let chart;
   if (priceHistoryData.length === 1) {
     chart = '';
   } else {
-    chart = <Line data={data} options={options} />;
+    chart = <Line data={data} options={options} style={style.select} />;
   }
+
+  let chartTitle = 'Price History';
   let favoritesSelector = (
     <div className="field">
-      <label className="label">Product History</label>
       <div className="control">
         <div className="select">
-          <select defaultValue="Choose Favorite" onChange={(event) => setChartData(event)}>
+          <select defaultValue="Choose a Product" style={style.select} onChange={(event) => setChartData(event)}>
             <option value="Choose Favorite" disabled >Choose Favorite</option>
             {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
           </select>
@@ -119,10 +147,27 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       </div>
     </div>
   )
+  if (favorites.length === 0) {
+    favoritesSelector = '';
+    chartTitle = '';
+  }
+
+
   return (
-    <div>
-      {favoritesSelector}
-      {chart}
+    <div className="card" style={style.card}>
+      <header className="card-header">
+        <p className="card-header-title" style={style.header}>
+          {chartTitle}
+        </p>
+      </header>
+      <div className="card-content" style={style.cardContent}>
+        <div className="content">
+          {favoritesSelector}
+        </div>
+        <div className="content" style={style.cardContent}>
+          {chart}
+        </div>
+      </div>
     </div>
   )
 }

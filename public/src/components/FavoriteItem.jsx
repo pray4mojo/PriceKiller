@@ -3,6 +3,10 @@ import React from 'react';
 const style = {
   spacing: {
     margin: '0.25rem'
+  },
+  button: {
+    color: '#22282F',
+    backgroundColor: '#87A3BB'
   }
 }
 
