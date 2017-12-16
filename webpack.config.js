@@ -6,6 +6,9 @@ const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 module.exports = {
   entry: ['webpack-hot-middleware/client?reload=true', `${APP_DIR}/index.js`],
   devtool: 'inline-source-map',
+  devServer: {
+    historyApiFallback: true
+  },
   output: {
     path: BUILD_DIR,
     filename: 'bundle.js',

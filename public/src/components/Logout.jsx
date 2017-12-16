@@ -4,7 +4,7 @@ class Logout extends Component {
   render() {
     console.log('props in logout', this.props);
     const { onLogoutClick } =this.props;
-    return (<button onClick={() => onLogoutClick()} className="btn btn-primary">Logout</button>)
+    return (<button onClick={() => onLogoutClick()} className="button is-light">Logout</button>)
   }
 }
 
