@@ -9,7 +9,7 @@ const style = {
 const FavoriteItem = ({ favorite, removeFavorite, username }) => (
   <div className="custom-spacing" style={style.spacing} >
     <div className="columns is-mobile is-gapless" >
-      <div className="column is-one-fifth">
+      <div className="column is-one-quarter">
         <a
           onClick={() => removeFavorite(favorite, username)}
           className="button is-danger is-small"

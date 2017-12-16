@@ -33,36 +33,55 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+const style = {
+  cardContent: {
+    paddingLeft: '0',
+    paddingTop: '0.5rem',
+    paddingBottom: '0.5rem'
+  }
+}
+
 let Favorites = (props) => {
   let favoritesList;
   let newFavoritesList;
   let favoritesTitle;
   if (props.favorites) {
     if (props.favorites.length === 0) {
-      favoritesTitle = 'No Favorites';
+      favoritesList = (
+        <div className="card">
+          <header className="card-header">
+            No Favorites
+          </header>
+        </div>)
     } else {
-      favoritesTitle = 'Favorites: ';
+      favoritesList = (
+        <div className="card">
+          <header className="card-header">
+            Favorites
+          </header>
+          <div className="card-content" style={style.cardContent}>
+            {props.favorites.map((favorite, key) => {
+              return (<FavoriteItem key={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
+            })}
+          </div>
+        </div>
+      );
     }
-    favoritesList = (
-      <div className="container">
-        <h3>{favoritesTitle}</h3>
-          {props.favorites.map((favorite, key) => {
-            return (<FavoriteItem key={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
-          })}
-      </div>
-    );
   }
   if (props.newFavorites.length !== 0) {
     newFavoritesList = (
-      <div>
-        <h3>New Favorites:</h3>
+      <div className="card">
+        <header className="card-header">
+          New Favorites
+        </header>
+        <div className="card-content" style={style.cardContent}>
           {props.newFavorites.map((favorite, key) => {
             return (<NewFavoriteItem favorite={favorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
-
           })}
+        </div>
         <a
           id="saveNewFavorites"
-          className="button is-success is-small is-one-fifth"
+          className="button is-info is-small is-one-fifth"
           onClick={() => props.saveNewFavorites(props.favorites, props.newFavorites, props.username)}
         >
           Store New Favorite(s)

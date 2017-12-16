@@ -35,22 +35,6 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       });
     });
 
-    // const mapPriceData = (priceData) => {
-    //   return priceData.map((item) => {
-    //     return {
-    //       t: new Date(item.listingInfo[0].endTime[0]),
-    //       y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
-    //     }
-    //   });
-    // }
-    // let goodConditionData = mapPriceData(priceData.filter((item) => {
-    //   let condition = Number(item.condition[0].conditionId)
-    //   return condition < 7000 && condition >= 3000
-    // }));
-    // let greatConditionData = mapPriceData(priceData.filter((item) => {
-    //   let condition = Number(item.condition[0].conditionId)
-    //   return condition < 3000
-    // }));
     return [goodPriceData, greatPriceData]
   }
 
@@ -123,10 +107,17 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
     chart = <Line data={data} options={options} />;
   }
   let favoritesSelector = (
-    <select onChange={(event) => setChartData(event)}>
-      <option value="" defaultValue disabled hidden>Choose Favorite</option>
-      {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
-    </select>
+    <div className="field">
+      <label className="label">Product History</label>
+      <div className="control">
+        <div className="select">
+          <select defaultValue="Choose Favorite" onChange={(event) => setChartData(event)}>
+            <option value="Choose Favorite" disabled >Choose Favorite</option>
+            {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
+          </select>
+        </div>
+      </div>
+    </div>
   )
   return (
     <div>
