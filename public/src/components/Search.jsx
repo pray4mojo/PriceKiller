@@ -33,7 +33,7 @@ let Search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decr
   let items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
   if (items[0].sellingStatus) {
     return (
-      <div>
+      <div className="card">
       <form id="search" onSubmit={(event) => {onSearch(event)}}>
         <input type="text" id="searchInput" />
         <input type="submit" value="Submit Search" />
@@ -44,9 +44,9 @@ let Search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decr
           return <EbayItem key={index} item={item} />
         })}
       </ul>
-      <nav className="pagination" role="navigation" aria-label="pagination">
-      <i className="pagination is-previous column is-half fa fa-arrow-circle-left is-info fa-lg" id="decrementResultsPage" onClick={decrementResultsPage}></i>
-      <i className="pagination is-next column is-half fa fa-arrow-circle-right is-info fa-lg" id="incrementResultsPage" onClick={incrementResultsPage}></i>
+      <nav className="pagination columns is-mobile is-centered" role="navigation" aria-label="pagination">
+      <button className="pagination is-previous column is-half fa fa-arrow-circle-left is-medium is-info " id="decrementResultsPage" onClick={decrementResultsPage}></button>
+      <button className="pagination is-next is-info column is-half fa fa-arrow-circle-right is-medium is-info " id="incrementResultsPage" onClick={incrementResultsPage}></button>
       </nav>
     </div>
     )
