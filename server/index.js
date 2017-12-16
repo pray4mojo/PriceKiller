@@ -67,9 +67,9 @@ app.use('/api/prices', prices);
 app.use('/api/profile', profile);
 app.use('/api/headToHead', headToHead);
 
-app.get('/', (req, res) => {
-  res.json('HELLO OUTSIDE SERVER')
-});
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/dist/index.html'));
+})
 
 app.listen(port, () => {
   console.log(`Listening on ${port}`)
