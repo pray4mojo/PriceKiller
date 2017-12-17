@@ -6,12 +6,15 @@ import Navbar from '../components/Navbar.jsx';
 
 class auth extends Component {
   render() {
-    const { dispatch, isAuthenticated, errorMessage  } = this.props;
+
     console.log('this.props', this.props)
     return (<div>
-      <Navbar isAuthenticated={isAuthenticated}
-        errorMessage={errorMessage}
-        dispatch={dispatch} />
+      <Navbar isAuthenticated={this.props.isAuthenticated}
+        logoutUser={this.props.logoutUser}
+        loginUser={this.props.loginUser}
+        signupUser={this.props.signupUser}
+        doAuthentication={this.props.doAuthentication}
+        errorMessage={this.props.errorMessage}/>
     </div>)
   }
 }
@@ -35,7 +38,10 @@ const mapDispatchToProps = (dispatch) => { 
   } 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(auth);
+
+auth = connect(mapStateToProps, mapDispatchToProps)(auth);
+
+export default auth;
 
 // Auth_c.propTypes = {
 //   dispatch: PropTypes.func.isRequired,

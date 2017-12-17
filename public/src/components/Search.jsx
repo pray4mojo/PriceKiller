@@ -29,8 +29,11 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-let Search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decrementResultsPage }) => (
-    <div>
+let Search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decrementResultsPage }) => {
+  let items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
+  if (items[0].sellingStatus) {
+    return (
+      <div className="card">
       <form id="search" onSubmit={(event) => {onSearch(event)}}>
         <input type="text" id="searchInput" />
         <input type="submit" value="Submit Search" />
@@ -41,10 +44,26 @@ let Search = ({ searchResults, searchQuery, onSearch, incrementResultsPage, decr
           return <EbayItem key={index} item={item} />
         })}
       </ul>
-      <button id="decrementResultsPage" onClick={decrementResultsPage}>Previous Page</button>
-      <button id="incrementResultsPage" onClick={incrementResultsPage}>Next Page</button>
+      <nav className="pagination columns is-mobile is-centered" role="navigation" aria-label="pagination">
+      <button className="pagination is-previous column is-half fa fa-arrow-circle-left is-medium is-info " id="decrementResultsPage" onClick={decrementResultsPage}></button>
+      <button className="pagination is-next is-info column is-half fa fa-arrow-circle-right is-medium is-info " id="incrementResultsPage" onClick={incrementResultsPage}></button>
+      </nav>
     </div>
-)
+    )
+  } else {
+    return (<div>
+      <form id="search" onSubmit={(event) => {onSearch(event)}}>
+        <input type="text" id="searchInput" />
+        <input type="submit" value="Submit Search" />
+      </form>
+      <ul>
+        {items.map((item, index) => {
+          return <EbayItem key={index} item={item} />
+        })}
+      </ul>
+    </div>)
+  }
+}
 
 Search = connect(mapStateToProps, mapDispatchToProps)(Search);
 
