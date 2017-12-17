@@ -1,4 +1,6 @@
 import React from 'react';
+import FavoriteItem from './FavoriteItem.jsx';
+import NewFavoriteItem from './NewFavoriteItem.jsx';
 import { connect } from 'react-redux';
 import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
 import { deleteFavorite, deleteNewFavorite, postNewFavorites } from '../actions/favorites_a.jsx';
@@ -31,57 +33,69 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+const style = {
+  cardContent: {
+    paddingLeft: '0',
+    paddingTop: '0.5rem',
+    paddingBottom: '0.5rem'
+  },
+  card: {
+    color: '#87A3BB',
+    backgroundColor: '#22282F'
+  }
+}
+
 let Favorites = (props) => {
   let favoritesList;
   let newFavoritesList;
   let favoritesTitle;
   if (props.favorites) {
     if (props.favorites.length === 0) {
-      favoritesTitle = 'No Favorites';
+      favoritesList = (
+        <div className="card" style={style.card}>
+          <header className="card-header">
+            No Favorites
+          </header>
+        </div>)
     } else {
-      favoritesTitle = 'Favorites: ';
+      favoritesList = (
+        <div className="card" style={style.card}>
+          <header className="card-header">
+            Favorites
+          </header>
+          <div className="card-content" style={style.cardContent}>
+            {props.favorites.map((favorite, key) => {
+              return (<FavoriteItem key={key} index={key} favorite={favorite} username={props.username} removeFavorite={props.removeFavorite} />)
+            })}
+          </div>
+        </div>
+      );
     }
-    favoritesList = (
-      <div>
-        <h3>{favoritesTitle}</h3>
-        <ul>
-          {props.favorites.map((favorite, key) => {
-            return (
-              <li
-                key={key}
-                id="favorite"
-              >
-                {favorite.searchQuery}
-                <button
-                  onClick={() => props.removeFavorite(favorite, props.username)}
-                >
-                  Remove
-                </button>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-    );
   }
   if (props.newFavorites.length !== 0) {
     newFavoritesList = (
-      <div>
-        <h3>New Favorites:</h3>
-        <ul id="newFavorites">
-        {props.newFavorites.map((favorite, key) => {
-          return (
-            <li key={key} id="newFavorite">{favorite.searchQuery}<button onClick={() => {props.removeNewFavorite(key)}}>Remove</button></li>
-          )
-        })}
-        </ul>
-        <button id="saveNewFavorites" onClick={() => props.saveNewFavorites(props.favorites, props.newFavorites, props.username)}>Store New Favorites</button>
+      <div className="card" style={style.card}>
+        <header className="card-header">
+          New Favorites
+        </header>
+        <div className="card-content" style={style.cardContent}>
+          {props.newFavorites.map((favorite, key) => {
+            return (<NewFavoriteItem favorite={favorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
+          })}
+        </div>
+        <a
+          id="saveNewFavorites"
+          className="button is-info is-small is-one-fifth"
+          onClick={() => props.saveNewFavorites(props.favorites, props.newFavorites, props.username)}
+        >
+          Store New Favorite(s)
+        </a>
       </div>
     );
   }
 
   return(
-    <div>
+    <div >
       {favoritesList}
       {newFavoritesList}
     </div>

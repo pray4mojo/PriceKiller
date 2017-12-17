@@ -22,6 +22,8 @@ const mapDispatchToProps = (dispatch) => {
 
 let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
   const groupData = (priceData) => {
+    console.log('==========================================================');
+    console.log(priceData.length);
     let goodPriceData = [];
     let greatPriceData = [];
     priceData.forEach((cronJob) => {
@@ -35,22 +37,6 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       });
     });
 
-    // const mapPriceData = (priceData) => {
-    //   return priceData.map((item) => {
-    //     return {
-    //       t: new Date(item.listingInfo[0].endTime[0]),
-    //       y: Number(item.sellingStatus[0].convertedCurrentPrice[0].__value__)
-    //     }
-    //   });
-    // }
-    // let goodConditionData = mapPriceData(priceData.filter((item) => {
-    //   let condition = Number(item.condition[0].conditionId)
-    //   return condition < 7000 && condition >= 3000
-    // }));
-    // let greatConditionData = mapPriceData(priceData.filter((item) => {
-    //   let condition = Number(item.condition[0].conditionId)
-    //   return condition < 3000
-    // }));
     return [goodPriceData, greatPriceData]
   }
 
@@ -64,17 +50,17 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
         label: 'Good condition',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: '#DC1313',
-        borderColor: '#DC1313',
+        backgroundColor: '#87A3BB',
+        borderColor: '#87A3BB',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: '#DC1313',
+        pointBorderColor: '#87A3BB',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: '#DC1313',
+        pointHoverBackgroundColor: '#87A3BB',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
@@ -85,17 +71,17 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
         label: 'Great condition',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: '#0DA50D',
-        borderColor: '#0DA50D',
+        backgroundColor: '#929281',
+        borderColor: '#929281',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: '#0DA50D',
+        pointBorderColor: '#929281',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: '#0DA50D',
+        pointHoverBackgroundColor: '#929281',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
@@ -109,29 +95,81 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       yAxes: [{
         ticks: {
           beginAtZero: true,
+        },
+        scaleLabel: {
+          display: true,
+          labelString: '$'
         }
       }],
       xAxes: [{
         type: 'time'
       }]
+    },
+    legend: {
+      position: 'bottom'
     }
   };
+
+  const style = {
+    cardContent: {
+      paddingLeft: '0',
+      paddingTop: '0.5rem',
+      paddingBottom: '0.5rem'
+    },
+    card: {
+      color: '#87A3BB',
+      backgroundColor: '#22282F'
+    },
+    header: {
+      color: '#87A3BB'
+    },
+    select: {
+      color: '#22282F',
+      backgroundColor: '#87A3BB'
+    },
+  }
+
   let chart;
   if (priceHistoryData.length === 1) {
     chart = '';
   } else {
-    chart = <Line data={data} options={options} />;
+    chart = <Line data={data} options={options} style={style.select} />;
   }
+
+  let chartTitle = 'Price History';
   let favoritesSelector = (
-    <select onChange={(event) => setChartData(event)}>
-      <option value="" defaultValue disabled hidden>Choose Favorite</option>
-      {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
-    </select>
+    <div className="field">
+      <div className="control">
+        <div className="select">
+          <select defaultValue="Choose a Product" style={style.select} onChange={(event) => setChartData(event)}>
+            <option value="Choose Favorite" disabled >Choose Favorite</option>
+            {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
+          </select>
+        </div>
+      </div>
+    </div>
   )
+  if (favorites.length === 0) {
+    favoritesSelector = '';
+    chartTitle = '';
+  }
+
+
   return (
-    <div>
-      {favoritesSelector}
-      {chart}
+    <div className="card" style={style.card}>
+      <header className="card-header">
+        <p className="card-header-title" style={style.header}>
+          {chartTitle}
+        </p>
+      </header>
+      <div className="card-content" style={style.cardContent}>
+        <div className="content">
+          {favoritesSelector}
+        </div>
+        <div className="content" style={style.cardContent}>
+          {chart}
+        </div>
+      </div>
     </div>
   )
 }
