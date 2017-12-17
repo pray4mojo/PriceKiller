@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { login, loginUser, doAuthentication } from '../actions/auth_a.jsx';
+import { login, loginUser, logoutUser, signupUser, doAuthentication } from '../actions/auth_a.jsx';
 import Navbar from '../components/Navbar.jsx';
 
 
@@ -24,7 +24,18 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(auth);
+const mapDispatchToProps = (dispatch) => { 
+  console.log('dispatch in container', dispatch); 
+  return { 
+    doAuthentication: () => {dispatch(doAuthentication())}, 
+    login: () => {dispatch(login())}, 
+    loginUser: () => {dispatch(loginUser())}, 
+    logoutUser: () => {dispatch(logoutUser())}, 
+    signupUser: () => {dispatch(signupUser())} 
+  } 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(auth);
 
 // Auth_c.propTypes = {
 //   dispatch: PropTypes.func.isRequired,

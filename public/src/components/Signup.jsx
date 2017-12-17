@@ -12,12 +12,35 @@ class Signup extends Component {
 
   render() {
     const { errorMessage } = this.props;
-    return (<div>
-      <input type="text" ref="username" className="form-control" placeholder="Username" />
-      <input type="text" ref="password" className="form-control" placeholder="Password" />
-      <button onClick={(event) => this.handleClick(event)} className="btn btn-primary">Signup</button>
-      {errorMessage && <p>{errorMessage}</p>}
-    </div>)
+    return (
+      <div className="card">
+        <div className="card-content">
+          <header className="card-header">
+          <p className="card-header-title">
+            Signup
+          </p>
+          </header>
+          <div className="field">
+            <label className="label">Username</label>
+            <div className="control">
+              <input type="text" className="input" placeholder="Enter Username"/>
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <div className="control">
+              <input type="text" className="input" placeholder="Enter Password"/>
+            </div>
+          </div>
+          <div className="field is-grouped is-grouped-right">
+            <p className="control">
+              <button class="button is-info" onClick={(event) => this.handleClick(event)}>Signup</button>
+              {errorMessage && <p>{errorMessage}</p>}
+            </p>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
