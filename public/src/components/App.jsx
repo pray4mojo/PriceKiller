@@ -1,5 +1,4 @@
 import React from 'react';
-import Search from '../components/Search.jsx';
 import Chart from '../components/Chart.jsx';
 import AuthContainer from '../containers/auth_c.jsx';
 import Favorites from '../components/Favorites.jsx';
@@ -13,9 +12,6 @@ class App extends React.Component {
     return (
       <div className="section">
         <AuthContainer />
-        <Search />
-        <Favorites />
-        <Chart />
       </div>
       )
   }

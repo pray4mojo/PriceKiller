@@ -1,7 +1,11 @@
 import React, { Component, PropTypes} from 'react';
+import App from './App.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
+import Search from './Search.jsx';
+import Favorites from './Favorites.jsx'
+
 import { Route, Link } from 'react-router-dom';
 
 class Navbar extends Component {
@@ -13,13 +17,13 @@ class Navbar extends Component {
   }
 
   onLogoutClick() {
-    dispatch(logoutUser())
+    this.props.logoutUser();
+    console.log('logout');
   }
 
   render() {
-    const { dispatch, isAuthenticated, errorMessage } = this.props;
     // console.log('props in navbar.jsx', this.props);
-    return(
+    return(<div>
       <nav className="navbar is-transparent">
         <div className="navbar-brand">
           <a className="navbar-item" href="https://bulma.io">
@@ -43,12 +47,8 @@ class Navbar extends Component {
                 <li><Link to="/signout">Signout</Link></li>
               </ul>
 
-              <hr/>
-              <Route path="/signout" component={<button onClick={() => onLogoutClick()} className="button is-light">Logout</button>}/>
+
             </div>
-
-
-
 
 
             <a className="navbar-item" href="/">
@@ -59,9 +59,15 @@ class Navbar extends Component {
                 Navigation
               </a>
               <div className="navbar-dropdown is-boxed">
-                <a className="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                <Link className="navbar-item" to="/search">
+                  Search
+                </Link>
+                <Link className="navbar-item" to="/favorites">
                   Favorites
-                </a>
+                </Link>
+                <Link className="navbar-item" to="/chart">
+                  Chart
+                </Link>
                 <a className="navbar-item" href="https://bulma.io/documentation/layout/container/">
                   Getting Started
                 </a>
@@ -73,9 +79,6 @@ class Navbar extends Component {
                   Preferences
                 </a>
 
-                <a className="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-                  Sign Out
-                </a>
 
 
               </div>
@@ -83,9 +86,14 @@ class Navbar extends Component {
           </div>
         </div>
       </nav>
-    )
+
+      <hr/>
+
+
+    </div>)
   }
 }
+
 
 // Navbar.propTypes = {
 //   dispatch: PropTypes.func.isRequired,
