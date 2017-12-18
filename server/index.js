@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
 const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
 const session = require('express-session');
 
@@ -34,18 +32,21 @@ require('dotenv').config();
 
 const app = express();
 
+if (process.env.DEVELOPMENT) {
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    noInfo: true,
+    hot: true,
+    historyApiFallback: true,
+    stats: {
+      colors: true
+    }
+  }));
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  noInfo: true,
-  hot: true,
-  historyApiFallback: true,
-  stats: {
-    colors: true
-  }
-}));
-
-app.use(webpackHotMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler));
+}
 app.use(session({secret:"killersecret", resave:false, saveUninitialized:true}))
 
 app.set('port', (process.env.PORT || 1111));
