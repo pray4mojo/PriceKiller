@@ -20,6 +20,9 @@ const searchResults = (
       if (nextPage < 0 || nextPage > Math.floor(state.items.length / 10) - 1) {
         nextPage = state.resultsPage;
       }
+      if (action.resultsPage === 0) {
+        nextPage = 0;
+      }
       return Object.assign({}, state, { resultsPage: nextPage })
     default:
       return state;
