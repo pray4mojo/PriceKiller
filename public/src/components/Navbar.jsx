@@ -109,11 +109,6 @@ class Navbar extends Component {
               <ul>
                 <li><button onClick={() => {auth.logout(); window.location.reload(); self.kickout()}}>Signout</button></li>
               </ul>
-
-
-            </div>
-
-
             <a className="navbar-item" href="/">
               Home
             </a>
