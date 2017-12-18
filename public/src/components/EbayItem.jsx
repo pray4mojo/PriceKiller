@@ -11,16 +11,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToFavorites: (e,item) => {
-      $(e.target).removeClass('has-text-black');
-      $(e.target).addClass('has-text-warning');
-      dispatch(addNewFavorite(item));
+    toggleNewFavorite: (e, item, isFavorited) => {
+      if (!isFavorited) {
+        $(e.target).removeClass('has-text-black');
+        $(e.target).addClass('has-text-warning');
+        dispatch(addNewFavorite(item));
+      }
     },
   }
 }
 
-let EbayItem = ({ item, addToFavorites }) => {
-  let favoriteButton = <a className="btn has-text-black" onClick={(e) => addToFavorites(e, item)}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
+let EbayItem = ({ item, index, toggleNewFavorite }) => {
+  let isFavorited = false;
+  let favoriteButton = <a className="btn has-text-black" onClick={(e) => {toggleNewFavorite(e, item, isFavorited); isFavorited = true}}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
   if (item.title === 'Submit a search query to see what Ebay has available!') {
     favoriteButton = '';
   }
