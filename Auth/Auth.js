@@ -66,4 +66,6 @@ export default class Auth {
   }
 }
 
+module.exports.lock = lock;
+
 module.exports.Lock = lock;

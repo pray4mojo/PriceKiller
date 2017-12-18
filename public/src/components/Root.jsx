@@ -6,6 +6,7 @@ import App from './App.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites.jsx';
 import Chart from './Chart.jsx';
+import Login from './Login.jsx';
 
 const Root = ({store}) => (
   <Provider store={store}>
@@ -13,6 +14,7 @@ const Root = ({store}) => (
       <div><Route path="/" component={App}/>
       <Route path="/signout" render={() => <button onClick={() => this.onLogoutClick()} className="button is-light">Logout</button>}/>
       <Route path="/search" component={Search}/>
+      <Route path="/login" component={Login}/>
       <Route path="/favorites" component={Favorites} />
       <Route path="/chart" component={Chart} /></div>
     </Router>

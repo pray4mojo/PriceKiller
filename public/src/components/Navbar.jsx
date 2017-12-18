@@ -6,13 +6,29 @@ import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites.jsx';
 import Auth0 from "auth0-lock";
+import Auth from "../../../Auth/Auth.js";
+import axios from 'axios';
+const Lock = require('../../../Auth/Auth.js').lock;
 
 import { Route, Link } from 'react-router-dom';
+const auth = new Auth;
 
 class Navbar extends Component {
 
+  // componentWillMount() {
+  //   if (auth.isAuthenticated()) {
+  //     let localProfile = JSON.parse(localStorage.getItem('profile'));
+  //     let user = {};
+  //     user.username = localProfile.nickname;
+  //     user.googleId = localProfile.email;
+  //     console.log('user-->', user);
+  //   }
+  // }
+
   componentDidMount() {
-    this.props.auth.handleAuthentication();
+
+
+    auth.handleAuthentication();
     Lock.on('authenticated', function(authResult) {
      console.log('Result of authentication', authResult);
 
@@ -21,7 +37,7 @@ class Navbar extends Component {
      Lock.getUserInfo(authResult.accessToken, function(error, profile) {
        console.log("error", error, "profile", profile);
 
-       axios.post('http://localhost:1111/api/signup', profile)
+       axios.post('http://localhost:1111/api/auth/signup', profile)
        .then(function(sucess) {
          console.log("user data", sucess);
          window.location.reload();
@@ -37,7 +53,15 @@ class Navbar extends Component {
      console.log('authorization_error', error);
    });
 
-   Lock.show();
+    if (auth.isAuthenticated()) {
+      let localProfile = JSON.parse(localStorage.getItem('profile'));
+      let user = {};
+      user.username = localProfile.nickname;
+      user.googleId = localProfile.email;
+      console.log('user-->', user);
+    } else {
+      Lock.show();
+    }
   }
 
   activateMenu(e) {

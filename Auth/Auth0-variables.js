@@ -11,7 +11,7 @@ export const AUTH_CONFIG = {
       primaryColor: '#3A99D8',
       socialButtonStyle: 'small'
     },
-    allowedConnections: ['google'],
+    allowedConnections: ['google-oauth2'],
     allowLogin: true,
     loginAfterSignUp: true,
     closable: true,
