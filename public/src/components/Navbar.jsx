@@ -12,7 +12,7 @@ class Navbar extends Component {
 
   componentDidMount() {}
 
-  activateBurger(e) {
+  activateMenu(e) {
     $('.navbar-menu').toggleClass('is-active')
   }
 
@@ -32,7 +32,7 @@ class Navbar extends Component {
           <button
             className="button navbar-burger"
             data-target="navbarExampleTransparentExample"
-            onClick={(e) => {this.activateBurger(e)}}
+            onClick={(e) => {this.activateMenu(e)}}
           >
             <span></span>
             <span></span>
@@ -59,23 +59,47 @@ class Navbar extends Component {
                 Navigation
               </a>
               <div className="navbar-dropdown is-boxed">
-                <Link className="navbar-item" to="/search">
+                <Link
+                  className="navbar-item"
+                  to="/search"
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Search
                 </Link>
-                <Link className="navbar-item" to="/favorites">
+                <Link
+                  className="navbar-item"
+                  to="/favorites"
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Favorites
                 </Link>
-                <Link className="navbar-item" to="/chart">
+                <Link
+                  className="navbar-item"
+                  to="/chart"
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Chart
                 </Link>
-                <a className="navbar-item" href="https://bulma.io/documentation/layout/container/">
+                <a
+                  className="navbar-item"
+                  href=""
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Getting Started
                 </a>
-                <a className="navbar-item" href="https://bulma.io/documentation/form/general/">
+                <a
+                  className="navbar-item"
+                  href=""
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Who We Are
                 </a>
                 <hr className="navbar-divider"/>
-                <a className="navbar-item" href="https://bulma.io/documentation/elements/box/">
+                <a
+                  className="navbar-item"
+                  href=""
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Preferences
                 </a>
 
