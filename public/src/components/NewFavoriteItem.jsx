@@ -14,7 +14,7 @@ const NewFavoriteItem = ({ favorite, removeNewFavorite, index }) => (
       </div>
       <div className="column is-one-fifth">
         <a
-          onClick={() => removeNewFavorite(key)}
+          onClick={() => removeNewFavorite(index)}
           className="button is-danger is-small"
         >
           Remove
