@@ -4,8 +4,8 @@ const APP_DIR = path.resolve(__dirname, 'public/src');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client?reload=true', `${APP_DIR}/index.js`],
-  devtool: 'inline-source-map',
+  entry: `${APP_DIR}/index.js`,
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true
   },
