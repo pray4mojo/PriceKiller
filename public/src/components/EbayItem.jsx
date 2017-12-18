@@ -11,14 +11,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToFavorites: (item) => {
+    addToFavorites: (e,item) => {
+      $(e.target).removeClass('has-text-black');
+      $(e.target).addClass('has-text-warning');
       dispatch(addNewFavorite(item));
     },
   }
 }
 
+// const makeStarGold = (e) => {
+// }
+
 let EbayItem = ({ item, addToFavorites }) => {
-  let favoriteButton = <a className="btn has-text-warning"><i className="fa fa-star is-warning fa-lg" aria-hidden="true" onClick={() => addToFavorites(item)}></i></a>;
+  let favoriteButton = <a className="btn has-text-black" onClick={(e) => addToFavorites(e, item)}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
   if (item.title === 'Submit a search query to see what Ebay has available!') {
     favoriteButton = '';
   }
