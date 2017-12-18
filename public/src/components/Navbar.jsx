@@ -4,13 +4,41 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
 import Search from './Search.jsx';
-import Favorites from './Favorites.jsx'
+import Favorites from './Favorites.jsx';
+import Auth0 from "auth0-lock";
 
 import { Route, Link } from 'react-router-dom';
 
 class Navbar extends Component {
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.auth.handleAuthentication();
+    Lock.on('authenticated', function(authResult) {
+     console.log('Result of authentication', authResult);
+
+     if (!authResult.accessToken) return;
+
+     Lock.getUserInfo(authResult.accessToken, function(error, profile) {
+       console.log("error", error, "profile", profile);
+
+       axios.post('http://localhost:1111/api/signup', profile)
+       .then(function(sucess) {
+         console.log("user data", sucess);
+         window.location.reload();
+       })
+       .catch(function(error) {
+         console.log(error);
+       })
+     });
+
+   });
+
+   Lock.on('authorization_error', function(error) {
+     console.log('authorization_error', error);
+   });
+
+   Lock.show();
+  }
 
   activateMenu(e) {
     $('.navbar-menu').toggleClass('is-active')
