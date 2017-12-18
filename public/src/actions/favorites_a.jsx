@@ -7,13 +7,13 @@ export function setFavorites(favorites) {
 }
 
 export const DELETE_NEW_FAVORITE = 'DELETE_NEW_FAVORITE';
-export function deleteNewFavorite(index) {
-  return { type: DELETE_NEW_FAVORITE, index }
+export function deleteNewFavorite(newFavorite) {
+  return { type: DELETE_NEW_FAVORITE, newFavorite }
 }
 
 export const ADD_NEW_FAVORITE = 'ADD_NEW_FAVORITE';
-export function addNewFavorite(favorite) {
-  return { type: ADD_NEW_FAVORITE, favorite }
+export function addNewFavorite(newFavorite) {
+  return { type: ADD_NEW_FAVORITE, newFavorite }
 }
 
 export function deleteFavorite(favorite, username) {

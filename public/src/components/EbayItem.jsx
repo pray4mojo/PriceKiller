@@ -1,29 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNewFavorite } from '../actions/favorites_a.jsx';
+import { deleteNewFavorite, addNewFavorite } from '../actions/favorites_a.jsx';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     item: ownProps.item,
-    index: ownProps.index
+    index: ownProps.index,
+    isFavorited: state.favorites.isFavorited
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleNewFavorite: (e, item, isFavorited) => {
-      if (!isFavorited) {
+      if (!isFavorited[item.itemId[0]]) {
         $(e.target).removeClass('has-text-black');
         $(e.target).addClass('has-text-warning');
         dispatch(addNewFavorite(item));
+      } else {
+        $(e.target).removeClass('has-text-warning');
+        $(e.target).addClass('has-text-black');
+        dispatch(deleteNewFavorite(item));
       }
     },
   }
 }
 
-let EbayItem = ({ item, index, toggleNewFavorite }) => {
-  let isFavorited = false;
-  let favoriteButton = <a className="btn has-text-black" onClick={(e) => {toggleNewFavorite(e, item, isFavorited); isFavorited = true}}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
+let EbayItem = ({ item, index, isFavorited, toggleNewFavorite }) => {
+  let starClass = '';
+  if (item.itemId) {
+    starClass = isFavorited[item.itemId[0]] ? 'btn has-text-warning' : 'btn has-text-black';
+  }
+  let favoriteButton = <a className={starClass} onClick={(e) => toggleNewFavorite(e, item, isFavorited)}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
   if (item.title === 'Submit a search query to see what Ebay has available!') {
     favoriteButton = '';
   }
@@ -33,7 +41,7 @@ let EbayItem = ({ item, index, toggleNewFavorite }) => {
     return (
       <li className="columns is-mobile is-centered">
         <div className="column is-one-quarters">
-          <img className="image is-128x128" src={image} />
+          <a href={item.viewItemURL[0]}><img className="image is-128x128" src={image} /></a>
         </div>
         <div className="column is-two-quarters">
           {item.title}

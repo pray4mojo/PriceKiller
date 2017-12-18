@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteFavorite(favorite, username));
     },
 
-    removeNewFavorite: (index) => {
-      dispatch(deleteNewFavorite(index));
+    removeNewFavorite: (newFavorite) => {
+      dispatch(deleteNewFavorite(newFavorite));
     },
 
     saveNewFavorites: (favorites, newFavorites, username) => {
@@ -79,8 +79,8 @@ let Favorites = (props) => {
           New Favorites
         </header>
         <div className="card-content" style={style.cardContent}>
-          {props.newFavorites.map((favorite, key) => {
-            return (<NewFavoriteItem favorite={favorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
+          {props.newFavorites.map((newFavorite, key) => {
+            return (<NewFavoriteItem newFavorite={newFavorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
           })}
         </div>
         <a
