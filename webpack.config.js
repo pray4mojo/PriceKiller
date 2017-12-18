@@ -67,10 +67,10 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
-    // new webpack.NoErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
 };
 
