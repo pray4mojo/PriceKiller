@@ -19,9 +19,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-// const makeStarGold = (e) => {
-// }
-
 let EbayItem = ({ item, addToFavorites }) => {
   let favoriteButton = <a className="btn has-text-black" onClick={(e) => addToFavorites(e, item)}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
   if (item.title === 'Submit a search query to see what Ebay has available!') {
