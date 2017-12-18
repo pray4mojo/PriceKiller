@@ -1,12 +1,20 @@
-import { createStore } from 'redux';
-import reduceLight from './reducers/main.js';
+import { createStore, applyMiddleware, compose } from 'redux';
+import mainReducer from './reducers/main_r.js';
 import { devToolsEnhancer } from 'redux-devtools-extension';
-
-const store = createStore(reduceLight, {names: ['Yeezus', 'brian', 'luke']}, devToolsEnhancer());
-store.subscribe(() => {
-  console.log('store change: ', store.getState())
-});
-console.log('process.env.NODE_ENV: ', process.env.NODE_ENV);
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 
 
-export default store;
+const store = createStore(
+  mainReducer,
+  compose(
+    applyMiddleware(
+      createLogger(),
+      thunkMiddleware
+    ),
+    devToolsEnhancer()
+  )
+)
+
+
+module.exports.store = store;
