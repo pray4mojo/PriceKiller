@@ -40,6 +40,12 @@ const style = {
     paddingBottom: '0.5rem'
   },
   card: {
+
+  }
+}
+
+const nightStyle = {
+  card: {
     color: '#87A3BB',
     backgroundColor: '#22282F'
   }
@@ -54,7 +60,7 @@ let Favorites = (props) => {
       favoritesList = (
         <div className="card" style={style.card}>
           <header className="card-header">
-            No Favorites
+            No Stored Favorites
           </header>
         </div>)
     } else {
