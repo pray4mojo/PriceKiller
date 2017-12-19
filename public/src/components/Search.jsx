@@ -39,7 +39,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-
 let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, incrementResultsPage, decrementResultsPage }) => {
   let items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
   if (items[0].sellingStatus) {
@@ -65,9 +64,9 @@ let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, increment
           })}
         </ul>
       </div>
-      <nav className="pagination columns is-mobile is-centered" role="navigation" aria-label="pagination">
-      <button className="pagination is-previous column is-half fa fa-arrow-circle-left is-medium is-info " id="decrementResultsPage" onClick={decrementResultsPage}></button>
-      <button className="pagination is-next is-info column is-half fa fa-arrow-circle-right is-medium is-info " id="incrementResultsPage" onClick={incrementResultsPage}></button>
+      <nav className="pagination is-centered is-gapless" role="navigation" aria-label="pagination">
+      <a className="button pagination-previous fa fa-arrow-circle-left is-info " id="decrementResultsPage" onClick={decrementResultsPage}></a>
+      <a className="button pagination-next fa fa-arrow-circle-right is-info " id="incrementResultsPage" onClick={incrementResultsPage}></a>
       </nav>
     </div>
     )
