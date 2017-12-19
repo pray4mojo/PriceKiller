@@ -14,8 +14,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSearch: (event) => {
       const searchQuery = $('#searchQuery').val();
-      dispatch(submitSearch(searchQuery));
-      event.target.childNodes[0].value = '';
+      console.log('searchQuery: ',searchQuery);
+      if (searchQuery.length < 4) {
+        alert('Search field must be at least four characters long');
+      } else {
+        dispatch(submitSearch(searchQuery));
+        event.target.childNodes[0].value = '';
+      }
       event.preventDefault();
     },
 
@@ -23,7 +28,11 @@ const mapDispatchToProps = (dispatch) => {
       const code = (event.keyCode ? event.keyCode : event.which);
       if (code == 13) {
         const searchQuery = $('#searchQuery').val();
-        dispatch(submitSearch(searchQuery));
+        if (searchQuery.length < 4) {
+          alert('Search field must be at least four characters long');
+        } else {
+          dispatch(submitSearch(searchQuery));
+        }
       }
     },
 
@@ -44,7 +53,6 @@ let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, increment
   if (items[0].sellingStatus) {
     return (
       <div className="card">
-
         <div className="field has-addons columns is-mobile is-gapless">
           <div className="control column">
             <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
@@ -72,10 +80,14 @@ let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, increment
     )
   } else {
     return (<div>
-      <form id="search" onSubmit={(event) => {onSearch(event)}}>
-        <input type="text" id="searchInput" />
-        <input type="submit" value="Submit Search" />
-      </form>
+      <div className="control column">
+        <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
+      </div>
+      <div className="control column is-narrow">
+        <a className="button is-info" onClick={(event) => {onSearch(event)}}>
+          Search
+        </a>
+      </div>
       <ul>
         {items.map((item, index) => {
           return <EbayItem key={index} item={item} />
