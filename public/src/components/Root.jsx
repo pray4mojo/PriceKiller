@@ -12,9 +12,9 @@ import {Redirect} from 'react-router-dom';
 import Auth from "../../../Auth/Auth.js";
 import history from "../../../Auth/history.js";
 
-
 const auth = new Auth;
 console.log('auth-->', auth);
+console.log('history =======>', history);
 
 const Root = ({store}) => (
   <Provider store={store}>
