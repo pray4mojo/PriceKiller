@@ -5,8 +5,6 @@ import Auth0Lock from 'auth0-lock';
 
 const lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, AUTH_CONFIG.options);
 
-
-
 export default class Auth {
   constructor() {
     // this.handleAuthentication();

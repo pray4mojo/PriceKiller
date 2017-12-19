@@ -33,13 +33,13 @@ router.post('/signup', (req, res, next) => {
       // createSession(req, res, req.body.username);
       // req.session.regenerate((err) => {
         // if (err) throw err;
-        db.saveNewUser(req.body, () => {res.send(req.body)})
+        db.saveNewUser(req.body, (err, user) => {res.send(user)})
 
       // })
       // res.status(200).send('server received users post req', req.body.username);
     } else {
       //if it does, send message
-      res.send('username exists');
+      res.send(user);
     }
   })
 });

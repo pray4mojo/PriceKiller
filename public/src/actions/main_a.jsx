@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export const REQUEST_RESULTS = 'REQUEST_RESULTS';
 export function requestResults(searchQuery) {
   return { type: REQUEST_RESULTS, searchQuery }
@@ -14,6 +13,17 @@ export function resultsReturned(searchResults) {
 export const SET_RESULTS_PAGE = 'SET_RESULTS_PAGE';
 export function setResultsPage(resultsPage) {
   return { type: SET_RESULTS_PAGE, resultsPage }
+}
+
+export const SET_USER_STATE = 'SET_USER_STATE';
+export function setUserState(user) {
+  console.log('USER BEING SET!')
+  return { type: SET_USER_STATE, user }
+}
+
+export const USER_LOGOUT = 'USER_LOGOUT';
+export function userLogout() {
+  return { type: USER_LOGOUT }
 }
 
 export function submitSearch(searchQuery) {
