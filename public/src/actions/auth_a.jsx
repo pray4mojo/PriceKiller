@@ -154,7 +154,7 @@ const lock = new Auth0Lock('FTYdG4IJsEBoitw1MRvFqxcd94F150Oq', 'pricekiller.auth
   language: 'en',
   theme: {}
   });
-  */
+
 
 export function login() {
   return dispatch => {

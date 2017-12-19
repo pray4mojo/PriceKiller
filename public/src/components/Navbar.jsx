@@ -4,13 +4,73 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
 import Search from './Search.jsx';
-import Favorites from './Favorites.jsx'
+import Favorites from './Favorites.jsx';
+import Auth0 from "auth0-lock";
+import Auth from "../../../Auth/Auth.js";
+import axios from 'axios';
+import Redirect from 'react-router-dom';
+const Lock = require('../../../Auth/Auth.js').lock;
 
 import { Route, Link } from 'react-router-dom';
+const auth = new Auth;
 
 class Navbar extends Component {
 
-  componentDidMount() {}
+  // componentWillMount() {
+  //   if (auth.isAuthenticated()) {
+  //     let localProfile = JSON.parse(localStorage.getItem('profile'));
+  //     let user = {};
+  //     user.username = localProfile.nickname;
+  //     user.googleId = localProfile.email;
+  //     console.log('user-->', user);
+  //   }
+  // }
+  // kickout() {
+  //   if (!auth.isAuthenticated()) {
+  //     console.log('kicked out');
+  //     // debugger;
+  //     return <Redirect to="/" />;
+  //   }
+  // }
+
+  componentDidMount() {
+
+
+    auth.handleAuthentication();
+    Lock.on('authenticated', function(authResult) {
+     console.log('Result of authentication', authResult);
+
+     if (!authResult.accessToken) return;
+
+     Lock.getUserInfo(authResult.accessToken, function(error, profile) {
+       console.log("error", error, "profile", profile);
+
+       axios.post('http://localhost:1111/api/auth/signup', profile)
+       .then(function(sucess) {
+         console.log("user data", sucess);
+         window.location.reload();
+       })
+       .catch(function(error) {
+         console.log(error);
+       })
+     });
+
+   });
+
+   Lock.on('authorization_error', function(error) {
+     console.log('authorization_error', error);
+   });
+
+    if (auth.isAuthenticated()) {
+      let localProfile = JSON.parse(localStorage.getItem('profile'));
+      let user = {};
+      user.username = localProfile.nickname;
+      user.googleId = localProfile.email;
+      console.log('user-->', user);
+    } else {
+      Lock.show();
+    }
+  }
 
   activateMenu(e) {
     $('.navbar-menu').toggleClass('is-active')
@@ -21,8 +81,13 @@ class Navbar extends Component {
     console.log('logout');
   }
 
+
+ // <li><Link to="/signout">{<button onClick={() => {(function(){auth.logout(); window.location.reload(); self.kickout()})}}>Signout</button>}</Link></li>
+
+
   render() {
     // console.log('props in navbar.jsx', this.props);
+    let self = this;
     return(<div>
       <nav className="navbar is-transparent">
         <div className="navbar-brand">
@@ -44,7 +109,7 @@ class Navbar extends Component {
           <div className="navbar-start">
             <div>
               <ul>
-                <li><Link to="/signout">Signout</Link></li>
+                <li><Link to="/signout">{<button onClick={() => {(function(){auth.logout(); window.location.reload(); self.kickout()})}}>Signout</button>}</Link></li>
               </ul>
 
 
