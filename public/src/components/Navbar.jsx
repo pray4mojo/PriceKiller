@@ -1,4 +1,7 @@
 import React, { Component, PropTypes} from 'react';
+import { connect } from 'react-redux';
+import { setUserState, userLogout } from '../actions/main_a.jsx';
+import { setFavorites } from '../actions/favorites_a.jsx';
 import App from './App.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
@@ -14,10 +17,28 @@ const Lock = require('../../../Auth/Auth.js').lock;
 import { Route, Link } from 'react-router-dom';
 const auth = new Auth;
 
+const mapStateToProps = (state) => {
+ return {userProfile: state.userProfile};
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserState: (user) => {
+      dispatch(setUserState(user))
+    },
+    userLogout: () => {
+      dispatch(userLogout())
+    },
+    setFavorites: (favorites) => {
+      dispatch(setFavorites(favorites))
+    }
+  }
+}
+
 class Navbar extends Component {
 
   componentWillMount() {
-     if (auth.isAuthenticated()) {
+    if (auth.isAuthenticated()) {
       let localProfile = JSON.parse(localStorage.getItem('profile'));
     } else {
       Lock.show();
@@ -25,6 +46,7 @@ class Navbar extends Component {
   }
 
   componentDidMount() {
+    let self = this;
     auth.handleAuthentication();
     Lock.on('authenticated', function(authResult) {
 
@@ -37,12 +59,15 @@ class Navbar extends Component {
         user.picture = profile.picture;
 
         axios.post('/api/auth/signup', user)
-          .then(function(success) {
-          window.location.reload();
+          .then(function(res) {
+          console.log(res, 'INSIDE LOCK GET USER INFO')
+          self.props.setUserState(res.data);
+          self.props.setFavorites(res.data.favorites);
+          // window.location.reload();
        })
-       .catch(function(error) {
-         console.log(error);
-       })
+        .catch(function(error) {
+          console.log(error);
+        })
       });
 
     });
@@ -143,5 +168,7 @@ class Navbar extends Component {
     )
   }
 }
+
+Navbar = connect(mapStateToProps, mapDispatchToProps)(Navbar);
 
 export default Navbar;
