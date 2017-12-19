@@ -16,6 +16,7 @@ const auth = new Auth;
 
 class Navbar extends Component {
 
+<<<<<<< HEAD
   // componentWillMount() {
   //   if (auth.isAuthenticated()) {
   //     let localProfile = JSON.parse(localStorage.getItem('profile'));
@@ -32,6 +33,11 @@ class Navbar extends Component {
   //     return <Redirect to="/" />;
   //   }
   // }
+=======
+  componentDidMount() {
+
+  }
+>>>>>>> up
 
   componentDidMount() {
     auth.handleAuthentication();
