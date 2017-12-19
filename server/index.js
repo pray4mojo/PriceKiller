@@ -47,6 +47,7 @@ if (process.env.DEVELOPMENT) {
 
   app.use(webpackHotMiddleware(compiler));
 }
+
 app.use(session({secret:"killersecret", resave:false, saveUninitialized:true}))
 
 app.set('port', (process.env.PORT || 1111));

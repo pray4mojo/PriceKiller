@@ -54,7 +54,7 @@ export default class Auth {
     localStorage.removeItem('idToken');
     localStorage.removeItem('profile');
     // navigate to the home route
-    history.push('/logedout');
+    history.push('/loggedout');
   }
 
   isAuthenticated() {
@@ -62,7 +62,7 @@ export default class Auth {
      // Check whether the current time is past the
      // access token's expiry time
      // Clear access token and ID token from local storage
-     return (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken'));
+     return (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken') && !!localStorage.getItem('profile'));
   }
 }
 
