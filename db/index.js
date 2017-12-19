@@ -26,10 +26,18 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   username: { type: String },
-  password: { type: String },
-  favorites: {type: Array,  "default" : []},//Save function must include: `user.markModified('favorites');`
-  googleId: { type: String },  //depends on OAuth
-  sessionID: { type: String }
+  favorites: { type: Array,  "default" : [] },//Save function must include: `user.markModified('favorites');`
+  email: { type: String },  //depends on OAuth
+  subscription: { type: Boolean },
+  picture: { type: String },
+  notifications: [
+    new Schema ({
+      searchQuery: { type: String },
+      categoryId: { type: Number },
+      thresholdLow: { type: Number },
+      thresholdHigh: { type: Number }
+    })
+  ]
 });
 //favoriteObject: {
 //   searchQuery: String,
@@ -55,6 +63,12 @@ const CronJobSchema = new Schema({
   priceHistory: [PriceHistoryObjectSchema] //Save function must include: `cronJob.markModified('priceHistory');`
 });
 
+const notificationSchema = new Schema({
+  searchQuery: { type: String },
+  categoryId: { type: Number },
+  threshold: { type: Number },
+  notificationsPref: { type: Boolean }
+})
 
 const ProductAuctionsSchema = new Schema({
   searchQuery: { type: String },
@@ -73,23 +87,20 @@ const PriceHistoryObject = mongoose.model('PriceHistoryObject', PriceHistoryObje
 const ProductAuctions = mongoose.model('ProductAuctions', ProductAuctionsSchema);
 
 const checkUser = (username, cb) => {
-  User.findOne({username: username}, (err, user) =>cb(err, user))
+  User.findOne({username: username}, (err, user) => cb(err, user))
 }
 
 const saveNewUser = (user, cb) => {
-  bcrypt.genSalt(5, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      console.log('after hash', user.sessionID)
-      // console.log('username', user.username)
-      let newUser = new User( {
-        username: user.username,
-        password: hash,
-        favorites: []
-      })
-      newUser.save(cb);
-      console.log('newuser', newUser);
-    })
+  let newUser = new User( {
+    username: user.username,
+    email: user.email,
+    picture: user.picture,
+    favorites: [],
+    subscription: true,
+    notifications: []
   })
+  newUser.save(cb);
+  console.log('newuser', newUser);
 }
 
 

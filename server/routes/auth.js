@@ -25,6 +25,7 @@ router.post('/signup', (req, res, next) => {
   console.log('user req', req.sessionID);
   // console.log('user res', res);
   //check if user exists
+  console.log('this is req.body', req.body);
   db.checkUser(req.body.username, (err, user) => {
     if (err) {console.log('Route signup find user error', err);}
     //if user doesn't exist, hash password, store it, send message
@@ -32,7 +33,7 @@ router.post('/signup', (req, res, next) => {
       // createSession(req, res, req.body.username);
       // req.session.regenerate((err) => {
         // if (err) throw err;
-        db.saveNewUser(req.body, () => {res.send(req.body.username)})
+        db.saveNewUser(req.body, () => {res.send(req.body)})
 
       // })
       // res.status(200).send('server received users post req', req.body.username);
@@ -44,7 +45,7 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.get('/signup', (req, res, next) => {
-  res.json('singup')
+  res.json('signup')
 });
 
 

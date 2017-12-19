@@ -16,36 +16,28 @@ const auth = new Auth;
 
 class Navbar extends Component {
 
-  // componentWillMount() {
-  //   if (auth.isAuthenticated()) {
-  //     let localProfile = JSON.parse(localStorage.getItem('profile'));
-  //     let user = {};
-  //     user.username = localProfile.nickname;
-  //     user.googleId = localProfile.email;
-  //     console.log('user-->', user);
-  //   }
-  // }
-  // kickout() {
-  //   if (!auth.isAuthenticated()) {
-  //     console.log('kicked out');
-  //     // debugger;
-  //     return <Redirect to="/" />;
-  //   }
-  // }
+  componentWillMount() {
+     if (auth.isAuthenticated()) {
+      let localProfile = JSON.parse(localStorage.getItem('profile'));
+    } else {
+      Lock.show();
+    }
+  }
 
   componentDidMount() {
     auth.handleAuthentication();
     Lock.on('authenticated', function(authResult) {
-      console.log('Result of authentication', authResult);
 
       if (!authResult.accessToken) return;
 
       Lock.getUserInfo(authResult.accessToken, function(error, profile) {
-        console.log("error", error, "profile", profile);
+        let user = {};
+        user.username = profile.nickname;
+        user.email = profile.email;
+        user.picture = profile.picture;
 
-        axios.post('http://localhost:1111/api/auth/signup', profile)
+        axios.post('/api/auth/signup', user)
           .then(function(success) {
-           console.log("user data", success);
           window.location.reload();
        })
        .catch(function(error) {
@@ -58,39 +50,19 @@ class Navbar extends Component {
     Lock.on('authorization_error', function(error) {
       console.log('authorization_error', error);
     });
-
-    if (auth.isAuthenticated()) {
-      let localProfile = JSON.parse(localStorage.getItem('profile'));
-      let user = {};
-      user.username = localProfile.nickname;
-      user.googleId = localProfile.email;
-      console.log('user-->', user);
-    } else {
-      Lock.show();
-    }
   }
 
   activateMenu(e) {
     $('.navbar-menu').toggleClass('is-active')
   }
 
-  onLogoutClick() {
-    this.props.logoutUser();
-    console.log('logout');
-  }
-
-
- // <li><Link to="/signout">{<button onClick={() => {(function(){auth.logout(); window.location.reload(); self.kickout()})}}>Signout</button>}</Link></li>
-
-
   render() {
-    // console.log('props in navbar.jsx', this.props);
     let self = this;
     return(<div>
       <nav className="navbar is-transparent">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28"/>
+          <a className="navbar-item" href="pricekiller.herokuapp.com">
+            <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" alt="Pricekiller, kill your prices" width="112" height="28"/>
           </a>
           <button
             className="button navbar-burger"
@@ -107,13 +79,8 @@ class Navbar extends Component {
           <div className="navbar-start">
             <div>
               <ul>
-                <li><button onClick={() => {auth.logout(); window.location.reload(); self.kickout()}}>Signout</button></li>
+                <li><button onClick={() => {auth.logout(); window.location.reload();}}>Signout</button></li>
               </ul>
-
-
-            </div>
-
-
             <a className="navbar-item" href="/">
               Home
             </a>
@@ -165,38 +132,16 @@ class Navbar extends Component {
                 >
                   Preferences
                 </a>
-
-
-
+                </div>
               </div>
             </div>
           </div>
         </div>
       </nav>
-
       <hr/>
-
-
-    </div>)
+    </div>
+    )
   }
 }
 
-
-// Navbar.propTypes = {
-//   dispatch: PropTypes.func.isRequired,
-//   isAuthenticated: PropTypes.bool.isRequired,
-//   errorMessage: PropTypes.string
-// }
-/*
-          <nav className="navbar navbar-default">
-            <div className="container-fluid">
-              <a className="navbar-band" href="#">Price Killer</a>
-              <div className="navbar-form">
-                {!isAuthenticated && <Login errorMessage={errorMessage} onLoginClick={creds => dispatch(loginUser(creds))} onGoogleLoginClick={creds => dispatch(login(creds))}/>}
-                {!isAuthenticated && <Signup errorMessage={errorMessage} onSignupClick={creds => dispatch(signupUser(creds))} />}
-                {isAuthenticated && <Logout onLogoutClick={() => dispatch(logoutUser())}/>}
-              </div>
-            </div>
-          </nav>
-*/
 export default Navbar;
