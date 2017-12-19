@@ -22,8 +22,6 @@ const mapDispatchToProps = (dispatch) => {
 
 let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
   const groupData = (priceData) => {
-    console.log('==========================================================');
-    console.log(priceData.length);
     let goodPriceData = [];
     let greatPriceData = [];
     priceData.forEach((cronJob) => {
@@ -116,6 +114,12 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       paddingTop: '0.5rem',
       paddingBottom: '0.5rem'
     },
+    card: {},
+    header: {},
+    select: {}
+  }
+
+  const nightStyle = {
     card: {
       color: '#87A3BB',
       backgroundColor: '#22282F'

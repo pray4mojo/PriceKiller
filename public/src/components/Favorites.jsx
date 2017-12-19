@@ -23,8 +23,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(deleteFavorite(favorite, username));
     },
 
-    removeNewFavorite: (index) => {
-      dispatch(deleteNewFavorite(index));
+    removeNewFavorite: (newFavorite) => {
+      dispatch(deleteNewFavorite(newFavorite));
     },
 
     saveNewFavorites: (favorites, newFavorites, username) => {
@@ -40,6 +40,12 @@ const style = {
     paddingBottom: '0.5rem'
   },
   card: {
+
+  }
+}
+
+const nightStyle = {
+  card: {
     color: '#87A3BB',
     backgroundColor: '#22282F'
   }
@@ -54,7 +60,7 @@ let Favorites = (props) => {
       favoritesList = (
         <div className="card" style={style.card}>
           <header className="card-header">
-            No Favorites
+            No Stored Favorites
           </header>
         </div>)
     } else {
@@ -79,8 +85,8 @@ let Favorites = (props) => {
           New Favorites
         </header>
         <div className="card-content" style={style.cardContent}>
-          {props.newFavorites.map((favorite, key) => {
-            return (<NewFavoriteItem favorite={favorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
+          {props.newFavorites.map((newFavorite, key) => {
+            return (<NewFavoriteItem newFavorite={newFavorite} key={key} removeNewFavorite={props.removeNewFavorite} />)
           })}
         </div>
         <a

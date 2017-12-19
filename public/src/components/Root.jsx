@@ -27,7 +27,7 @@ const Root = ({store}) => (
       <Route path="/login" component={Login}/>
       <Route path="/favorites" component={Favorites} />
       <Route path="/chart" component={Chart} />
-      <Route path="/logedout" component={() => <p>you're loged out</p>} />
+      <Route path="/loggedout" component={() => <p>You have been logged out of your profile</p>} />
       </div>
     </Router>
   </Provider>
