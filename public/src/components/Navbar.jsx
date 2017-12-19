@@ -16,29 +16,6 @@ const auth = new Auth;
 
 class Navbar extends Component {
 
-<<<<<<< HEAD
-  // componentWillMount() {
-  //   if (auth.isAuthenticated()) {
-  //     let localProfile = JSON.parse(localStorage.getItem('profile'));
-  //     let user = {};
-  //     user.username = localProfile.nickname;
-  //     user.googleId = localProfile.email;
-  //     console.log('user-->', user);
-  //   }
-  // }
-  // kickout() {
-  //   if (!auth.isAuthenticated()) {
-  //     console.log('kicked out');
-  //     // debugger;
-  //     return <Redirect to="/" />;
-  //   }
-  // }
-=======
-  componentDidMount() {
-
-  }
->>>>>>> up
-
   componentDidMount() {
     auth.handleAuthentication();
     Lock.on('authenticated', function(authResult) {
