@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
       const searchQuery = $('#searchQuery').val();
       console.log('searchQuery: ',searchQuery);
       if (searchQuery.length < 4) {
-        alert('Search field must be at least four characters long');
+        alert('Search string must be at least four characters long');
       } else {
         dispatch(submitSearch(searchQuery));
         event.target.childNodes[0].value = '';
@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
       if (code == 13) {
         const searchQuery = $('#searchQuery').val();
         if (searchQuery.length < 4) {
-          alert('Search field must be at least four characters long');
+          alert('Search string must be at least four characters long');
         } else {
           dispatch(submitSearch(searchQuery));
         }
