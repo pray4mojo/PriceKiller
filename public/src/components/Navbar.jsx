@@ -8,6 +8,7 @@ import Favorites from './Favorites.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
+import Redirect from 'react-router-dom';
 const Lock = require('../../../Auth/Auth.js').lock;
 
 import { Route, Link } from 'react-router-dom';
@@ -22,6 +23,13 @@ class Navbar extends Component {
   //     user.username = localProfile.nickname;
   //     user.googleId = localProfile.email;
   //     console.log('user-->', user);
+  //   }
+  // }
+  // kickout() {
+  //   if (!auth.isAuthenticated()) {
+  //     console.log('kicked out');
+  //     // debugger;
+  //     return <Redirect to="/" />;
   //   }
   // }
 
@@ -73,8 +81,13 @@ class Navbar extends Component {
     console.log('logout');
   }
 
+
+ // <li><Link to="/signout">{<button onClick={() => {(function(){auth.logout(); window.location.reload(); self.kickout()})}}>Signout</button>}</Link></li>
+
+
   render() {
     // console.log('props in navbar.jsx', this.props);
+    let self = this;
     return(<div>
       <nav className="navbar is-transparent">
         <div className="navbar-brand">
@@ -96,7 +109,7 @@ class Navbar extends Component {
           <div className="navbar-start">
             <div>
               <ul>
-                <li><Link to="/signout">Signout</Link></li>
+                <li><Link to="/signout">{<button onClick={() => {(function(){auth.logout(); window.location.reload(); self.kickout()})}}>Signout</button>}</Link></li>
               </ul>
 
 

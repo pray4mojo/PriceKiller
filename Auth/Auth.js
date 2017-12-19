@@ -54,7 +54,7 @@ export default class Auth {
     localStorage.removeItem('idToken');
     localStorage.removeItem('profile');
     // navigate to the home route
-
+    history.push('/logedout');
   }
 
   isAuthenticated() {
@@ -67,5 +67,3 @@ export default class Auth {
 }
 
 module.exports.lock = lock;
-
-module.exports.Lock = lock;
