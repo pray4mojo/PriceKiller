@@ -9,7 +9,7 @@ import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
-import Notifications from './Notifications.jsx';
+import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -80,7 +80,7 @@ class Navbar extends Component {
   }
 
   activateModal(e) {
-    console.log('fire');
+    e.preventDefault();
     $('.modal').addClass('is-active')
   }
 
@@ -164,7 +164,7 @@ class Navbar extends Component {
                     href=""
                     onClick={(e) => {this.activateModal(e)}}
                   >
-                    Notifications
+                    Preferences
                   </a>
                   </div>
                 </div>
@@ -174,7 +174,7 @@ class Navbar extends Component {
         </nav>
         <hr/>
       </div>
-      <Notifications/>
+      <Preferences />
     </div>
     )
   }
