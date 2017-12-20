@@ -33,13 +33,14 @@ export function deleteFavorite(favorite, username) {
 }
 
 export function postNewFavorites(favorites, newFavorites, username) {
+  console.log('================================================');
+  console.log(username);
   return (dispatch) => {
     const newFavoritesArray = newFavorites.map(newFavorite => ({
       searchQuery: newFavorite.searchQuery,
       categoryId: newFavorite.primaryCategory[0].categoryId[0],
     }));
-    return;
-    axios({
+    return axios({
       method: 'post',
       url: `/api/favorites/${username}`,
       data: newFavoritesArray,
