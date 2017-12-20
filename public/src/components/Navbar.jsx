@@ -88,6 +88,14 @@ class Navbar extends Component {
     $('.navbar-menu').toggleClass('is-active')
   }
 
+  openNav(e) {
+    $('#sidenav').toggleClass('is-active')
+  }
+
+  // closeNav(e) {
+  //   document.getElementById('mySidenav').style.width = '0';
+  // }
+
   render() {
     let self = this;
     return(
@@ -171,10 +179,26 @@ class Navbar extends Component {
               </div>
             </div>
           </div>
+
         </nav>
         <hr/>
       </div>
       <Notifications/>
+
+      <nav className="navbar">
+        <div className="navbar-start">
+          <button className="button" href="javascript:void(0)"
+            onClick={(e) => this.openNav(e)}>&times;</button>
+          <div className="navbar-menu nav-left" id="sidenav">
+            <a className="navbar-item" href="#">About</a>
+            <a className="navbar-item" href="#">Services</a>
+            <a className="navbar-item" href="#">Clients</a>
+            <a className="navbar-item" href="#">Contact</a>
+          </div>
+        </div>
+      </nav>
+    <span onClick={(e) => {this.openNav(e)}}>open</span>
+
     </div>
     )
   }
