@@ -13,7 +13,7 @@ const favorites = (state = defaultState, action) => {
     case SET_FAVORITES:
       return Object.assign({}, state, { favorites: action.favorites });
     case DELETE_NEW_FAVORITE:
-      if (action.index === 'all') {
+      if (action.newFavorite === 'all') {
         updatedNewFavorites = [];
       } else {
         updatedIsFavorited[action.newFavorite.itemId[0]] = false;

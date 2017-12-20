@@ -38,8 +38,7 @@ export function postNewFavorites(favorites, newFavorites, username) {
       searchQuery: newFavorite.searchQuery,
       categoryId: newFavorite.primaryCategory[0].categoryId[0],
     }));
-    return;
-    axios({
+    return axios({
       method: 'post',
       url: `/api/favorites/${username}`,
       data: newFavoritesArray,
