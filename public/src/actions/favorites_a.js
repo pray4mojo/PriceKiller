@@ -33,8 +33,6 @@ export function deleteFavorite(favorite, username) {
 }
 
 export function postNewFavorites(favorites, newFavorites, username) {
-  console.log('================================================');
-  console.log(username);
   return (dispatch) => {
     const newFavoritesArray = newFavorites.map(newFavorite => ({
       searchQuery: newFavorite.searchQuery,
