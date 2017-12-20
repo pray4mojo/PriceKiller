@@ -7,8 +7,8 @@ import { deleteFavorite, deleteNewFavorite, postNewFavorites } from '../actions/
 
 const mapStateToProps = (state) => {
   let username;
-  if (!state.userProfile.username === '') {
-    username = state.userProfile.username;
+  if (!state.userState.username === '') {
+    username = state.userState.username;
   }
   return {
     username,
