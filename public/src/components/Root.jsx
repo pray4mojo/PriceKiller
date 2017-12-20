@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
 import App from './App.jsx';
 import Search from './Search.jsx';
-import Favorites from './Favorites.jsx';
+import Favorites from './Favorites';
 import Chart from './Chart.jsx';
 import Login from './Login.jsx';
 import {Redirect} from 'react-router-dom';

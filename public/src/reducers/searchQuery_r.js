@@ -7,6 +7,6 @@ const searchQuery = (state = '', action) => {
     default:
       return state;
   }
-}
+};
 
 export default searchQuery;

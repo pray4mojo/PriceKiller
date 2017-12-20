@@ -4,7 +4,7 @@ const APP_DIR = path.resolve(__dirname, 'public/src');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 
 module.exports = {
-  entry: `${APP_DIR}/index.js`,
+  entry: `${APP_DIR}/index.jsx`,
   devtool: 'source-map',
   devServer: {
     historyApiFallback: true

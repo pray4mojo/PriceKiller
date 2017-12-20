@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
+import Auth0Lock from 'auth0-lock';
 import history from './history.js';
 import { AUTH_CONFIG } from './Auth0-variables.js';
-import Auth0Lock from 'auth0-lock';
 
 const lock = new Auth0Lock(AUTH_CONFIG.clientId, AUTH_CONFIG.domain, AUTH_CONFIG.options);
 
