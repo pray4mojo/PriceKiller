@@ -1,6 +1,6 @@
 import React from 'react';
 import Chart from '../components/Chart.jsx';
-import Favorites from '../components/Favorites.jsx';
+import Favorites from '../components/Favorites';
 import Navbar from '../components/Navbar.jsx'
 
 function sum(a, b) {

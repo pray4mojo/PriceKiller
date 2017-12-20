@@ -1,0 +1,7 @@
+favorites.js - DARK STYLE OBJECT
+// const nightStyle = {
+//   card: {
+//     color: '#87A3BB',
+//     backgroundColor: '#22282F',
+//   },
+// };

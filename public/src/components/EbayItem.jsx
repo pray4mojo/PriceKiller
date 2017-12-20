@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteNewFavorite, addNewFavorite } from '../actions/favorites_a.jsx';
+import { deleteNewFavorite, addNewFavorite } from '../actions/favorites_a';
 
 const mapStateToProps = (state, ownProps) => {
   return {
