@@ -39,7 +39,7 @@ export default class Preferences extends React.Component {
               </div>
             </div>
             <button
-              className="modal-close is-large"
+              class="modal-close is-large"
               aria-label="close"
               onClick={(e)=> {this.closePreferencesWindow(e)}}
             ></button>

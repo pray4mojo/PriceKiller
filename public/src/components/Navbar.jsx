@@ -10,6 +10,7 @@ import Favorites from './Favorites';
 import Preferences from './Preferences.jsx';
 import Notifications from './Notifications.jsx';
 import Sidebar from './Sidebar.jsx';
+import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -187,6 +188,7 @@ class Navbar extends Component {
       <Sidebar
         sidebar={this.props}
       />
+      <Preferences />
     </div>
     )
   }
