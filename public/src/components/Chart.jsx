@@ -15,7 +15,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setChartData: (event) => {
       const searchQuery = event.target.value
-      dispatch(getPriceHistory(searchQuery))
+      if (searchQuery !== 'Choose Favorite') {
+        dispatch(getPriceHistory(searchQuery))
+      }
     }
   }
 }
@@ -146,7 +148,7 @@ let Chart = ({ setChartData, favorites, priceHistoryData, searchQuery }) => {
       <div className="control">
         <div className="select">
           <select defaultValue="Choose a Product" style={style.select} onChange={(event) => setChartData(event)}>
-            <option value="Choose Favorite" disabled >Choose Favorite</option>
+            <option value="Choose Favorite" default >Choose Favorite</option>
             {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
           </select>
         </div>

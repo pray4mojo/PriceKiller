@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { deleteNewFavorite, addNewFavorite } from '../actions/favorites_a';
 
 const mapStateToProps = (state, ownProps) => {
+  let starClass = '';
+  if (ownProps.item.itemId) {
+    starClass = state.favorites.isFavorited[ownProps.item.itemId[0]] ? 'btn has-text-warning' : 'btn has-text-black';
+  }
   return {
+    starClass,
     item: ownProps.item,
     index: ownProps.index,
     isFavorited: state.favorites.isFavorited
@@ -26,11 +31,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-let EbayItem = ({ item, index, isFavorited, toggleNewFavorite }) => {
-  let starClass = '';
-  if (item.itemId) {
-    starClass = isFavorited[item.itemId[0]] ? 'btn has-text-warning' : 'btn has-text-black';
-  }
+let EbayItem = ({ starClass, item, index, isFavorited, toggleNewFavorite }) => {
   let favoriteButton = <a className={starClass} onClick={(e) => toggleNewFavorite(e, item, isFavorited)}><i className="fa fa-star is-warning fa-lg" aria-hidden="true"></i></a>;
   if (item.title === 'Submit a search query to see what Ebay has available!') {
     favoriteButton = '';
