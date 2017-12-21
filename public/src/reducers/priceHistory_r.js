@@ -6,8 +6,8 @@ const priceHistory = (
     categoryId: 0,
     data: [[null, null]],
     auctions: {},
-    high: null,
-    low: null
+    high: 0,
+    low: 0
   },
   action
   ) => {
