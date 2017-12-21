@@ -22,7 +22,10 @@ const mapDispatchToProps = (dispatch) => {
     setChartData: (event) => {
       const searchQuery = event.target.value
       if (searchQuery !== 'Choose Favorite') {
-        dispatch(getPriceHistory(searchQuery))
+        dispatch(getPriceHistory(searchQuery));
+        dispatch(setGraphThreshold(0, 0));
+        $('#lowThreshold').val(0)
+        $('#highThreshold').val(0)
       }
     },
 
