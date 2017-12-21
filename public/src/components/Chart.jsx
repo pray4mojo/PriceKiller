@@ -24,8 +24,8 @@ const mapDispatchToProps = (dispatch) => {
       if (searchQuery !== 'Choose Favorite') {
         dispatch(getPriceHistory(searchQuery));
         dispatch(setGraphThreshold(0, 0));
-        $('#lowThreshold').val(0)
-        $('#highThreshold').val(0)
+        $('#lowThreshold').val('')
+        $('#highThreshold').val('')
       }
     },
 
@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch) => {
       if (!(highThreshold > 0)) {
         highThreshold = 0;
       }
-      dispatch(setGraphThreshold(highThreshold, lowThreshold))
+      dispatch(setGraphThreshold(highThreshold, lowThreshold));
     }
   }
 }
