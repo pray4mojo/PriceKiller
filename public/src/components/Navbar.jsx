@@ -2,8 +2,6 @@ import React, { Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { setUserState, userLogout } from '../actions/main_a.jsx';
 import { setFavorites } from '../actions/favorites_a';
-
-import App from './App.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
@@ -116,13 +114,6 @@ class Navbar extends Component {
   openNav() {
     console.log('inside')
     document.getElementById("sidenav").style.width = "250px";
-    // $('#sidenav').toggleClass('is-active')
-    // if($("#sidenav").css("left") == "0px"){
-    //   console.log('inside!')
-    //   $("#sidenav").animate({"left": "0px"},"fast");
-    // } else {
-    //   $("#sidenav").animate({"left": "75px"},"fast");
-    // }
   }
 
   closeNav() {
@@ -131,6 +122,7 @@ class Navbar extends Component {
 
   render() {
     let self = this;
+    let profilePhoto = localStorage.profile ? <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} /> : null;
     return(
       <div>
         <div>
@@ -217,30 +209,7 @@ class Navbar extends Component {
         <hr/>
       </div>
       <Notifications/>
-
-      <aside id="sidenav" className="column is-1 is-narrow-mobile section" style={sideStyle}>
-        <a href="javascript:void(0)" className="closebtn" style={closebtnStyle} onClick={() => this.closeNav()}>&times;</a>
-        <p className="menu-label is-hidden-touch">Navigation</p>
-        <ul className="menu-list">
-          <li>
-            <a href="#" className="">
-            <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} />
-            </a>
-          </li>
-          <li>
-            <a href="#" className="">
-            <span className="icon"><i className="fa fa-table"></i></span> Links
-            </a>
-          </li>
-          <li>
-            <a href="#" className="">
-            <span className="icon"><i className="fa fa-info"></i></span> About
-             </a>
-          </li>
-        </ul>
-       </aside>
-       <a className ="button is-info" onClick={() => this.openNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
-
+      <Sidebar />
     </div>
     )
   }
