@@ -87,20 +87,20 @@ const generateChartData = (priceHistoryData, high, low) => {
   if (plotData[2] && plotData[2].length > 0) {
     data.datasets.push(
       {
-        label: 'Low Limit',
+
         fill: false,
         lineTension: 0.1,
-        backgroundColor: '#87A3BB',
-        borderColor: '#87A3BB',
+        backgroundColor: '#346628',
+        borderColor: '#346628',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: '#87A3BB',
+        pointBorderColor: '#346628',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: '#87A3BB',
+        pointHoverBackgroundColor: '#346628',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
@@ -112,20 +112,20 @@ const generateChartData = (priceHistoryData, high, low) => {
   if (plotData[3] && plotData[3].length > 0) {
     data.datasets.push(
       {
-        label: 'Upper Limit',
+
         fill: false,
         lineTension: 0.1,
-        backgroundColor: '#87A3BB',
-        borderColor: '#87A3BB',
+        backgroundColor: '#346628',
+        borderColor: '#346628',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: '#87A3BB',
+        pointBorderColor: '#346628',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: '#87A3BB',
+        pointHoverBackgroundColor: '#346628',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,

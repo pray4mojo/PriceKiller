@@ -14,7 +14,12 @@
       }]
     },
     legend: {
-      position: 'bottom'
+      position: 'bottom',
+      labels: {
+        filter: function(legendItem, chartData) {
+          return legendItem.datasetIndex < 2;
+        }
+      }
     }
   };
 
