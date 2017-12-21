@@ -51,7 +51,13 @@ let Chart = ({ setThresholds, setChartData, favorites, priceHistoryData, searchQ
   if (priceHistoryData.length === 1) {
     chart = '';
   } else {
-    chart = <Line data={plotData} options={options} style={nightStyle.select} />;
+    chart =
+      <Line
+        data={plotData}
+        options={options}
+        style={nightStyle.select}
+        redraw={true}
+      />;
   }
 
   let chartTitle = 'Price History';

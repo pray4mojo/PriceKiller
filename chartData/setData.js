@@ -84,7 +84,7 @@ const generateChartData = (priceHistoryData, high, low) => {
       }
     ]
   };
-  if (plotData[2].length > 0) {
+  if (plotData[2] && plotData[2].length > 0) {
     data.datasets.push(
       {
 
@@ -109,7 +109,7 @@ const generateChartData = (priceHistoryData, high, low) => {
       }
     );
   }
-  if (plotData[3].length > 0) {
+  if (plotData[3] && plotData[3].length > 0) {
     data.datasets.push(
       {
 
