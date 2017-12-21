@@ -37,6 +37,31 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+const sideStyle = {
+    // height: '100%', /* 100% Full-height */
+    width: 0, /* 0 width - change this with JavaScript */
+    position: 'fixed', /* Stay in place */
+    zIndex: 1, /* Stay on top */
+    top: 0, /* Stay at the top */
+    left: 0,
+    backgroundColor: 'hsl(204, 86%, 53%)',
+    overflowX: 'hidden', /* Disable horizontal scroll */
+    paddingTop: '60px', /* Place content 60px from the top */
+    transition: '0.5s', /* 0.5 second transition effect to slide in the sidenav */
+    opacity: 1,
+    padding: '5px',
+    borderWidth: '2px',
+    borderColor: 'hsl(204, 86%, 53%)'
+};
+
+const closebtnStyle ={
+  position: 'absolute',
+  top: 0,
+  right: '25px',
+  fontSize: '36px',
+  marginLeft: '50px'
+}
+
 class Navbar extends Component {
 
   componentWillMount() {
@@ -88,13 +113,21 @@ class Navbar extends Component {
     $('.navbar-menu').toggleClass('is-active')
   }
 
-  openNav(e) {
-    $('#sidenav').toggleClass('is-active')
+  openNav() {
+    console.log('inside')
+    document.getElementById("sidenav").style.width = "250px";
+    // $('#sidenav').toggleClass('is-active')
+    // if($("#sidenav").css("left") == "0px"){
+    //   console.log('inside!')
+    //   $("#sidenav").animate({"left": "0px"},"fast");
+    // } else {
+    //   $("#sidenav").animate({"left": "75px"},"fast");
+    // }
   }
 
-  // closeNav(e) {
-  //   document.getElementById('mySidenav').style.width = '0';
-  // }
+  closeNav() {
+    document.getElementById('sidenav').style.width = '0';
+  }
 
   render() {
     let self = this;
@@ -185,19 +218,28 @@ class Navbar extends Component {
       </div>
       <Notifications/>
 
-      <nav className="navbar">
-        <div className="navbar-start">
-          <button className="button" href="javascript:void(0)"
-            onClick={(e) => this.openNav(e)}>&times;</button>
-          <div className="navbar-menu nav-left" id="sidenav">
-            <a className="navbar-item" href="#">About</a>
-            <a className="navbar-item" href="#">Services</a>
-            <a className="navbar-item" href="#">Clients</a>
-            <a className="navbar-item" href="#">Contact</a>
-          </div>
-        </div>
-      </nav>
-    <span onClick={(e) => {this.openNav(e)}}>open</span>
+      <aside id="sidenav" className="column is-1 is-narrow-mobile section" style={sideStyle}>
+        <a href="javascript:void(0)" className="closebtn" style={closebtnStyle} onClick={() => this.closeNav()}>&times;</a>
+        <p className="menu-label is-hidden-touch">Navigation</p>
+        <ul className="menu-list">
+          <li>
+            <a href="#" className="">
+            <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} />
+            </a>
+          </li>
+          <li>
+            <a href="#" className="">
+            <span className="icon"><i className="fa fa-table"></i></span> Links
+            </a>
+          </li>
+          <li>
+            <a href="#" className="">
+            <span className="icon"><i className="fa fa-info"></i></span> About
+             </a>
+          </li>
+        </ul>
+       </aside>
+       <a className ="button is-info" onClick={() => this.openNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
 
     </div>
     )
