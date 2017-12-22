@@ -10,9 +10,45 @@ export function resultsReturned(searchResults) {
   return { type: RESULTS_RETURNED, searchResults }
 }
 
+export const APPEND_RESULTS = 'APPEND_RESULTS';
+export function appendResults(newSearchResults) {
+  return { type: APPEND_RESULTS, newSearchResults }
+}
+
+export const SET_INITIAL_PAGE = 'SET_INITIAL_PAGE';
+export function setInitialPage() {
+  return { type: SET_INITIAL_PAGE };
+}
+
 export const SET_RESULTS_PAGE = 'SET_RESULTS_PAGE';
-export function setResultsPage(resultsPage) {
-  return { type: SET_RESULTS_PAGE, resultsPage }
+export function setResultsPage(resultsPage, searchResults) {
+  if (resultsPage > 0 && searchResults.maxPage - searchResults.resultsPage <= 1 && (searchResults.maxPage + 1) % 10 === 0) {
+    return function (dispatch) {
+      dispatch(requestResults(searchResults.searchQuery));
+      return axios({
+        method: 'get',
+        url: `/api/nextPage/${searchResults.searchQuery}/${searchResults.maxPage + 1}`,
+        responseType: 'json'
+      })
+      .then(response => {
+        let maxPage = searchResults.maxPage + 1;
+        const newSearchResults = response.data[0].item.map((result, index) => {
+          result.page = Math.floor(index / 10) + searchResults.maxPage + 1;
+          result.searchQuery = searchQuery;
+          if (result.page > maxPage) {
+            maxPage = result.page;
+          }
+          return result;
+        });
+        console.log('newSearchResults: ', newSearchResults);
+        dispatch(appendResults(newSearchResults));
+        dispatch(setMaxPage(maxPage));
+        return { type: SET_RESULTS_PAGE, resultsPage }
+      });
+    }
+  } else {
+    return { type: SET_RESULTS_PAGE, resultsPage }
+  }
 }
 
 export const SET_USER_STATE = 'SET_USER_STATE';
@@ -29,7 +65,7 @@ export function userLogout() {
 export function submitSearch(searchQuery) {
 
   return function (dispatch) {
-    dispatch(requestResults(searchQuery))
+    dispatch(requestResults(searchQuery));
 
     return axios({
       method: 'get',
@@ -37,21 +73,40 @@ export function submitSearch(searchQuery) {
       responseType: 'json'
     })
     .then(response => {
-      console.log(response);
-      const searchResults = response.data[0].item.map((result,index) => {
+      let maxPage = 0;
+      const searchResults = response.data[0].item.map((result, index) => {
         result.page = Math.floor(index / 10);
         result.searchQuery = searchQuery;
+        if (result.page > maxPage) {
+          maxPage = result.page;
+        }
         return result;
       });
-      dispatch(setResultsPage(0));
+      dispatch(setInitialPage());
       dispatch(resultsReturned(searchResults));
+      dispatch(setMaxPage(maxPage));
     })
   }
 }
 
+export const SET_MAX_PAGE = 'SET_MAX_PAGE';
+export function setMaxPage(maxPage) {
+  console.log()
+  return { type: SET_MAX_PAGE, maxPage }
+}
 
-export const ADD_NAME = 'ADD_NAME';
-export function addName(name) {
-  return { type: ADD_NAME, name }
+export function findMoreResults() {
+  return function (dispatch) {
+    dispatch(requestResults(searchQuery));
+
+    return axios({
+      method: 'get',
+      url: `/api/nextPage/${searchQuery}`,
+      responseType: 'json'
+    })
+    .then(response => {
+
+    })
+  }
 }
 

@@ -27,6 +27,7 @@ const favorites = require('./routes/favorites').favorites;
 const prices = require('./routes/prices').prices;
 const profile = require('./routes/profile').profile;
 const headToHead = require('./routes/headtohead').headToHead;
+const nextPage = require('./routes/nextPage').nextPage;
 
 require('dotenv').config();
 
@@ -57,7 +58,6 @@ app.use(cors());
 const port = app.get('port');
 
 app.use(express.static(__dirname + '/../public/dist'));
-
 //Below is the convention for integrating the different endpoint files
 app.use('/api/auth', auth);
 // app.use('/api/auth/signup', signup);
@@ -68,6 +68,7 @@ app.use('/api/favorites', favorites);
 app.use('/api/prices', prices);
 app.use('/api/profile', profile);
 app.use('/api/headToHead', headToHead);
+app.use('/api/nextPage', nextPage);
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/dist/index.html'));

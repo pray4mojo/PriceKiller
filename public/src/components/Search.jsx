@@ -5,8 +5,7 @@ import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
 
 const mapStateToProps = state => {
   return {
-    searchResults: state.searchResults,
-    searchQuery: state.searchQuery
+    searchResults: state.searchResults
   }
 }
 
@@ -14,7 +13,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSearch: (event) => {
       const searchQuery = $('#searchQuery').val();
-      console.log('searchQuery: ',searchQuery);
       if (searchQuery.length < 4) {
         alert('Search string must be at least four characters long');
       } else {
@@ -36,8 +34,8 @@ const mapDispatchToProps = (dispatch) => {
       }
     },
 
-    incrementResultsPage: () => {
-      dispatch(setResultsPage(1));
+    incrementResultsPage: (searchResults) => {
+      dispatch(setResultsPage(1, searchResults));
     },
 
     decrementResultsPage: () => {
@@ -48,8 +46,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, incrementResultsPage, decrementResultsPage }) => {
-  let items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
+let Search = ({ searchResults, onSearch, submitWithEnter, incrementResultsPage, decrementResultsPage }) => {
+  const items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
   if (items[0].sellingStatus) {
     return (
       <div className="card">
@@ -73,27 +71,38 @@ let Search = ({ searchResults, searchQuery, onSearch, submitWithEnter, increment
         </ul>
       </div>
       <nav className="pagination is-centered is-gapless" role="navigation" aria-label="pagination">
-      <a className="button pagination-previous fa fa-arrow-circle-left is-info " id="decrementResultsPage" onClick={decrementResultsPage}></a>
-      <a className="button pagination-next fa fa-arrow-circle-right is-info " id="incrementResultsPage" onClick={incrementResultsPage}></a>
+      <a
+        className="button pagination-previous fa fa-arrow-circle-left is-info"
+        id="decrementResultsPage"
+        onClick={() => {decrementResultsPage()}}
+      >
+      </a>
+      <a
+        className="button pagination-next fa fa-arrow-circle-right is-info"
+        id="incrementResultsPage"
+        onClick={() => {incrementResultsPage(searchResults)}}
+      >
+      </a>
       </nav>
     </div>
     )
   } else {
-    return (<div>
-      <div className="control column">
-        <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
-      </div>
-      <div className="control column is-narrow">
-        <a className="button is-info" onClick={(event) => {onSearch(event)}}>
-          Search
-        </a>
-      </div>
-      <ul>
-        {items.map((item, index) => {
-          return <EbayItem key={index} item={item} />
-        })}
-      </ul>
-    </div>)
+    return (
+      <div>
+        <div className="control column">
+          <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
+        </div>
+        <div className="control column is-narrow">
+          <a className="button is-info" onClick={(event) => {onSearch(event)}}>
+            Search
+          </a>
+        </div>
+        <ul>
+          {items.map((item, index) => {
+            return <EbayItem key={index} item={item} />
+          })}
+        </ul>
+      </div>)
   }
 }
 
