@@ -6,13 +6,14 @@ const style = {
   sidebar: {
       height: '100%', /* 100% Full-height */
       width: 0, /* 0 width - change this with JavaScript */
-      position: 'fixed', /* Stay in place */
+      position: 'relative', /* Stay in place */
       zIndex: 1, /* Stay on top */
       top: 0, /* Stay at the top */
       left: 0,
-      backgroundColor: 'hsl(204, 86%, 53%)',
+      // backgroundColor: 'hsl(204, 86%, 53%)',
+      backgroundColor: 'white',
       overflowX: 'hidden', /* Disable horizontal scroll */
-      paddingTop: '60px', /* Place content 60px from the top */
+      padding: 0, /* Place content 60px from the top */
       transition: '0.5s', /* 0.5 second transition effect to slide in the sidenav */
       opacity: 1,
       padding: '5px',
@@ -20,7 +21,7 @@ const style = {
       borderColor: 'hsl(204, 86%, 53%)'
   },
   closebtn: {
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     right: '25px',
     fontSize: '36px',
@@ -38,13 +39,13 @@ let Sidebar = (props) => {
   let list;
   let profilePhoto = localStorage.profile ? <img className="image is-128x128" style={style.profilePhoto} src={JSON.parse(localStorage.profile).picture} /> : null;
 
-  const openNav = () => {
-    document.getElementById("sidenav").style.width = "250px";
+  const toggleNav = () => {
+    document.getElementById("sidenav").style.width = document.getElementById("sidenav").style.width === '250px' ? 0 : '250px';
   }
 
-  const closeNav = () => {
-    document.getElementById('sidenav').style.width = '0';
-  }
+  // const closeNav = () => {
+  //   document.getElementById('sidenav').style.width = '0';
+  // }
 
 
   if (props.favorites) {
@@ -59,7 +60,7 @@ let Sidebar = (props) => {
         <div>
           <header>Favorites </header>
             <ul className="menu-list">
-              {props.favorites.map((favorite) => <li>{favorite.searchQuery}</li>)}
+              {props.favorites.favorites.map((favorite) => <li>{favorite.searchQuery}</li>)}
             </ul>
         </div>
       );
@@ -67,9 +68,9 @@ let Sidebar = (props) => {
   }
 
   return (
-    <div className="card">
-    <div id="sidenav" className="column is-1 is-narrow-mobile section" style={style.sidebar}>
-      <a href="javascript:void(0)" className="closebtn" style={style.closebtn} onClick={() => closeNav()}>&times;</a>
+    <div>
+    <a className ="button is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
+    <div id="sidenav" className="card column is-1 is-narrow-mobile section" style={style.sidebar}>
       <p className="menu-label is-hidden-touch">Navigation</p>
           <a className="">
             {profilePhoto}
@@ -80,9 +81,10 @@ let Sidebar = (props) => {
         </li>
       </ul>
      </div>
-     <a className ="button is-info" onClick={() => openNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
   </div>
   )
 }
 
 export default Sidebar;
+// onClick={() => closeNav()}
+<a href="javascript:void(0)" className="closebtn" style={style.closebtn} >&times;</a>
