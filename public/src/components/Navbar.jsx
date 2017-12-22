@@ -8,6 +8,7 @@ import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
 import Notifications from './Notifications.jsx';
+import Sidebar from './Sidebar.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -18,7 +19,10 @@ import { Route, Link } from 'react-router-dom';
 const auth = new Auth;
 
 const mapStateToProps = (state) => {
- return {userProfile: state.userProfile};
+  return {
+    userProfile: state.userProfile,
+    favorites: state.favorites.favorites
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -209,7 +213,7 @@ class Navbar extends Component {
         <hr/>
       </div>
       <Notifications/>
-      <Sidebar />
+      <Sidebar favorites={this.props.favorites}/>
     </div>
     )
   }
