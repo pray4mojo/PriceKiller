@@ -3,14 +3,25 @@
       yAxes: [{
         ticks: {
           beginAtZero: true,
+          fontColor: '#FBFBFB'
         },
         scaleLabel: {
           display: true,
-          labelString: '$'
+          labelString: '$',
+          fontColor: '#FBFBFB'
+        },
+        gridLines: {
+          color: '#FBFBFB'
         }
       }],
       xAxes: [{
-        type: 'time'
+        type: 'time',
+        gridLines: {
+          color: '#FBFBFB'
+        },
+        ticks: {
+          fontColor: '#FBFBFB'
+        }
       }]
     },
     legend: {
@@ -18,7 +29,8 @@
       labels: {
         filter: function(legendItem, chartData) {
           return legendItem.datasetIndex < 2;
-        }
+        },
+        fontColor: '#FBFBFB'
       }
     }
   };

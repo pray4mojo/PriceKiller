@@ -46,7 +46,6 @@ const mapDispatchToProps = (dispatch) => {
 let Chart = ({ setThresholds, setChartData, favorites, priceHistoryData, searchQuery, high, low }) => {
 
   let plotData = generateChartData(priceHistoryData, high, low)
-
   let chart;
   if (priceHistoryData.length === 1) {
     chart = '';
