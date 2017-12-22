@@ -21,7 +21,8 @@ const auth = new Auth;
 const mapStateToProps = (state) => {
   return {
     userProfile: state.userProfile,
-    favorites: state.favorites.favorites
+    favorites: state.favorites.favorites,
+    auth: auth
   };
 }
 
@@ -149,9 +150,6 @@ class Navbar extends Component {
           <div id="navbarExampleTransparentExample" className="navbar-menu">
             <div className="navbar-start">
               <div>
-                <ul>
-                  <li><button onClick={() => {auth.logout(); window.location.reload();}}>Signout</button></li>
-                </ul>
               <a className="navbar-item" href="/">
                 Home
               </a>
@@ -213,7 +211,9 @@ class Navbar extends Component {
         <hr/>
       </div>
       <Notifications/>
-      <Sidebar favorites={this.props.favorites}/>
+      <Sidebar
+        sidebar={this.props}
+      />
     </div>
     )
   }

@@ -4,21 +4,20 @@ import { connect } from 'react-redux';
 
 const style = {
   sidebar: {
-      height: '100%', /* 100% Full-height */
-      width: 0, /* 0 width - change this with JavaScript */
-      position: 'relative', /* Stay in place */
-      zIndex: 1, /* Stay on top */
-      top: 0, /* Stay at the top */
+      // height: '100%',
+      width: 0,
+      position: 'relative',
+      zIndex: 1,
+      top: 0,
       left: 0,
-      // backgroundColor: 'hsl(204, 86%, 53%)',
       backgroundColor: 'white',
-      overflowX: 'hidden', /* Disable horizontal scroll */
-      padding: 0, /* Place content 60px from the top */
-      transition: '0.5s', /* 0.5 second transition effect to slide in the sidenav */
+      overflowX: 'hidden',
+      padding: '0px',
+      transition: '0.5s',
       opacity: 1,
       padding: '5px',
-      borderWidth: '2px',
-      borderColor: 'hsl(204, 86%, 53%)'
+      // borderWidth: '2px',
+      // borderColor: 'hsl(204, 86%, 53%)'
   },
   closebtn: {
     position: 'fixed',
@@ -37,19 +36,15 @@ const style = {
 
 let Sidebar = (props) => {
   let list;
+  let name = localStorage.profile ? JSON.parse(localStorage.profile).given_name : null;
   let profilePhoto = localStorage.profile ? <img className="image is-128x128" style={style.profilePhoto} src={JSON.parse(localStorage.profile).picture} /> : null;
 
   const toggleNav = () => {
     document.getElementById("sidenav").style.width = document.getElementById("sidenav").style.width === '250px' ? 0 : '250px';
   }
 
-  // const closeNav = () => {
-  //   document.getElementById('sidenav').style.width = '0';
-  // }
-
-
-  if (props.favorites) {
-    if (props.favorites.length === 0) {
+  if (props.sidebar.favorites) {
+    if (props.sidebar.favorites.length === 0) {
       list = (
         <div>
           <header>No Stored Favorites</header>
@@ -60,7 +55,7 @@ let Sidebar = (props) => {
         <div>
           <header>Favorites </header>
             <ul className="menu-list">
-              {props.favorites.favorites.map((favorite) => <li>{favorite.searchQuery}</li>)}
+              {props.sidebar.favorites.map((favorite) => <li>{favorite.searchQuery}</li>)}
             </ul>
         </div>
       );
@@ -69,16 +64,19 @@ let Sidebar = (props) => {
 
   return (
     <div>
-    <a className ="button is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
+    <a className ="button is-1 is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
     <div id="sidenav" className="card column is-1 is-narrow-mobile section" style={style.sidebar}>
       <p className="menu-label is-hidden-touch">Navigation</p>
           <a className="">
+            <h3>Hello, {name}</h3>
             {profilePhoto}
           </a>
         <ul className="menu-list">
         <li>
           <a className="">{list}</a>
         </li>
+        <li className ="button is-1 is-info fa fa-sign-out" aria-hidden="true"
+          onClick={() => {props.sidebar.auth.logout(); window.location.reload();}}></li>
       </ul>
      </div>
   </div>
@@ -87,4 +85,4 @@ let Sidebar = (props) => {
 
 export default Sidebar;
 // onClick={() => closeNav()}
-<a href="javascript:void(0)" className="closebtn" style={style.closebtn} >&times;</a>
+// <a href="javascript:void(0)" className="closebtn" style={style.closebtn} >&times;</a>
