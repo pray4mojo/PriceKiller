@@ -27,7 +27,11 @@ const favorites = require('./routes/favorites').favorites;
 const prices = require('./routes/prices').prices;
 const profile = require('./routes/profile').profile;
 const headToHead = require('./routes/headtohead').headToHead;
+<<<<<<< HEAD
 const nextPage = require('./routes/nextPage').nextPage;
+=======
+const notifications = require('./routes/notifications').notifications;
+>>>>>>> adjust
 
 require('dotenv').config();
 
@@ -68,7 +72,11 @@ app.use('/api/favorites', favorites);
 app.use('/api/prices', prices);
 app.use('/api/profile', profile);
 app.use('/api/headToHead', headToHead);
+<<<<<<< HEAD
 app.use('/api/nextPage', nextPage);
+=======
+app.use('/api/notifications', notifications);
+>>>>>>> adjust
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/dist/index.html'));
