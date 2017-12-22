@@ -40,7 +40,6 @@ export function setResultsPage(resultsPage, searchResults) {
           }
           return result;
         });
-        console.log('newSearchResults: ', newSearchResults);
         dispatch(appendResults(newSearchResults));
         dispatch(setMaxPage(maxPage));
         return { type: SET_RESULTS_PAGE, resultsPage }

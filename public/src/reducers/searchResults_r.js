@@ -23,8 +23,6 @@ const searchResults = (
       return Object.assign({}, state, { isFetching: false, items: action.searchResults });
 
     case APPEND_RESULTS:
-      console.log('new items: ', action.newSearchResults);
-      console.log('state items', state.items);
       return Object.assign({}, state, { items: state.items.concat(action.newSearchResults) });
 
     case SET_RESULTS_PAGE:
