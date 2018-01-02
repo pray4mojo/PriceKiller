@@ -30,17 +30,27 @@ const mapDispatchToProps = dispatch => ({
     dispatch(postNewFavorites(favorites, newFavorites, username));
   },
 });
-
-const style = {
+const nightStyle = {
   cardContent: {
     paddingLeft: '0',
     paddingTop: '0.5rem',
     paddingBottom: '0.5rem',
   },
   card: {
-
+    color: '#87A3BB',
+    backgroundColor: '#22282F',
   },
 };
+// const style = {
+//   cardContent: {
+//     paddingLeft: '0',
+//     paddingTop: '0.5rem',
+//     paddingBottom: '0.5rem',
+//   },
+//   card: {
+
+//   },
+// };
 
 let Favorites = (props) => {
   let favoritesList;
@@ -48,18 +58,18 @@ let Favorites = (props) => {
   if (props.favorites) {
     if (props.favorites.length === 0) {
       favoritesList = (
-        <div className="card" style={style.card}>
+        <div className="card" style={nightStyle.card}>
           <header className="card-header">
             No Stored Favorites
           </header>
         </div>);
     } else {
       favoritesList = (
-        <div className="card" style={style.card}>
+        <div className="card" style={nightStyle.card}>
           <header className="card-header">
             Favorites
           </header>
-          <div className="card-content" style={style.cardContent}>
+          <div className="card-content" style={nightStyle.cardContent}>
             {props.favorites.map((favorite, key) => (
               <FavoriteItem
                 key={favorite.searchQuery}
@@ -76,13 +86,13 @@ let Favorites = (props) => {
   }
   if (props.newFavorites.length !== 0) {
     newFavoritesList = (
-      <div className="card" style={style.card}>
+      <div className="card" style={nightStyle.card}>
         <header className="card-header">
           New Favorites
         </header>
         <div
           className="card-content"
-          style={style.cardContent}
+          style={nightStyle.cardContent}
         >
           {props.newFavorites.map(newFavorite => (
             <NewFavoriteItem

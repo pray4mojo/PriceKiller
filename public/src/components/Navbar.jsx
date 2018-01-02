@@ -121,9 +121,13 @@ class Navbar extends Component {
                 Home
               </a>
               <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link" href="">
+                <Link
+                  className="navbar-link"
+                  to="/"
+                  onClick={(e) => {this.activateMenu(e)}}
+                >
                   Navigation
-                </a>
+                </Link>
                 <div className="navbar-dropdown is-boxed">
                   <Link
                     className="navbar-item"
@@ -146,20 +150,20 @@ class Navbar extends Component {
                   >
                     Chart
                   </Link>
-                  <a
+                  <Link
                     className="navbar-item"
-                    href=""
+                    to="/"
                     onClick={(e) => {this.activateMenu(e)}}
                   >
                     Getting Started
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="navbar-item"
-                    href=""
+                    to="/"
                     onClick={(e) => {this.activateMenu(e)}}
                   >
                     Who We Are
-                  </a>
+                  </Link>
                   <hr className="navbar-divider"/>
                   <a
                     className="navbar-item"
