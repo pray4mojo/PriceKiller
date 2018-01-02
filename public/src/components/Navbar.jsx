@@ -40,31 +40,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const sideStyle = {
-    // height: '100%', /* 100% Full-height */
-    width: 0, /* 0 width - change this with JavaScript */
-    position: 'fixed', /* Stay in place */
-    zIndex: 1, /* Stay on top */
-    top: 0, /* Stay at the top */
-    left: 0,
-    backgroundColor: 'hsl(204, 86%, 53%)',
-    overflowX: 'hidden', /* Disable horizontal scroll */
-    paddingTop: '60px', /* Place content 60px from the top */
-    transition: '0.5s', /* 0.5 second transition effect to slide in the sidenav */
-    opacity: 1,
-    padding: '5px',
-    borderWidth: '2px',
-    borderColor: 'hsl(204, 86%, 53%)'
-};
-
-const closebtnStyle ={
-  position: 'absolute',
-  top: 0,
-  right: '25px',
-  fontSize: '36px',
-  marginLeft: '50px'
-}
-
 class Navbar extends Component {
 
   componentWillMount() {
@@ -116,14 +91,6 @@ class Navbar extends Component {
     $('.navbar-menu').toggleClass('is-active')
   }
 
-  openNav() {
-    console.log('inside')
-    document.getElementById("sidenav").style.width = "250px";
-  }
-
-  closeNav() {
-    document.getElementById('sidenav').style.width = '0';
-  }
 
   render() {
     let self = this;
