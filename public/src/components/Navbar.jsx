@@ -2,14 +2,13 @@ import React, { Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { setUserState, userLogout } from '../actions/main_a.jsx';
 import { setFavorites } from '../actions/favorites_a';
-
-import App from './App.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
 import Notifications from './Notifications.jsx';
+import Sidebar from './Sidebar.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -20,7 +19,11 @@ import { Route, Link } from 'react-router-dom';
 const auth = new Auth;
 
 const mapStateToProps = (state) => {
- return {userProfile: state.userProfile};
+  return {
+    userProfile: state.userProfile,
+    favorites: state.favorites.favorites,
+    auth: auth
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -88,8 +91,10 @@ class Navbar extends Component {
     $('.navbar-menu').toggleClass('is-active')
   }
 
+
   render() {
     let self = this;
+    let profilePhoto = localStorage.profile ? <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} /> : null;
     return(
       <div>
         <div>
@@ -112,9 +117,6 @@ class Navbar extends Component {
           <div id="navbarExampleTransparentExample" className="navbar-menu">
             <div className="navbar-start">
               <div>
-                <ul>
-                  <li><button onClick={() => {auth.logout(); window.location.reload();}}>Signout</button></li>
-                </ul>
               <a className="navbar-item" href="/">
                 Home
               </a>
@@ -171,10 +173,14 @@ class Navbar extends Component {
               </div>
             </div>
           </div>
+
         </nav>
         <hr/>
       </div>
       <Notifications/>
+      <Sidebar
+        sidebar={this.props}
+      />
     </div>
     )
   }
