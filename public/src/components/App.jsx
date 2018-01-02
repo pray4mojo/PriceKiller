@@ -12,6 +12,7 @@ class App extends React.Component {
     return (
       <div className="section">
         <Navbar />
+        <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/PriceKiller_pricegun.png" alt="" width="480" height="240"/>
       </div>
       )
   }

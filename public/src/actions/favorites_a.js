@@ -18,8 +18,7 @@ export function addNewFavorite(newFavorite) {
 
 export function deleteFavorite(favorite, username) {
   return (dispatch) => {
-    return;
-    axios({
+    return axios({
       method: 'delete',
       url: `/api/favorites/${username}`,
       data: favorite,

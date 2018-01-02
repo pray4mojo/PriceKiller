@@ -3,8 +3,10 @@ import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux';
 import { getPriceHistory, setGraphThreshold } from '../actions/priceHistory_a.jsx';
 import generateChartData from '../../../chartData/setData.js';
+import {retrieveGlobalFavorites} from '../actions/globalFavorites_a';
 const options = require('../../../chartData/options.js').options;
 const nightStyle = require('../../../chartData/options.js').nightStyle;
+
 
 const mapStateToProps = (state) => {
   return {
@@ -19,6 +21,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+
+    setGlobalFavorites: (event) => {
+      dispatch(retrieveGlobalFavorites())
+    },
+
     setChartData: (event) => {
       const searchQuery = event.target.value
       if (searchQuery !== 'Choose Favorite') {
@@ -43,7 +50,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-let Chart = ({ setThresholds, setChartData, favorites, priceHistoryData, searchQuery, high, low }) => {
+let Chart = ({ setThresholds, setChartData, setGlobalFavorites, favorites, priceHistoryData, searchQuery, high, low }) => {
 
   let plotData = generateChartData(priceHistoryData, high, low)
   let chart;
@@ -79,48 +86,54 @@ let Chart = ({ setThresholds, setChartData, favorites, priceHistoryData, searchQ
 
 
   return (
-    <div className="card" style={nightStyle.card}>
-      <header className="card-header">
-        <p className="card-header-title" style={nightStyle.header}>
-          {chartTitle}
-        </p>
-      </header>
-      <div className="card-content" style={nightStyle.cardContent}>
-        <div className="content">
-          {favoritesSelector}
-        </div>
-        <div className="content" style={nightStyle.cardContent}>
-          {chart}
-        </div>
-        <div className="field has-addons">
-          <div className="control">
-            <input
-              className="input"
-              id="lowThreshold"
-              type="number"
-              placeholder="Lower Limit"
-              style={nightStyle.input}
-            />
+    <div>
+      <div className="card" style={nightStyle.card}>
+        <header className="card-header">
+          <p className="card-header-title" style={nightStyle.header}>
+            {chartTitle}
+          </p>
+        </header>
+        <div className="card-content" style={nightStyle.cardContent}>
+          <div className="content">
+            {favoritesSelector}
           </div>
-          <div className="control">
-            <input
-              className="input"
-              id="highThreshold"
-              type="number"
-              placeholder="Upper Limit"
-              style={nightStyle.input}
-            />
+          <div className="content" style={nightStyle.cardContent}>
+            {chart}
           </div>
-          <div className="control">
-            <a
-              className="button is-info"
-              onClick={(event) => {setThresholds(event)}}
-            >
-              Submit
-            </a>
+          <div className="field has-addons">
+            <div className="control">
+              <input
+                className="input"
+                id="lowThreshold"
+                type="number"
+                placeholder="Lower Limit"
+                style={nightStyle.input}
+              />
+            </div>
+            <div className="control">
+              <input
+                className="input"
+                id="highThreshold"
+                type="number"
+                placeholder="Upper Limit"
+                style={nightStyle.input}
+              />
+            </div>
+            <div className="control">
+              <a
+                className="button is-info"
+                onClick={(event) => {setThresholds(event)}}
+              >
+                Submit
+              </a>
+            </div>
           </div>
         </div>
       </div>
+      {!favorites[0] ? <a
+        className="button is-info"
+        onClick={(event) => {setGlobalFavorites(event)}}
+        >Display Global Favorites</a> : <div></div>}
     </div>
   )
 }
