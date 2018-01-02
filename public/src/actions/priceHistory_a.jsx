@@ -12,6 +12,10 @@ export const SET_GRAPH_THRESHOLD = 'SET_GRAPH_THRESHOLD';
 export function setGraphThreshold(high, low) {
   return { type: SET_GRAPH_THRESHOLD, high, low}
 }
+export const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM';
+export function setCurrentItem(searchQuery) {
+  return { type: SET_CURRENT_ITEM, searchQuery }
+}
 export function getPriceHistory(searchQuery) {
   return function (dispatch) {
     return axios({

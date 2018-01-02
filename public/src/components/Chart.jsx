@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux';
-import { getPriceHistory, setGraphThreshold } from '../actions/priceHistory_a.jsx';
+import { getPriceHistory, setGraphThreshold, setCurrentItem } from '../actions/priceHistory_a.jsx';
 import generateChartData from '../../../chartData/setData.js';
 import {retrieveGlobalFavorites} from '../actions/globalFavorites_a';
 const options = require('../../../chartData/options.js').options;
@@ -27,9 +27,12 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     setChartData: (event) => {
-      const searchQuery = event.target.value
+      const searchQuery = event.target.value;
+      console.log('target: ', event.target);
+      const categoryId = event.target.categoryId;
       if (searchQuery !== 'Choose Favorite') {
         dispatch(getPriceHistory(searchQuery));
+        dispatch(setCurrentItem(searchQuery, categoryId));
         dispatch(setGraphThreshold(0, 0));
         $('#lowThreshold').val('')
         $('#highThreshold').val('')
@@ -73,7 +76,7 @@ let Chart = ({ setThresholds, setChartData, setGlobalFavorites, favorites, price
         <div className="select">
           <select defaultValue="Choose a Product" style={nightStyle.select} onChange={(event) => setChartData(event)}>
             <option value="Choose Favorite" default >Choose Favorite</option>
-            {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key}>{favorite.searchQuery}</option>)}
+            {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key} categoryId={favorite.categoryId}>{favorite.searchQuery}</option>)}
           </select>
         </div>
       </div>
