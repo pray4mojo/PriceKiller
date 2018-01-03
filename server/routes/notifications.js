@@ -8,7 +8,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log('data: ', req.body);
   const username = req.body.username;
   const searchQuery = req.body.searchQuery;
   let doesNotificationExist = false;
