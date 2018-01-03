@@ -21,7 +21,7 @@ export function getPriceHistory(searchQuery) {
     return axios({
       method: 'get',
       url: `/api/prices/${searchQuery}`,
-      responsetype: 'json'
+      responseType: 'json'
     })
       .then((response) => {
         const priceHistory = response.data.priceHistory.priceHistory;
@@ -29,6 +29,26 @@ export function getPriceHistory(searchQuery) {
         dispatch(setChartView(priceHistory));
         //setAuctionView is necessary to show a scatter plot, but a lot of unneccessary data placed in the state if we are not going to use it
         //dispatch(setAuctionView(auctions));
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export function updateNotification(username, searchQuery, low, high) {
+  return function (dispatch) {
+    return axios({
+      method: 'post',
+      url: `api/notifications`,
+      data: {
+        username,
+        searchQuery,
+        low,
+        high
+      },
+      responseType: 'json'
+    })
+      .then((response) => {
+        console.log('We got the response: ', response);
       })
       .catch((err) => console.log(err));
   }

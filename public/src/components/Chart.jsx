@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { connect } from 'react-redux';
-import { getPriceHistory, setGraphThreshold, setCurrentItem } from '../actions/priceHistory_a.jsx';
+import { getPriceHistory, setGraphThreshold, setCurrentItem, updateNotification } from '../actions/priceHistory_a.jsx';
 import generateChartData from '../../../chartData/setData.js';
 import {retrieveGlobalFavorites} from '../actions/globalFavorites_a';
 const options = require('../../../chartData/options.js').options;
@@ -16,7 +16,8 @@ const mapStateToProps = (state) => {
     favorites: state.favorites.favorites,
     high: state.priceHistory.high,
     low: state.priceHistory.low,
-    notifications: state.userState.notifications
+    notifications: state.userState.notifications,
+    username: state.userState.username
   }
 }
 
@@ -60,11 +61,15 @@ const mapDispatchToProps = (dispatch) => {
         highThreshold = 0;
       }
       dispatch(setGraphThreshold(lowThreshold, highThreshold));
+    },
+
+    updateThresholds: (username, searchQuery, low, high) => {
+      dispatch(updateNotification(username, searchQuery, low, high));
     }
   }
 }
 
-let Chart = ({ setThresholds, setChartData, setGlobalFavorites, favorites, priceHistoryData, searchQuery, high, low, notifications }) => {
+let Chart = ({ setThresholds, setChartData, setGlobalFavorites, updateThresholds, favorites, priceHistoryData, searchQuery, high, low, notifications, username }) => {
 
   let plotData = generateChartData(priceHistoryData, high, low);
   let chart;
@@ -73,7 +78,7 @@ let Chart = ({ setThresholds, setChartData, setGlobalFavorites, favorites, price
     updateThresholdButton =
       <a
         className="button is-info"
-        onClick={(event) => {console.log('working')}}
+        onClick={(event) => {updateThresholds(username, searchQuery, low, high)}}
       >
         Store these limits
       </a>
