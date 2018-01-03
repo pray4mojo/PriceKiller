@@ -17,25 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  PriceKiller
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  An app for monitoring the going rate of used goods.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  This product is for consumers aiming to identify the perfect time to buy an item on their wishlist.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  It can be difficult to know whether a 'sale' price is a good deal or just a discount from an inflated price.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  Our cron worker makes periodic calls to Ebay's completed auction API and stores the selling prices in out database.
 
 ## Quote from You ##
   > A quote from a spokesperson in your company.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  Create an account
+  Search for items of interest using our search portal
+  Store items of interest in your favorites
+  Check back periodically to see how the market for those products is doing or sign up for email notifications using our preferences.
 
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
