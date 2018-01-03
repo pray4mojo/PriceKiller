@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import { deleteNewFavorite, addNewFavorite } from '../actions/favorites_a';
 
 const mapStateToProps = (state, ownProps) => {
-  let starClass = '';
-  if (ownProps.item.itemId) {
-    starClass = state.favorites.isFavorited[ownProps.item.itemId[0]] ? 'btn has-text-warning' : 'btn has-text-black';
-  }
   return {
-    starClass,
     item: ownProps.item,
     index: ownProps.index,
     isFavorited: state.favorites.isFavorited
@@ -76,7 +71,3 @@ class EbayItem extends Component {
 
 EbayItem = connect(mapStateToProps, mapDispatchToProps)(EbayItem);
 export default EbayItem;
-
-   // <figure className="image is-128x128">
-   //    <img className="image is-128x128" src={image} />
-   //    </figure>
