@@ -9,8 +9,8 @@ export function setAuctionView(auctions) {
   return { type: SET_AUCTION_VIEW, auctions}
 }
 export const SET_GRAPH_THRESHOLD = 'SET_GRAPH_THRESHOLD';
-export function setGraphThreshold(high, low) {
-  return { type: SET_GRAPH_THRESHOLD, high, low}
+export function setGraphThreshold(low, high) {
+  return { type: SET_GRAPH_THRESHOLD, low, high}
 }
 export const SET_CURRENT_ITEM = 'SET_CURRENT_ITEM';
 export function setCurrentItem(searchQuery) {
