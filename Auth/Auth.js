@@ -46,7 +46,6 @@ export default class Auth {
   }
 
   logout() {
-    console.log('HOOOOOORAY');
     // Clear access token and ID token from local storage
     localStorage.removeItem('accessToken');
     localStorage.removeItem('idToken');
