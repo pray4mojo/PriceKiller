@@ -66,7 +66,7 @@ let Search = ({ searchResults, onSearch, submitWithEnter, incrementResultsPage, 
         <ul>
           {searchResults.items.filter(item => item.page === searchResults.resultsPage)
             .map((item, index) => {
-            return <EbayItem key={index} item={item} />
+            return <EbayItem key={item.itemId[0]} item={item} />
           })}
         </ul>
       </div>

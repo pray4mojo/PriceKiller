@@ -48,7 +48,7 @@ export function updateNotification(username, searchQuery, low, high) {
       responseType: 'json'
     })
       .then((response) => {
-        console.log('We got the response: ', response);
+        // console.log('We got the response: ', response);
       })
       .catch((err) => console.log(err));
   }
