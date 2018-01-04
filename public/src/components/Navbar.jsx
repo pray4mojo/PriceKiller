@@ -86,24 +86,46 @@ class Navbar extends Component {
 
   render() {
     // let self = this;
-    let profilePhoto = localStorage.profile ? <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} /> : null;
+    const style = {
+      hamburger: {
+        float: 'left',
+        position: 'absolute',
+        bottom: 0
+      },
+      picture: {
+        position: 'absolute',
+        bottom: 0,
+        borderRadius: '50%'
+      }
+    }
+    let profilePhoto = localStorage.profile ? <div className="column is-3"><img className="image is-96x96 navbar-item" src={JSON.parse(localStorage.profile).picture} style={style.picture}/></div> : null;
     return(
       <div>
         <div>
         <nav className="navbar is-transparent">
-          <div className="navbar-brand">
-            <a className="navbar-item" href="pricekiller.herokuapp.com">
-              <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" alt="Pricekiller, kill your prices" width="112" height="28"/>
-            </a>
-            <button
-              className="button navbar-burger"
-              data-target="navbarExampleTransparentExample"
-              onClick={(e) => {this.activateMenu(e)}}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <div className="navbar-brand columns">
+            <div className="column" style={style.hamburger}>
+              <button
+                className="button navbar-burger"
+                data-target="navbarExampleTransparentExample"
+                onClick={(e) => {this.activateMenu(e)}}
+                style={style.hamburger}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+            <div className="column is-3"></div>
+            <div className="column is-3">
+              <div>
+                <a className="" href="pricekiller.herokuapp.com">
+                  <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" alt="Pricekiller, kill your prices" width="224" height="84" style={style.picture}/>
+                </a>
+              </div>
+            </div>
+            <div className="column is-2"></div>
+            {profilePhoto}
           </div>
 
           <div id="navbarExampleTransparentExample" className="navbar-menu">
