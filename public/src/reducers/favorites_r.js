@@ -16,8 +16,8 @@ const favorites = (state = defaultState, action) => {
       if (action.newFavorite === 'all') {
         updatedNewFavorites = [];
       } else {
-        updatedIsFavorited[action.newFavorite.itemId[0]] = false;
-        updatedNewFavorites = updatedNewFavorites.filter(newFavorite => newFavorite.itemId[0] !== action.newFavorite.itemId[0]);
+        updatedIsFavorited[action.newFavorite.viewItemURL[0]] = false;
+        updatedNewFavorites = updatedNewFavorites.filter(newFavorite => newFavorite.viewItemURL[0] !== action.newFavorite.viewItemURL[0]);
       }
       return Object.assign(
         {},
@@ -25,7 +25,7 @@ const favorites = (state = defaultState, action) => {
         { newFavorites: updatedNewFavorites, isFavorited: updatedIsFavorited },
       );
     case ADD_NEW_FAVORITE:
-      updatedIsFavorited[action.newFavorite.itemId[0]] = true;
+      updatedIsFavorited[action.newFavorite.viewItemURL[0]] = true;
       updatedNewFavorites.push(action.newFavorite);
       return Object.assign(
         {},
