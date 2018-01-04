@@ -44,8 +44,13 @@ router.post('/signup', (req, res, next) => {
   })
 });
 
-router.get('/signup', (req, res, next) => {
-  res.json('signup')
+router.get('/signup/:email', (req, res, next) => {
+  const email = req.params.email;
+  db.User.findOne({email})
+    .then((user) => {
+      res.send(user);
+    })
+  // res.json('signup')
 });
 
 

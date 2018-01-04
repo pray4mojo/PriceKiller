@@ -7,9 +7,9 @@ import Signup from './Signup.jsx';
 import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
-import Preferences from './Preferences.jsx';
 import Notifications from './Notifications.jsx';
 import Sidebar from './Sidebar.jsx';
+import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -21,7 +21,7 @@ const auth = new Auth;
 
 const mapStateToProps = (state) => {
   return {
-    userProfile: state.userProfile,
+    userState: state.userState,
     favorites: state.favorites.favorites,
     auth: auth
   };
@@ -44,39 +44,30 @@ const mapDispatchToProps = (dispatch) => {
 class Navbar extends Component {
 
   componentWillMount() {
-    if (auth.isAuthenticated()) {
-      let localProfile = JSON.parse(localStorage.getItem('profile'));
-    } else {
-      Lock.show();
-    }
+    setTimeout(function(){
+      if (auth.isAuthenticated()) {
+
+        let localProfile = JSON.parse(localStorage.getItem('profile'));
+      }
+      if (!auth.isAuthenticated()) {
+        console.log(Date.now())
+        Lock.show();
+      }
+    }, 1000)
   }
 
   componentDidMount() {
+    // debugger;
     let self = this;
-    auth.handleAuthentication();
-    Lock.on('authenticated', function(authResult) {
-
-      if (!authResult.accessToken) return;
-
-      Lock.getUserInfo(authResult.accessToken, function(error, profile) {
-        let user = {};
-        user.username = profile.nickname;
-        user.email = profile.email;
-        user.picture = profile.picture;
-
-        axios.post('/api/auth/signup', user)
-          .then(function(res) {
-          console.log(res, 'INSIDE LOCK GET USER INFO')
-          self.props.setUserState(res.data);
-          self.props.setFavorites(res.data.favorites);
-          // window.location.reload();
-       })
-        .catch(function(error) {
-          console.log(error);
-        })
-      });
-
-    });
+    auth.handleAuthentication().then(({data}) => {
+      // console.log('PLEASE ====>', data)
+      self.props.setUserState(data); 
+      self.props.setFavorites(data.favorites);
+      // axios.get(`/api/auth/signup/${JSON.parse(localStorage.getItem('profile')).email}`)
+      //   .then((res) => {
+      //     console.log(res.body);
+      // })
+    })
 
     Lock.on('authorization_error', function(error) {
       console.log('authorization_error', error);
@@ -94,7 +85,7 @@ class Navbar extends Component {
 
 
   render() {
-    let self = this;
+    // let self = this;
     let profilePhoto = localStorage.profile ? <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} /> : null;
     return(
       <div>
@@ -187,6 +178,7 @@ class Navbar extends Component {
       <Sidebar
         sidebar={this.props}
       />
+      <Preferences />
     </div>
     )
   }
