@@ -5,26 +5,23 @@ import Favorites from './Favorites.js';
 const style = {
   sidebar: {
       // height: '100%',
+      // borderStyle: 'solid',
+      // borderWidth: 'medium',
+      borderColor: 'black',
       width: 0,
-      position: 'relative',
+      position: 'absolute',
       zIndex: 1,
-      top: 0,
-      left: 0,
+      // top: 0,
+      // left: 0,
       backgroundColor: 'white',
       overflowX: 'hidden',
       padding: '0px',
       transition: '0.5s',
-      opacity: 1,
-      padding: '5px',
-      // borderWidth: '2px',
-      // borderColor: 'hsl(204, 86%, 53%)'
+      opacity: 1
   },
   closebtn: {
-    position: 'fixed',
-    top: 0,
-    right: '25px',
-    fontSize: '36px',
-    marginLeft: '50px'
+    // fontSize: '36px',
+    // marginLeft: '-20px'
   },
   profilePhoto: {
     borderRadius: '50%'
@@ -56,7 +53,7 @@ const Sidebar = (props) => {
 
   return (
     <div>
-      <a className ="button is-1 is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
+      <a className ="button is-1 is-info" style={style.closebtn}onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
       <div id="sidenav" className="card column is-1 is-narrow-mobile section" style={style.sidebar}>
         <p className="menu-label is-hidden-touch">Navigation</p>
             <a className="">
@@ -76,5 +73,3 @@ const Sidebar = (props) => {
 }
 
 export default Sidebar;
-// onClick={() => closeNav()}
-// <a href="javascript:void(0)" className="closebtn" style={style.closebtn} >&times;</a>
