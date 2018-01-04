@@ -47,7 +47,6 @@ export default class Auth {
 
               axios.post('/api/auth/signup', user)
                 .then(function(res) {
-                console.log(res, 'INSIDE LOCK GET USER INFO')
                 authenticatedUser = res;
                 resolve(authenticatedUser);
                 // window.location.reload();

@@ -6,7 +6,6 @@ class Login extends Component {
     const password = this.refs.password;
     const creds = { username: username.value.trim(), password: password.value.trim() };
     this.props.onLoginClick(creds);
-    console.log('creds', creds);
     // this.props.onGoogleLoginClick(creds);
   }
 
