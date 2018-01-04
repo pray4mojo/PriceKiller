@@ -48,6 +48,9 @@ class EbayItem extends Component {
     }
     let price = item.sellingStatus ? `$${item.sellingStatus[0].convertedCurrentPrice[0].__value__}` : null;
     let image = item.galleryURL || null;
+    if (image) {
+      image = image.slice(0, 4) + 's' + image.slice(4);
+    }
     if (item.sellingStatus) {
       return (
         <li className="columns is-mobile is-centered">
