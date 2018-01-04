@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import NewFavoriteItem from './NewFavoriteItem.jsx';
+import Favorites from './Favorites.js';
 
 const style = {
   sidebar: {
@@ -28,19 +28,16 @@ const style = {
   },
   profilePhoto: {
     borderRadius: '50%'
-  },
-  card: {
-
   }
 }
 
-let Sidebar = (props) => {
+const Sidebar = (props) => {
   let list;
   let name = localStorage.profile ? JSON.parse(localStorage.profile).given_name : null;
   let profilePhoto = localStorage.profile ? <img className="image is-128x128" style={style.profilePhoto} src={JSON.parse(localStorage.profile).picture} /> : null;
 
   const toggleNav = () => {
-    document.getElementById("sidenav").style.width = document.getElementById("sidenav").style.width === '250px' ? 0 : '250px';
+    document.getElementById("sidenav").style.width = document.getElementById("sidenav").style.width === '100%' ? 0 : '100%';
   }
 
   if (props.sidebar.favorites) {
@@ -52,33 +49,28 @@ let Sidebar = (props) => {
       );
     } else {
       list = (
-        <div>
-          <header>Favorites </header>
-            <ul className="menu-list">
-              {props.sidebar.favorites.map((favorite) => <li>{favorite.searchQuery}</li>)}
-            </ul>
-        </div>
+        <Favorites />
       );
     }
   }
 
   return (
     <div>
-    <a className ="button is-1 is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
-    <div id="sidenav" className="card column is-1 is-narrow-mobile section" style={style.sidebar}>
-      <p className="menu-label is-hidden-touch">Navigation</p>
-          <a className="">
-            <h3>Hello, {name}</h3>
-            {profilePhoto}
-          </a>
-        <ul className="menu-list">
-        <li>
-          <a className="">{list}</a>
-        </li>
-        <li className ="button is-1 is-info fa fa-sign-out" aria-hidden="true"
-          onClick={() => {props.sidebar.auth.logout(); window.location.reload();}}></li>
-      </ul>
-     </div>
+      <a className ="button is-1 is-info" onClick={() => toggleNav()}><i className="fa fa-circle-o-notch" aria-hidden="true"></i></a>
+      <div id="sidenav" className="card column is-1 is-narrow-mobile section" style={style.sidebar}>
+        <p className="menu-label is-hidden-touch">Navigation</p>
+            <a className="">
+              <h3>Hello, {name}</h3>
+              {profilePhoto}
+            </a>
+          <ul className="menu-list">
+            <li>
+              <a className="">{list}</a>
+            </li>
+            <li className ="button is-1 is-info fa fa-sign-out" aria-hidden="true"
+              onClick={() => {props.sidebar.auth.logout(); window.location.reload();}}></li>
+        </ul>
+       </div>
   </div>
   )
 }
