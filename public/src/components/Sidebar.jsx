@@ -65,7 +65,7 @@ const Sidebar = (props) => {
             </a>
           <ul className="menu-list">
             <li>
-              <a className="">{list}</a>
+              {list}
             </li>
             <li className ="button is-1 is-info fa fa-sign-out" aria-hidden="true"
               onClick={() => {props.sidebar.auth.logout(); window.location.reload();}}></li>
