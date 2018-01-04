@@ -1,4 +1,4 @@
-import { REQUEST_RESULTS, RESULTS_RETURNED, SET_RESULTS_PAGE, SET_MAX_PAGE, APPEND_RESULTS, SET_INITIAL_PAGE } from '../actions/main_a.jsx';
+import { REQUEST_RESULTS, RESULTS_RETURNED, SET_RESULTS_PAGE, SET_MAX_PAGE, APPEND_RESULTS, SET_INITIAL_PAGE, SHOW_SEARCH_RESULTS } from '../actions/main_a.jsx';
 
 let nextPage;
 const searchResults = (
@@ -8,7 +8,8 @@ const searchResults = (
     isFetching: false,
     items: [{ title: 'Submit a search query to see what Ebay has available!', page: 0 }],
     endOfResults: false,
-    searchQuery: ''
+    searchQuery: '',
+    areShowing: true
   },
   action,
 ) => {
@@ -37,6 +38,9 @@ const searchResults = (
 
     case SET_MAX_PAGE:
       return Object.assign({}, state, { maxPage: action.maxPage });
+
+    case SHOW_SEARCH_RESULTS:
+      return Object.assign({}, state, { areShowing: action.areShowing })
 
     default:
       return state;

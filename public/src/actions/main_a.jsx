@@ -20,6 +20,11 @@ export function setInitialPage() {
   return { type: SET_INITIAL_PAGE };
 }
 
+export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
+export function showSearchResults(areShowing) {
+  return { type: SHOW_SEARCH_RESULTS, areShowing}
+}
+
 export const SET_RESULTS_PAGE = 'SET_RESULTS_PAGE';
 export function setResultsPage(resultsPage, searchResults) {
   if (resultsPage > 0 && searchResults.maxPage - searchResults.resultsPage <= 1 && (searchResults.maxPage + 1) % 10 === 0) {
