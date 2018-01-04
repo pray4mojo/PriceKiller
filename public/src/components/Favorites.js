@@ -125,11 +125,11 @@ let Favorites = (props) => {
 
 Favorites.propTypes = {
   username: PropTypes.string.isRequired,
-  favorites: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  favorites: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   removeFavorite: PropTypes.func.isRequired,
   removeNewFavorite: PropTypes.func.isRequired,
   saveNewFavorites: PropTypes.func.isRequired,
-  newFavorites: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  newFavorites: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 Favorites = connect(mapStateToProps, mapDispatchToProps)(Favorites);
