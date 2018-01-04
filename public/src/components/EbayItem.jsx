@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => {
         $(e.target).removeClass('has-text-black');
         $(e.target).addClass('has-text-warning');
         dispatch(addNewFavorite(item));
+        alert('You just added an item to your temporary favorites list! If you would like to keep it and monitor its pricing status you must open the sidebar and click the "Store New Favorite(s)" button.');
       } else {
         $(e.target).removeClass('has-text-warning');
         $(e.target).addClass('has-text-black');
