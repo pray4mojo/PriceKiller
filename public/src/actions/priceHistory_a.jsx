@@ -35,21 +35,23 @@ export function getPriceHistory(searchQuery) {
 }
 
 export function updateNotification(username, searchQuery, low, high) {
-  return function (dispatch) {
-    return axios({
-      method: 'post',
-      url: `api/notifications`,
-      data: {
-        username,
-        searchQuery,
-        low,
-        high
-      },
-      responseType: 'json'
-    })
-      .then((response) => {
-        // console.log('We got the response: ', response);
+  if (username !== '' && searchQuery !== '') {
+    return function (dispatch) {
+      return axios({
+        method: 'post',
+        url: `api/notifications`,
+        data: {
+          username,
+          searchQuery,
+          low,
+          high
+        },
+        responseType: 'json'
       })
-      .catch((err) => console.log(err));
+        .then((response) => {
+          // console.log('We got the response: ', response);
+        })
+        .catch((err) => console.log(err));
+    }
   }
 }

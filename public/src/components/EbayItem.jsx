@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleNewFavorite: (e, item, isFavorited) => {
-      if (!isFavorited[item.itemId[0]]) {
+      if (!isFavorited[item.viewItemURL[0]]) {
         $(e.target).removeClass('has-text-black');
         $(e.target).addClass('has-text-warning');
         dispatch(addNewFavorite(item));
@@ -31,7 +31,7 @@ class EbayItem extends Component {
     super(props);
     this.starClass = '';
     if (this.props.item.itemId) {
-      this.starClass = this.props.isFavorited[this.props.item.itemId[0]] ? 'btn has-text-warning' : 'btn has-text-black';
+      this.starClass = this.props.isFavorited[this.props.item.viewItemURL[0]] ? 'btn has-text-warning' : 'btn has-text-black';
     }
 
   }
@@ -48,6 +48,9 @@ class EbayItem extends Component {
     }
     let price = item.sellingStatus ? `$${item.sellingStatus[0].convertedCurrentPrice[0].__value__}` : null;
     let image = item.galleryURL || null;
+    if (image) {
+      image = image.slice(0, 4) + 's' + image.slice(4);
+    }
     if (item.sellingStatus) {
       return (
         <li className="columns is-mobile is-centered">

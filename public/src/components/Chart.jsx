@@ -51,20 +51,24 @@ const mapDispatchToProps = (dispatch) => {
       }
     },
 
-    setThresholds: (event) => {
-      let lowThreshold = $('#lowThreshold').val();
-      let highThreshold = $('#highThreshold').val();
-      if (!(lowThreshold > 0)) {
-        lowThreshold = 0;
+    setThresholds: (event, searchQuery) => {
+      if (searchQuery !== '') {
+        let lowThreshold = $('#lowThreshold').val();
+        let highThreshold = $('#highThreshold').val();
+        if (!(lowThreshold > 0)) {
+          lowThreshold = 0;
+        }
+        if (!(highThreshold > 0)) {
+          highThreshold = 0;
+        }
+        dispatch(setGraphThreshold(lowThreshold, highThreshold));
       }
-      if (!(highThreshold > 0)) {
-        highThreshold = 0;
-      }
-      dispatch(setGraphThreshold(lowThreshold, highThreshold));
     },
 
     updateThresholds: (username, searchQuery, low, high) => {
-      dispatch(updateNotification(username, searchQuery, low, high));
+      if (username !== '' && searchQuery !== '') {
+        dispatch(updateNotification(username, searchQuery, low, high));
+      }
     }
   }
 }
@@ -151,7 +155,7 @@ let Chart = ({ setThresholds, setChartData, setGlobalFavorites, updateThresholds
             <div className="control">
               <a
                 className="button is-info"
-                onClick={(event) => {setThresholds(event)}}
+                onClick={(event) => {setThresholds(event, searchQuery)}}
               >
                 Submit
               </a>
