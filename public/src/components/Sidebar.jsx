@@ -52,6 +52,8 @@ const Sidebar = (props) => {
   let list;
   let name = localStorage.profile ? JSON.parse(localStorage.profile).given_name : null;
   let profilePhoto = localStorage.profile ? <img className="image is-128x128" style={style.profilePhoto} src={JSON.parse(localStorage.profile).picture} /> : <img className="image is-128x128" style={style.profilePhoto} src="https://s3-us-west-1.amazonaws.com/hackreactor27/default-avatar-ponsy-deer.png" />;
+  //Remove duplicate photo
+  profilePhoto = null;
 
   const toggleNav = () => {
     document.getElementById("sidenav").style.width = document.getElementById("sidenav").style.width === '100%' ? 0 : '100%';

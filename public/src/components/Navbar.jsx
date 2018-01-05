@@ -138,9 +138,9 @@ class Navbar extends Component {
             </div>
             <div style={style.spacer}></div>
             <div style={style.logoContainer}>
-              <a href="pricekiller.herokuapp.com">
+              <Link to="/">
                 <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" style={style.logo} height="100%" alt="Pricekiller, kill your prices"/>
-              </a>
+              </Link>
             </div>
             <div style={style.spacer}></div>
             {profilePhoto}
