@@ -44,6 +44,7 @@ router.put('/', (req, res, next) => {
   db.User.update({username}, {
     subscription: preference
   });
+  res.send('success');
 });
 
 module.exports.notifications = router;

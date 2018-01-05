@@ -3,6 +3,9 @@ import React from 'react';
 const style = {
   spacing: {
     margin: '0.25rem'
+  },
+  button: {
+    maxWidth: '100px'
   }
 }
 
@@ -16,6 +19,7 @@ const NewFavoriteItem = ({ newFavorite, removeNewFavorite, index }) => (
         <a
           onClick={() => removeNewFavorite(newFavorite)}
           className="button is-danger is-small"
+          style={style.button}
         >
           Remove
         </a>

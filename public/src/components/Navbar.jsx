@@ -11,10 +11,9 @@ import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
-import Redirect from 'react-router-dom';
 const Lock = require('../../../Auth/Auth.js').lock;
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 const auth = new Auth;
 
 const mapStateToProps = (state) => {
@@ -150,9 +149,11 @@ class Navbar extends Component {
           <div id="navbarExampleTransparentExample" className="navbar-menu">
             <div className="navbar-start">
               <div>
-              <a className="navbar-item" href="/">
+              <Link
+                className="navbar-item"
+                to="/">
                 Home
-              </a>
+              </Link>
               <div className="navbar-item has-dropdown is-hoverable">
                 <Link
                   className="navbar-link"

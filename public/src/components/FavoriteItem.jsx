@@ -5,8 +5,7 @@ const style = {
     margin: '0.25rem'
   },
   button: {
-    color: '#22282F',
-    backgroundColor: '#87A3BB'
+    maxWidth: '100px'
   }
 }
 
@@ -17,6 +16,7 @@ const FavoriteItem = ({ favorite, removeFavorite, username }) => (
         <a
           onClick={() => removeFavorite(favorite, username)}
           className="button is-danger is-small"
+          style={style.button}
         >
           Remove
         </a>
