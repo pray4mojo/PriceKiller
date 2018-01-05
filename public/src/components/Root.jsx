@@ -7,6 +7,8 @@ import App from './App.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
 import Chart from './Chart.jsx';
+import WhoWeAre from './WhoWeAre.jsx';
+import GettingStarted from './GettingStarted.jsx';
 import {Redirect} from 'react-router-dom';
 import Auth from "../../../Auth/Auth.js";
 import history from "../../../Auth/history.js";
@@ -23,6 +25,8 @@ const Root = ({store}) => (
       <Route path="/search" component={Search}/>
       <Route path="/favorites" component={Favorites} />
       <Route path="/chart" component={Chart} />
+      <Route path="/WhoWeAre" component={WhoWeAre} />
+      <Route path="/GettingStarted" component={GettingStarted} />
       <Route path="/loggedout" component={() => <p>You have been logged out of your profile</p>} />
       </div>
     </Router>

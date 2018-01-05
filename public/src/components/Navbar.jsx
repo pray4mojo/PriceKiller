@@ -5,9 +5,10 @@ import { setFavorites } from '../actions/favorites_a';
 import Signup from './Signup.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
+import WhoWeAre from './WhoWeAre.jsx';
+import GettingStarted from './GettingStarted.jsx';
 import Notifications from './Notifications.jsx';
 import Sidebar from './Sidebar.jsx';
-import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
@@ -176,7 +177,7 @@ class Navbar extends Component {
                   </Link>
                   <Link
                     className="navbar-item"
-                    to="/"
+                    to="/GettingStarted"
                     onClick={(e) => {
                       this.activateMenu(e)
                       this.props.hideSearchResults();
@@ -184,21 +185,17 @@ class Navbar extends Component {
                   >
                     Getting Started
                   </Link>
-                  <Link
+                   <Link
                     className="navbar-item"
-                    to="/"
-                    onClick={(e) => {this.activateMenu(e)}}
+                    to="/WhoWeAre"
+                    onClick={(e) => {
+                      this.activateMenu(e);
+                      this.props.hideSearchResults();
+                    }}
                   >
                     Who We Are
                   </Link>
                   <hr className="navbar-divider"/>
-                  <a
-                    className="navbar-item"
-                    href=""
-                    onClick={(e) => {this.activateModal(e)}}
-                  >
-                    Preferences
-                  </a>
                   </div>
                 </div>
               </div>
@@ -208,12 +205,10 @@ class Navbar extends Component {
         </nav>
         <hr/>
       </div>
-      <Preferences />
       <Notifications/>
       <Sidebar
         sidebar={this.props}
       />
-      <Preferences />
     </div>
     )
   }
