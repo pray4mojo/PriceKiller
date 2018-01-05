@@ -3,25 +3,25 @@
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          fontColor: '#FBFBFB'
+          // fontColor: '#FBFBFB'
         },
         scaleLabel: {
           display: true,
           labelString: '$',
-          fontColor: '#FBFBFB'
+          // fontColor: '#FBFBFB'
         },
-        gridLines: {
-          color: '#FBFBFB'
-        }
+        // gridLines: {
+        //   color: '#FBFBFB'
+        // }
       }],
       xAxes: [{
         type: 'time',
-        gridLines: {
-          color: '#FBFBFB'
-        },
-        ticks: {
-          fontColor: '#FBFBFB'
-        }
+        // gridLines: {
+        //   color: '#FBFBFB'
+        // },
+        // ticks: {
+        //   fontColor: '#FBFBFB'
+        // }
       }]
     },
     legend: {
@@ -30,7 +30,7 @@
         filter: function(legendItem, chartData) {
           return legendItem.datasetIndex < 2;
         },
-        fontColor: '#FBFBFB'
+        // fontColor: '#FBFBFB'
       }
     }
   };
@@ -42,20 +42,20 @@
       paddingBottom: '0.5rem'
     },
     card: {
-      color: '#87A3BB',
-      backgroundColor: '#22282F',
+      // color: '#87A3BB',
+      // backgroundColor: '#22282F',
       borderRadius: '2rem'
     },
     header: {
-      color: '#87A3BB'
+      // color: '#87A3BB'
     },
     select: {
-      color: '#22282F',
-      backgroundColor: '#87A3BB'
+      // color: '#22282F',
+      // backgroundColor: '#87A3BB'
     },
     input: {
-      color: '#22282F',
-      backgroundColor: '#87A3BB',
+      // color: '#22282F',
+      // backgroundColor: '#87A3BB',
       marginBottom: '1rem'
     }
   }

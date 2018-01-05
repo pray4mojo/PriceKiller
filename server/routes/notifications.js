@@ -38,5 +38,14 @@ router.post('/', (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
+router.put('/', (req, res, next) => {
+  const username = req.body.username;
+  const preference = req.body.preference;
+  db.User.update({username}, {
+    subscription: preference
+  });
+  res.send('success');
+});
+
 module.exports.notifications = router;
 

@@ -1,10 +1,12 @@
 import { SET_USER_STATE, USER_LOGOUT } from '../actions/main_a.jsx';
+import { SET_NOTIFICATIONS_PREF } from '../actions/notifications_a.jsx';
 
 const defaultState = {
   username: '',
   email: '',
   picture: '',
-  notifications: []
+  notifications: [],
+  subscription: true
 };
 
 const userState = (state = defaultState, action) => {
@@ -19,6 +21,8 @@ const userState = (state = defaultState, action) => {
       });
     case USER_LOGOUT:
       return state;
+    case SET_NOTIFICATIONS_PREF:
+      return Object.assign({}, state, { subscription: action.preference })
     default:
       return state;
   }

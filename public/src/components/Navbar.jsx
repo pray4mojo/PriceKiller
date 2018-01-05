@@ -1,10 +1,8 @@
 import React, { Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-import { setUserState, userLogout } from '../actions/main_a.jsx';
+import { setUserState, userLogout, showSearchResults } from '../actions/main_a.jsx';
 import { setFavorites } from '../actions/favorites_a';
-import Login from './Login.jsx';
 import Signup from './Signup.jsx';
-import Logout from './Logout.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
 import Notifications from './Notifications.jsx';
@@ -13,10 +11,9 @@ import Preferences from './Preferences.jsx';
 import Auth0 from "auth0-lock";
 import Auth from "../../../Auth/Auth.js";
 import axios from 'axios';
-import Redirect from 'react-router-dom';
 const Lock = require('../../../Auth/Auth.js').lock;
 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 const auth = new Auth;
 
 const mapStateToProps = (state) => {
@@ -37,6 +34,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     setFavorites: (favorites) => {
       dispatch(setFavorites(favorites))
+    },
+    hideSearchResults: () => {
+      dispatch(showSearchResults(false));
+    },
+    allowSearchResults: () => {
+      dispatch(showSearchResults(true));
     }
   }
 }
@@ -86,32 +89,71 @@ class Navbar extends Component {
 
   render() {
     // let self = this;
-    let profilePhoto = localStorage.profile ? <img className="image is-128x128" src={JSON.parse(localStorage.profile).picture} /> : null;
+    const style = {
+      hamburger: {
+        float: 'left',
+        width: '10%'
+        // position: 'absolute',
+        // bottom: 0
+      },
+      picture: {
+        // position: 'absolute',
+        // bottom: 0,
+        borderRadius: '50%',
+        float: 'left'
+      },
+      logoContainer: {
+        float: 'left',
+        width: '30%',
+      },
+      logo: {
+        maxWidth: '200px',
+        width: '100%'
+      },
+      spacer: {
+        padding: '10%'
+      },
+      container: {
+        display: 'flex',
+        alignItems: 'center'
+      }
+    }
+    let profilePhoto = localStorage.profile ? <div className=""><img className="image is-96x96 navbar-item" src={JSON.parse(localStorage.profile).picture} style={style.picture}/></div> : null;
     return(
       <div>
         <div>
         <nav className="navbar is-transparent">
-          <div className="navbar-brand">
-            <a className="navbar-item" href="pricekiller.herokuapp.com">
-              <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" alt="Pricekiller, kill your prices" width="112" height="28"/>
-            </a>
-            <button
-              className="button navbar-burger"
-              data-target="navbarExampleTransparentExample"
-              onClick={(e) => {this.activateMenu(e)}}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <div className="navbar-brand" style={style.container}>
+            <div className="" style={style.hamburger}>
+              <button
+                className="button navbar-burger"
+                data-target="navbarExampleTransparentExample"
+                onClick={(e) => {this.activateMenu(e)}}
+                style={style.hamburger}
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+            <div style={style.spacer}></div>
+            <div style={style.logoContainer}>
+              <Link to="/">
+                <img src="https://s3-us-west-1.amazonaws.com/hackreactor27/pricekiller_logov1.png" style={style.logo} height="100%" alt="Pricekiller, kill your prices"/>
+              </Link>
+            </div>
+            <div style={style.spacer}></div>
+            {profilePhoto}
           </div>
 
           <div id="navbarExampleTransparentExample" className="navbar-menu">
             <div className="navbar-start">
               <div>
-              <a className="navbar-item" href="/">
+              <Link
+                className="navbar-item"
+                to="/">
                 Home
-              </a>
+              </Link>
               <div className="navbar-item has-dropdown is-hoverable">
                 <Link
                   className="navbar-link"
@@ -121,31 +163,24 @@ class Navbar extends Component {
                   Navigation
                 </Link>
                 <div className="navbar-dropdown is-boxed">
-                  <Link
-                    className="navbar-item"
-                    to="/search"
-                    onClick={(e) => {this.activateMenu(e)}}
-                  >
-                    Search
-                  </Link>
-                  <Link
-                    className="navbar-item"
-                    to="/favorites"
-                    onClick={(e) => {this.activateMenu(e)}}
-                  >
-                    Favorites
-                  </Link>
+
                   <Link
                     className="navbar-item"
                     to="/chart"
-                    onClick={(e) => {this.activateMenu(e)}}
+                    onClick={(e) => {
+                      this.activateMenu(e);
+                      this.props.hideSearchResults();
+                    }}
                   >
                     Chart
                   </Link>
                   <Link
                     className="navbar-item"
                     to="/"
-                    onClick={(e) => {this.activateMenu(e)}}
+                    onClick={(e) => {
+                      this.activateMenu(e)
+                      this.props.hideSearchResults();
+                    }}
                   >
                     Getting Started
                   </Link>

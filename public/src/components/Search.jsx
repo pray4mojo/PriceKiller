@@ -1,7 +1,9 @@
 import React from 'react';
 import EbayItem from '../components/EbayItem.jsx';
 import { connect } from 'react-redux';
-import { submitSearch, setResultsPage } from '../actions/main_a.jsx';
+import { Redirect } from 'react-router-dom';
+import { submitSearch, setResultsPage, showSearchResults } from '../actions/main_a.jsx';
+import history from "../../../Auth/history.js";
 
 const mapStateToProps = state => {
   return {
@@ -17,7 +19,9 @@ const mapDispatchToProps = (dispatch) => {
         alert('Search string must be at least four characters long');
       } else {
         dispatch(submitSearch(searchQuery));
+        dispatch(showSearchResults(true));
         event.target.childNodes[0].value = '';
+        history.push('/');
       }
       event.preventDefault();
     },
@@ -30,6 +34,8 @@ const mapDispatchToProps = (dispatch) => {
           alert('Search string must be at least four characters long');
         } else {
           dispatch(submitSearch(searchQuery));
+          dispatch(showSearchResults(true));
+          history.push('/');
         }
       }
     },
@@ -40,20 +46,20 @@ const mapDispatchToProps = (dispatch) => {
 
     decrementResultsPage: () => {
       dispatch(setResultsPage(-1));
-    }
+    },
 
   }
 }
 
 
-let Search = ({ searchResults, onSearch, submitWithEnter, incrementResultsPage, decrementResultsPage }) => {
+let Search = ({ searchResults, onSearch, submitWithEnter, incrementResultsPage, decrementResultsPage, hideResults }) => {
   const items = searchResults.items.filter(item => item.page === searchResults.resultsPage);
-  if (items[0].sellingStatus) {
+  if (items[0].sellingStatus && searchResults.areShowing ) {
     return (
       <div className="card">
         <div className="field has-addons columns is-mobile is-gapless">
           <div className="control column">
-            <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
+            <input id="searchQuery" className="input is-expanded" type="text" placeholder="See what Ebay has to offer" onKeyPress={(event) => {submitWithEnter(event)}} />
           </div>
           <div className="control column is-narrow">
             <a className="button is-info" onClick={(event) => {onSearch(event)}}>
@@ -87,21 +93,18 @@ let Search = ({ searchResults, onSearch, submitWithEnter, incrementResultsPage, 
     </div>
     )
   } else {
+    let dummyItems = '';
     return (
       <div>
         <div className="control column">
-          <input id="searchQuery" className="input is-expanded" type="text" placeholder="Find a repository" onKeyPress={(event) => {submitWithEnter(event)}} />
+          <input id="searchQuery" className="input is-expanded" type="text" placeholder="See what Ebay has to offer" onKeyPress={(event) => {submitWithEnter(event)}} />
         </div>
         <div className="control column is-narrow">
           <a className="button is-info" onClick={(event) => {onSearch(event)}}>
             Search
           </a>
         </div>
-        <ul>
-          {items.map((item, index) => {
-            return <EbayItem key={index} item={item} />
-          })}
-        </ul>
+        {dummyItems}
       </div>)
   }
 }
