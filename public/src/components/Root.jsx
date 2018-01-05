@@ -7,7 +7,6 @@ import App from './App.jsx';
 import Search from './Search.jsx';
 import Favorites from './Favorites';
 import Chart from './Chart.jsx';
-import Login from './Login.jsx';
 import {Redirect} from 'react-router-dom';
 import Auth from "../../../Auth/Auth.js";
 import history from "../../../Auth/history.js";
@@ -22,7 +21,6 @@ const Root = ({store}) => (
 
       <Route path="/signout" render={() => <button onClick={() => this.onLogoutClick()} className="button is-light">Logout</button>}/>
       <Route path="/search" component={Search}/>
-      <Route path="/login" component={Login}/>
       <Route path="/favorites" component={Favorites} />
       <Route path="/chart" component={Chart} />
       <Route path="/loggedout" component={() => <p>You have been logged out of your profile</p>} />
@@ -36,6 +34,3 @@ Root.propTypes = {
 }
 
 export default Root;
-
-// {localStorage.getItem('profile') ? <Redirect to="/" /> : <div></div>}
-// <Route path="/signout" render={() => <button onClick={() => this.onLogoutClick()} className="button is-light">Logout</button>}/>
