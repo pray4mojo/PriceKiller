@@ -104,7 +104,11 @@ let Chart = ({ setThresholds, setChartData, setGlobalFavorites, updateThresholds
     <div className="field">
       <div className="control">
         <div className="select">
-          <select defaultValue="Choose a Product" style={nightStyle.select} onChange={(event) => setChartData(event, notifications)}>
+          <select
+            defaultValue="Choose a Product"
+            style={nightStyle.select}
+            onChange={(event) => setChartData(event, notifications)}
+          >
             <option value="Choose Favorite" default >Choose Favorite</option>
             {favorites.map((favorite, key) => <option value={favorite.searchQuery}  key={key} categoryid={favorite.categoryId}>{favorite.searchQuery}</option>)}
           </select>
